@@ -7,7 +7,9 @@
     <title>Boarding School Room Map</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="select.css">
 </head>
 
 <body>
@@ -15,15 +17,58 @@
     <div id="roomMap"></div>
 
     <!-- Floor selection dropdown -->
-    <label for="floorSelect">Select Floor:</label>
-    <select id="floorSelect" onchange="changeFloor()">
-        <option value="1">Ground Floor</option>
-        <option value="2">First Floor</option>
-        <option value="3">Second Floor</option>
-        <option value="4">Third Floor</option>
-        <option value="5">Fourth Floor</option>
-        <!-- Add more floors as needed -->
-    </select>
+    <form id="app-cover">
+        <div id="select-box">
+            <input type="checkbox" id="options-view-button">
+            <div id="select-button" class="brd">
+                <div id="selected-value">
+                    <span>Select a floor</span>
+                </div>
+                <div id="chevrons">
+                    <i class="fas fa-chevron-up"></i>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+            <div id="options">
+                <div class="option">
+                    <input class="s-c top" type="radio" name="platform" value="1">
+                    <input class="s-c bottom" type="radio" name="platform" value="1">
+                    <i class="fas fa-solid fa-door-open"></i>
+                    <span class="label">Ground floor</span>
+                    <span class="opt-val">Ground floor</span>
+                </div>
+                <div class="option">
+                    <input class="s-c top" type="radio" name="platform" value="2">
+                    <input class="s-c bottom" type="radio" name="platform" value="2">
+                    <i class="fa">1</i>
+                    <span class="label">First Floor</span>
+                    <span class="opt-val">First Floor</span>
+                </div>
+                <div class="option">
+                    <input class="s-c top" type="radio" name="platform" value="3">
+                    <input class="s-c bottom" type="radio" name="platform" value="3">
+                    <i class="fa">2</i>
+                    <span class="label">Second Floor</span>
+                    <span class="opt-val">Second Floor</span>
+                </div>
+                <div class="option">
+                    <input class="s-c top" type="radio" name="platform" value="4">
+                    <input class="s-c bottom" type="radio" name="platform" value="4">
+                    <i class="fa">3</i>
+                    <span class="label">Third Floor</span>
+                    <span class="opt-val">Third Floor</span>
+                </div>
+                <div class="option">
+                    <input class="s-c top" type="radio" name="platform" value="5">
+                    <input class="s-c bottom" type="radio" name="platform" value="5">
+                    <i class="fa">4</i>
+                    <span class="label">Fourth Floor</span>
+                    <span class="opt-val">Fourth Floor</span>
+                </div>
+                <div id="option-bg"></div>
+            </div>
+        </div>
+    </form>
 
     <div class="popup" id="popup">
         <p>Room Information</p>
@@ -206,12 +251,37 @@
 
         // Initial room layout for the default floor
         updateRoomLayout();
+        document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
+            radio.addEventListener('change', changeFloor);
+        });
 
         // Function to handle floor change
         function changeFloor() {
-            currentFloor = parseInt(document.getElementById("floorSelect").value);
+            // Assuming you have a reference to the selected option element
+            currentFloor = parseInt(document.querySelector('#options input[type="radio"]:checked').value);
             updateRoomLayout();
         }
+        // Event listener for document click to close the dropdown
+        document.addEventListener("click", function(event) {
+            var dropdown = document.getElementById("options-view-button");
+            var dropdownContainer = document.getElementById("options");
+
+            // Check if the clicked element is not inside the dropdown or its container
+            if (!dropdownContainer.contains(event.target) && event.target !== dropdown) {
+                // Close the dropdown by unchecking the checkbox
+                dropdown.checked = false;
+            }
+        });
+
+        // Event listener for radio inputs to close the dropdown when a value is selected
+        var radioInputs = document.querySelectorAll('#options input[type="radio"]');
+        radioInputs.forEach(function(radioInput) {
+            radioInput.addEventListener("change", function() {
+                // Close the dropdown by unchecking the checkbox
+                document.getElementById("options-view-button").checked = false;
+            });
+        });
+
 
         // Popup functionality
         function showPopup() {
@@ -274,18 +344,24 @@
                 success: function(studentInfo) {
                     // Display additional information in a new popup
                     const infoPopup = document.createElement("div");
+                    const imageUrl = studentInfo.image ? studentInfo.image : 'images/default_user.png';
                     infoPopup.className = "info-popup";
 
                     infoPopup.innerHTML = `
+                <div class="card-overlay"></div>
+                <div class="card-inner">
+                <img src="${imageUrl}" alt="${studentInfo.name}">
+                <p class='name'>${studentInfo.name}</p>
                 <p>Email: ${studentInfo.email}</p>
                 <p>Date of Birth: ${studentInfo.date_naissance}</p>
                 <p>City: ${studentInfo.ville}</p>
                 <p>Phone: ${studentInfo.tel}</p>
                 <p>Field of Study: ${studentInfo.filliere}</p>
                 <p>Academic Year: ${studentInfo.annee_scolaire}</p>
-                
-                <button onclick="deleteStudent(${studentId})">Delete Student</button>
-                <button onclick="moveStudent(${studentId})">Move to Another Room</button>
+                <div class='btn'>;
+                <button style='color:red' onclick="deleteStudent(${studentId})">Delete Student</button>
+                <button style='color:blue' onclick="moveStudent(${studentId})">Move to Another Room</button>
+                </div></div>
             `;
 
                     document.body.appendChild(infoPopup);
