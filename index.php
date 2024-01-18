@@ -8,72 +8,6 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Additional CSS for popup positioning */
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            z-index: 2;
-        }
-
-        /* Add this CSS to your existing styles */
-        #popupImages {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .image-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            /* Adjust as needed */
-        }
-
-        .image-container {
-            width: 23%;
-            /* Adjust as needed to leave some space between images */
-            box-sizing: border-box;
-        }
-
-        .image-container img {
-            width: 100%;
-            height: 50%;
-            border: 1px solid #ccc;
-            /* Add a border for separation */
-            border-radius: 8px;
-            /* Optional: Add border-radius for rounded corners */
-        }
-
-        /* Add these styles to your existing styles */
-        .info-popup {
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            z-index: 999;
-        }
-
-        /* Position the popup below the student */
-        .student-container {
-            position: relative;
-            margin: 10px;
-        }
-
-        /* Style the "More Info" button */
-        .student-container button {
-            margin-top: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 
 <body>
@@ -181,6 +115,7 @@
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
+                .style("fill", d => getRoomColor(d.id)) // Assign color dynamically
                 .on("click", showPopup);
 
             // Draw room numbers
@@ -215,6 +150,60 @@
                 .attr("y2", totalHeight);
         }
 
+        // Function to get the color based on the number of students in the room
+        function getRoomColor(roomId) {
+            const room = floors[currentFloor].find(room => room.id === roomId);
+
+            if (!room || room.type !== 'room') {
+                return '#b3b3b3'; // Default color for non-room elements
+            }
+
+            const numStudents = getNumStudentsInRoom(room.id);
+
+            switch (numStudents) {
+                case 0:
+                    return 'green';
+                case 1:
+                    return 'blue';
+                case 2:
+                    return 'yellow';
+                case 3:
+                    return 'orange';
+                case 4:
+                    return 'red';
+                default:
+                    return '#b3b3b3'; // Default color for unexpected cases
+            }
+        }
+
+        // Function to get the number of students in a room
+        function getNumStudentsInRoom(roomId) {
+            let numStudents = 0;
+
+            // Use AJAX to fetch data from the PHP file
+            $.ajax({
+                url: 'getStudentsCount.php',
+                type: 'POST',
+                data: {
+                    roomId: roomId
+                },
+                dataType: 'json',
+                async: false, // Make the AJAX call synchronous to wait for the result
+                success: function(response) {
+                    if (response.success) {
+                        numStudents = response.numStudents;
+                    } else {
+                        console.error('Failed to get students count:', response.message);
+                    }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            return numStudents;
+        }
+
         // Initial room layout for the default floor
         updateRoomLayout();
 
@@ -246,7 +235,7 @@
                     // Add student data to popup
                     data.forEach(student => {
                         // Check if the image field is empty, assign a default avatar
-                        const imageUrl = student.image ? student.image : 'default_user.png';
+                        const imageUrl = student.image ? student.image : 'images/default_user.png';
 
                         popupImages.innerHTML += `
                     <div class="student-container">
@@ -274,8 +263,6 @@
                 }
             });
         }
-
-        // ... (existing code)
 
         // Function to show more information about a specific student
         function showStudentInfo(studentId) {
@@ -317,29 +304,33 @@
             });
         }
 
-        // Function to delete a student from the room
         function deleteStudent(studentId) {
-            // Send AJAX request to delete student
-            $.ajax({
-                url: 'deleteStudent.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    studentId: studentId
-                },
-                success: function(response) {
-                    if (response.success) {
-                        alert('Student deleted successfully');
-                        // Close the info popup
-                        document.querySelector('.info-popup').style.display = 'none';
-                    } else {
-                        alert('Failed to delete student');
+            // Show a confirmation dialog
+            const confirmDelete = confirm('Are you sure you want to delete this student?');
+
+            if (confirmDelete) {
+                // Proceed with deletion
+                $.ajax({
+                    url: 'deleteStudent.php',
+                    type: 'POST',
+                    data: {
+                        studentId: studentId
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            alert('Student deleted successfully');
+                            // Close the info popup
+                            document.querySelector('.info-popup').style.display = 'none';
+                        } else {
+                            alert('Failed to delete student');
+                        }
+                    },
+                    error: function(error) {
+                        console.log('Error:', error);
                     }
-                },
-                error: function(error) {
-                    console.log('Error:', error);
-                }
-            });
+                });
+            }
         }
 
         // Function to move a student to another room
@@ -364,7 +355,13 @@
                             // Close the info popup
                             document.querySelector('.info-popup').style.display = 'none';
                         } else {
-                            alert('Failed to move student');
+                            if (response.error === 'Invalid room number') {
+                                alert('Invalid room number');
+                            } else if (response.error === 'Room is already full') {
+                                alert('Room is already full');
+                            } else {
+                                alert('Failed to move student');
+                            }
                         }
                     },
                     error: function(error) {
@@ -375,10 +372,6 @@
                 alert('Invalid room number');
             }
         }
-
-        // ... (existing code)
-
-
         // Function to close the popup
         function closePopup() {
             document.getElementById("popup").style.display = "none";
