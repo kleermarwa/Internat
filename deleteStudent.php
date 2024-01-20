@@ -1,5 +1,6 @@
 <?php
-require_once('db_connect.php'); // Replace with your actual database connection file
+require_once('d
+'); // Replace with your actual database connection file
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $studentId = $_POST['studentId'];

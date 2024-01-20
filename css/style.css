@@ -1,0 +1,17 @@
+/* Position the popup below the student */
+.student-container {
+    position: relative;
+    margin: 10px;
+}
+
+/* Style the "More Info" button */
+.student-container button {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.etage {
+    margin-top: -200px;
+}
+
+
