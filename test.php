@@ -4,17 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boarding School Room Map</title>
+    <title>Internat</title>
+    <link rel="shortcut icon" href="images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="select.css">
+    <link rel="stylesheet" href="css/select.css">
+    <link rel="stylesheet" href="css/sass.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/color.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/showPopup.js"></script>
+    <script src="js/editRoom.js"></script>
+    <script src="js/showPopupStudent.js"></script>
+    <script src="js/showStudentInfo.js"></script>
+    <script src="js/deleteStudent.js"></script>
+    <script src="js/moveStudent.js"></script>
 </head>
 
 <body>
     <!-- Room map container -->
     <div id="roomMap"></div>
+
+    <header id="header" class="fixed-top" style="background: none;">
+        <div class="fa fa-bars"></div>
+        <div class="left">
+            <div class="search-container">
+                <label for="search" class="fa fa-search"></label>
+                <input type="search" placeholder="Search Students" id="search">
+            </div>
+            <div id="search-results"></div>
+        </div>
+        <!-- navbar  -->
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="categories.php">Product</a></li>
+                <li><a href="about.php">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <!-- Floor selection dropdown -->
     <form id="app-cover">
@@ -22,7 +51,7 @@
             <input type="checkbox" id="options-view-button">
             <div id="select-button" class="brd">
                 <div id="selected-value">
-                    <span>Select a floor</span>
+                    <span>Naviguer étage</span>
                 </div>
                 <div id="chevrons">
                     <i class="fas fa-chevron-up"></i>
@@ -34,36 +63,36 @@
                     <input class="s-c top" type="radio" name="platform" value="1">
                     <input class="s-c bottom" type="radio" name="platform" value="1">
                     <i class="fas fa-solid fa-door-open"></i>
-                    <span class="label">Ground floor</span>
-                    <span class="opt-val">Ground floor</span>
+                    <span class="label">Rez de chaussée</span>
+                    <span class="opt-val">Rez de chaussée</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="2">
                     <input class="s-c bottom" type="radio" name="platform" value="2">
                     <i class="fa">1</i>
-                    <span class="label">First Floor</span>
-                    <span class="opt-val">First Floor</span>
+                    <span class="label">1<sup>er</sup> étage</span>
+                    <span class="opt-val">1<sup>er</sup> étage</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="3">
                     <input class="s-c bottom" type="radio" name="platform" value="3">
                     <i class="fa">2</i>
-                    <span class="label">Second Floor</span>
-                    <span class="opt-val">Second Floor</span>
+                    <span class="label">2<sup>ème</sup> étage</span>
+                    <span class="opt-val">2<sup>ème</sup> étage</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="4">
                     <input class="s-c bottom" type="radio" name="platform" value="4">
                     <i class="fa">3</i>
-                    <span class="label">Third Floor</span>
-                    <span class="opt-val">Third Floor</span>
+                    <span class="label">3<sup>ème</sup> étage</span>
+                    <span class="opt-val">3<sup>ème</sup> étage</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="5">
                     <input class="s-c bottom" type="radio" name="platform" value="5">
                     <i class="fa">4</i>
-                    <span class="label">Fourth Floor</span>
-                    <span class="opt-val">Fourth Floor</span>
+                    <span class="label">4<sup>ème</sup> étage</span>
+                    <span class="opt-val">4<sup>ème</sup> étage</span>
                 </div>
                 <div id="option-bg"></div>
             </div>
@@ -71,9 +100,22 @@
     </form>
 
     <div class="popup" id="popup">
-        <p>Room Information</p>
+        <p>Informations Chambre</p>
         <p id="popupRoomNumber"></p>
         <div id="popupImages"></div>
+    </div>
+
+    <div class="popup" id="editPopup">
+        <p>Ajouter élève</p>
+        <form id="editForm">
+            <label for="studentName">Nom de l'élève:</label>
+            <input type="text" id="studentName" required>
+            <!-- Add other form fields as needed -->
+            <button type="submit">Chercher l'élève</button>
+            <div id="studentList"></div>
+            <button id="editCloseButton">Fermer</button>
+
+        </form>
     </div>
 
     <script>
@@ -195,60 +237,6 @@
                 .attr("y2", totalHeight);
         }
 
-        // Function to get the color based on the number of students in the room
-        function getRoomColor(roomId) {
-            const room = floors[currentFloor].find(room => room.id === roomId);
-
-            if (!room || room.type !== 'room') {
-                return '#b3b3b3'; // Default color for non-room elements
-            }
-
-            const numStudents = getNumStudentsInRoom(room.id);
-
-            switch (numStudents) {
-                case 0:
-                    return '#1afa25';
-                case 1:
-                    return '#66ccff';
-                case 2:
-                    return 'yellow';
-                case 3:
-                    return 'orange';
-                case 4:
-                    return 'red';
-                default:
-                    return '#b3b3b3'; // Default color for unexpected cases
-            }
-        }
-
-        // Function to get the number of students in a room
-        function getNumStudentsInRoom(roomId) {
-            let numStudents = 0;
-
-            // Use AJAX to fetch data from the PHP file
-            $.ajax({
-                url: 'getStudentsCount.php',
-                type: 'POST',
-                data: {
-                    roomId: roomId
-                },
-                dataType: 'json',
-                async: false, // Make the AJAX call synchronous to wait for the result
-                success: function(response) {
-                    if (response.success) {
-                        numStudents = response.numStudents;
-                    } else {
-                        console.error('Failed to get students count:', response.message);
-                    }
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
-
-            return numStudents;
-        }
-
         // Initial room layout for the default floor
         updateRoomLayout();
         document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
@@ -281,177 +269,6 @@
                 document.getElementById("options-view-button").checked = false;
             });
         });
-
-
-        // Popup functionality
-        function showPopup() {
-            const roomNumber = d3.select(this).datum().id;
-            const popup = document.getElementById("popup");
-            const popupRoomNumber = document.getElementById("popupRoomNumber");
-            const popupImages = document.getElementById("popupImages");
-
-            // Fetch student data using AJAX
-            $.ajax({
-                url: `getRoomData.php?roomNumber=${roomNumber}`,
-                type: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    // Set room number in popup
-                    popupRoomNumber.textContent = `Room ${roomNumber}`;
-
-                    // Set images and student info in popup
-                    popupImages.innerHTML = "";
-
-                    // Add student data to popup
-                    data.forEach(student => {
-                        // Check if the image field is empty, assign a default avatar
-                        const imageUrl = student.image ? student.image : 'images/default_user.png';
-
-                        popupImages.innerHTML += `
-                    <div class="student-container">
-                        <img src="${imageUrl}" alt="${student.name}">
-                        <p>${student.name}</p>
-                        <button onclick="showStudentInfo(${student.id})">More Info</button>
-                    </div>
-                `;
-                    });
-
-                    // Show the popup
-                    popup.style.display = "block";
-
-                    // Close the info popup when clicking outside
-                    document.addEventListener("click", function closepopupOutside(event) {
-                        if (!popup.contains(event.target)) {
-                            popup.style.display = "none";
-                            document.removeEventListener("click", closepopupOutside);
-                        }
-                    });
-
-                },
-                error: function(error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
-
-        // Function to show more information about a specific student
-        function showStudentInfo(studentId) {
-            // Fetch additional student info using AJAX
-            $.ajax({
-                url: `getStudentInfo.php?studentId=${studentId}`,
-                type: 'GET',
-                dataType: 'json',
-                success: function(studentInfo) {
-                    // Display additional information in a new popup
-                    const infoPopup = document.createElement("div");
-                    const imageUrl = studentInfo.image ? studentInfo.image : 'images/default_user.png';
-                    infoPopup.className = "info-popup";
-
-                    infoPopup.innerHTML = `
-                <div class="card-overlay"></div>
-                <div class="card-inner">
-                <img src="${imageUrl}" alt="${studentInfo.name}">
-                <p class='name'>${studentInfo.name}</p>
-                <p>Email: ${studentInfo.email}</p>
-                <p>Date of Birth: ${studentInfo.date_naissance}</p>
-                <p>City: ${studentInfo.ville}</p>
-                <p>Phone: ${studentInfo.tel}</p>
-                <p>Field of Study: ${studentInfo.filliere}</p>
-                <p>Academic Year: ${studentInfo.annee_scolaire}</p>
-                <div class='btn'>;
-                <button style='color:red' onclick="deleteStudent(${studentId})">Delete Student</button>
-                <button style='color:blue' onclick="moveStudent(${studentId})">Move to Another Room</button>
-                </div></div>
-            `;
-
-                    document.body.appendChild(infoPopup);
-
-                    // Close the info popup when clicking outside
-                    document.addEventListener("click", function closeInfoPopupOutside(event) {
-                        if (!infoPopup.contains(event.target)) {
-                            infoPopup.style.display = "none";
-                            document.removeEventListener("click", closeInfoPopupOutside);
-                        }
-                    });
-                },
-                error: function(error) {
-                    console.log('Error:', error);
-                }
-            });
-        }
-
-        function deleteStudent(studentId) {
-            // Show a confirmation dialog
-            const confirmDelete = confirm('Are you sure you want to delete this student?');
-
-            if (confirmDelete) {
-                // Proceed with deletion
-                $.ajax({
-                    url: 'deleteStudent.php',
-                    type: 'POST',
-                    data: {
-                        studentId: studentId
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.success) {
-                            alert('Student deleted successfully');
-                            // Close the info popup
-                            document.querySelector('.info-popup').style.display = 'none';
-                        } else {
-                            alert('Failed to delete student');
-                        }
-                    },
-                    error: function(error) {
-                        console.log('Error:', error);
-                    }
-                });
-            }
-        }
-
-        // Function to move a student to another room
-        function moveStudent(studentId) {
-            // Prompt the user for the new room number
-            const newRoomNumber = prompt('Enter the new room number:');
-
-            // Check if the input is valid
-            if (newRoomNumber !== null && !isNaN(newRoomNumber) && newRoomNumber !== '') {
-                // Send AJAX request to move student
-                $.ajax({
-                    url: 'moveStudent.php',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {
-                        studentId: studentId,
-                        newRoomNumber: newRoomNumber
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            alert('Student moved successfully');
-                            // Close the info popup
-                            document.querySelector('.info-popup').style.display = 'none';
-                        } else {
-                            if (response.error === 'Invalid room number') {
-                                alert('Invalid room number');
-                            } else if (response.error === 'Room is already full') {
-                                alert('Room is already full');
-                            } else {
-                                alert('Failed to move student');
-                            }
-                        }
-                    },
-                    error: function(error) {
-                        console.log('Error:', error);
-                    }
-                });
-            } else {
-                alert('Invalid room number');
-            }
-        }
-        // Function to close the popup
-        function closePopup() {
-            document.getElementById("popup").style.display = "none";
-        }
     </script>
 </body>
 

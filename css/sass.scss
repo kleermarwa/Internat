@@ -1,0 +1,595 @@
+$black : #333;
+$white : #fff;
+$blue: #3498db;
+$light-blue: #2980b9;
+$dark-blue: #00093c;
+$red: #cb0014e3;
+$light-red: #ed8d97;
+$orange: #f39c12;
+$gold : gold;
+$light-color : #666;
+$light-grey: #828daa;
+$light-bg: #bbb;
+$box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .2);
+$border : 2px solid $white;
+
+* {
+	font-family: 'Lato', sans-serif;
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all .2s linear;
+	transition: all .2s linear;
+	outline: none;
+	border: none;
+	text-decoration: none;
+}
+
+html {
+	font-size: 62.5%;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: auto;
+	color: $white;
+	overflow: auto;
+	animation: gradient 15s ease infinite;
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+
+}
+
+#header {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+	padding: 1.5rem 2.5rem;
+
+	.fa-bars {
+		font-size: 3rem;
+		z-index: 10000;
+		cursor: pointer;
+	}
+
+	.left {
+		.search-container {
+			display: inline;
+			position: relative;
+
+			#search {
+				color: #000;
+				text-transform: capitalize;
+				position: absolute;
+				top: -1.5rem;
+				right: 4rem;
+				height: 0;
+				width: 0;
+				font-size: 1.5rem;
+				padding: 0 1rem;
+				border: none;
+				outline: none;
+				border-radius: 5rem;
+
+				&:hover {
+					width: 25rem;
+					height: 3.5rem;
+				}
+
+				&:focus {
+					width: 25rem;
+					height: 3.5rem;
+				}
+			}
+
+			.fa-search {
+				position: absolute;
+				top: -.7rem;
+				left: -6.6rem;
+				font-size: 2rem;
+				cursor: pointer;
+				z-index: 1;
+
+				&:hover {
+					color: black;
+
+					~ {
+						#search {
+							width: 25rem;
+							height: 3.5rem;
+						}
+					}
+				}
+			}
+		}
+
+		#search-results {
+			position: absolute;
+			top: 100%;
+			right: 60px;
+			width: 30.5rem;
+			background-color: rgb(255, 255, 255, 0.3);
+			padding: 1rem;
+			box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+			z-index: 2;
+			display: none;
+			border-radius: 2rem;
+
+			a {
+				color: $white;
+				text-decoration: none;
+				font-weight: bold;
+				margin-left: 1rem;
+				margin-top: 0.5rem;
+				display: block;
+				font-size: 15px;
+
+				&:hover {
+					color: #007bff;
+				}
+
+				.search-result {
+					display: flex;
+					align-items: center;
+					padding: 1rem;
+					margin-top: 0.5rem;
+					border: 1px solid #ccc;
+					border-radius: 0.5rem;
+					transition: all 0.3s ease-in-out;
+					cursor: pointer;
+
+					&:hover {
+						transform: translateY(-0.25rem);
+						box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+					}
+
+					img {
+						width: 7rem;
+						height: 7rem;
+						margin-right: 1rem;
+						border-radius: 0.5rem;
+						object-fit: cover;
+						transition: all 0.3s ease-in-out;
+					}
+
+					&:hover img {
+						transform: scale(1.2);
+					}
+
+					span {
+						font-size: 16px;
+					}
+				}
+			}
+		}
+	}
+
+	/**************************************************************************************************************************************************************************/
+	/******************************************************************************* Navbar CSS *******************************************************************************/
+	/**************************************************************************************************************************************************************************/
+
+	.navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		width: 100vw;
+		background: rgba(0, 0, 0, 0.9);
+		padding: 0;
+		display: none;
+		color: $white;
+		transition: all 0.3s ease-in-out;
+
+		ul {
+			height: 100%;
+			width: 35rem;
+			background: rgb(204, 27, 19, 0.2);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-flow: column;
+			list-style: none;
+			color: $white;
+
+			.rahma {
+				height: 4rem;
+				width: 25rem;
+				border-radius: 5rem;
+				border: $border;
+				margin-bottom: 2rem;
+				text-align: center;
+				font-size: 2rem;
+
+				img {
+					width: 5rem;
+					height: 5rem;
+					border-radius: 25%;
+					box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+				}
+			}
+
+			li {
+				margin: .5rem 0;
+
+				a {
+					display: block;
+					height: 4rem;
+					width: 25rem;
+					background: $white;
+					color: #333;
+					border-radius: 5rem;
+					text-align: center;
+					font-size: 2rem;
+					line-height: 4rem;
+					text-decoration: none;
+					position: relative;
+
+					&:hover {
+						text-decoration: none;
+						background: rgb(204, 27, 19);
+						letter-spacing: .3rem;
+						color: $white;
+					}
+				}
+			}
+
+			a {
+				color: $white;
+				text-decoration: none;
+
+				.user-info {
+					display: flex;
+					flex-flow: column;
+					position: relative;
+					align-items: center;
+					justify-content: center;
+					color: $white;
+					top: -4rem;
+
+					&:hover {
+						background: rgba(0, 0, 0, 0.4);
+					}
+
+					img {
+						width: 15rem;
+						height: 15rem;
+						border-radius: 50%;
+						margin-bottom: .5rem;
+						border: $border;
+						box-shadow: $box-shadow;
+						background: $white;
+					}
+
+					.user-email {
+						font-size: 2rem;
+						font-weight: bold;
+						color: $white;
+						margin-bottom: .5rem;
+					}
+
+					.user-name {
+						color: $white;
+						font-size: 1.7rem;
+					}
+				}
+			}
+
+			.logout,
+			.login {
+				height: 4rem;
+				width: 25rem;
+				color: #eee;
+				border-radius: 5rem;
+				border: $border;
+				text-align: center;
+				font-size: 2rem;
+				line-height: 4rem;
+				margin-bottom: 40px;
+			}
+
+			.logout {
+				background: red;
+			}
+
+			.login {
+				background: blue;
+			}
+		}
+	}
+}
+
+/**************************************************************************************************************************************************************************/
+/******************************************************************************* Building CSS *******************************************************************************/
+/**************************************************************************************************************************************************************************/
+#roomMap {
+	width: 1000px;
+	height: 100px;
+
+	#map {
+		width: 100%;
+		height: 100%;
+	}
+
+	.building {
+		fill: none;
+		stroke: #333;
+		stroke-width: 2px;
+	}
+
+	.room {
+		fill: #b3b3b3;
+		stroke: #fff;
+		stroke-width: 2px;
+	}
+
+	.bathroom {
+		fill: #66ccff;
+		stroke: #fff;
+		stroke-width: 2px;
+	}
+
+	.stairs {
+		fill: #505050;
+		stroke: #fff;
+		stroke-width: 2px;
+	}
+
+	.divider {
+		fill: none;
+		stroke: #333;
+		stroke-width: 2px;
+	}
+
+	.roomNumber {
+		font-family: Arial, sans-serif;
+		font-size: 12px;
+		fill: #333;
+		text-anchor: middle;
+	}
+}
+
+/**************************************************************************************************************************************************************************/
+/******************************************************************************* Popup CSS *******************************************************************************/
+/**************************************************************************************************************************************************************************/
+.popup {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: none;
+	padding: 20px;
+	border-radius: 20px;
+	background: #f5f5f5;
+	border: 2px solid #c3c6ce;
+	transition: 0.5s ease-out;
+	text-align: center;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	z-index: 2;
+
+	img {
+		width: 100px;
+		height: 100px;
+		margin-right: 5px;
+		border: 2px solid #c3c6ce;
+	}
+
+	/* Add this CSS to your existing styles */
+	#popupImages {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+	.image-row {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 10px;
+		/* Adjust as needed */
+	}
+
+	.image-container {
+		width: 23%;
+		/* Adjust as needed to leave some space between images */
+		box-sizing: border-box;
+
+		img {
+			width: 100%;
+			height: 50%;
+			border: 1px solid #ccc;
+			/* Add a border for separation */
+			border-radius: 8px;
+			/* Optional: Add border-radius for rounded corners */
+		}
+	}
+
+	.student-container {
+		border-radius: 20px;
+		background: #f5f5f5;
+		position: relative;
+		padding: 10px;
+		margin: 10px;
+		border: 2px solid #c3c6ce;
+		transition: 0.5s ease-out;
+		overflow: visible;
+		text-align: center;
+
+		&:hover {
+			border-color: #008bf8;
+			box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+
+			.student-container-button {
+				transform: translate(-50%, 50%);
+				opacity: 1;
+			}
+		}
+	}
+
+	.student-container-button {
+		transform: translate(-50%, 125%);
+		width: 60%;
+		border-radius: 1rem;
+		border: none;
+		background-color: #008bf8;
+		color: #fff;
+		font-size: 1rem;
+		padding: .5rem 1rem;
+		position: absolute;
+		left: 50%;
+		bottom: 0;
+		opacity: 0;
+		transition: 0.3s ease-out;
+	}
+
+	.student-list-item {
+		display: grid;
+		padding: 10px;
+		cursor: pointer;
+
+		&:hover {
+			scale: 1.1;
+		}
+	}
+
+	.edit-room-button {
+		margin-top: 2rem;
+	}
+
+	#studentList {
+		display: flex;
+		max-width: min-content;
+
+	}
+
+	.edit-room-container {
+		display: flex;
+		justify-content: center;
+		/* Center horizontally */
+		align-items: center;
+		/* Center vertically */
+		margin: auto;
+		padding-top: 10px;
+
+		.edit-room-button {
+			position: relative;
+			transition: all 0.3s ease-in-out;
+			box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+			padding-block: 0.5rem;
+			padding-inline: 1.25rem;
+			background-color: rgb(0 107 179);
+			border-radius: 9999px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #ffff;
+			gap: 10px;
+			font-weight: bold;
+			border: 3px solid #ffffff4d;
+			outline: none;
+			overflow: hidden;
+			font-size: 15px;
+
+			.icon {
+				transition: all 0.3s ease-in-out;
+			}
+
+			&:hover {
+				transform: scale(1.05);
+				border-color: #fff9;
+			}
+
+			&:hover .icon {
+				transform: translate(4px);
+			}
+
+			&:hover::before {
+				animation: shine 1.5s ease-out infinite;
+			}
+
+			&::before {
+				content: "";
+				position: absolute;
+				width: 100px;
+				height: 100%;
+				background-image: linear-gradient(120deg,
+						rgba(255, 255, 255, 0) 30%,
+						rgba(255, 255, 255, 0.8),
+						rgba(255, 255, 255, 0) 70%);
+				top: 0;
+				left: -100px;
+				opacity: 0.6;
+			}
+		}
+
+		@keyframes shine {
+			0% {
+				left: -100px;
+			}
+
+			60% {
+				left: 100%;
+			}
+
+			to {
+				left: 100%;
+			}
+		}
+	}
+}
+/******************************************************************************* info-popup ******************************************************************************/
+
+.info-popup {
+	--bg: #e8e8e8;
+	--contrast: #e2e0e0;
+	--grey: #93a1a1;
+	padding: 9px;
+	max-width: fit-content;
+	background-color: var(--bg);
+	border-radius: 35px;
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+	position: fixed;
+	border: 1px solid #ccc;
+	z-index: 999;
+
+	img {
+		height: 100px;
+		margin: auto;
+		display: grid;
+	}
+
+	.name {
+		text-align: center;
+	}
+
+	.card-inner {
+		display: contents;
+		font-size: 13px;
+		font-weight: 500;
+		text-align: center;
+	}
+
+	button {
+		font-size: 15px;
+		max-width: min-content;
+		padding: 10px 20px;
+		margin-right: 15px;
+		border: $border;
+		box-shadow: $box-shadow;
+		border-radius: 10px;
+
+		&:hover {
+			scale: 1.1;
+		}
+	}
+
+}
