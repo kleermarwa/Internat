@@ -2,7 +2,7 @@
 // Assuming you have a database connection
 $servername = "localhost";
 $username = "root";
-$password = "aqw7410ol:9630";
+$password = "";
 $dbname = "estc";
 
 // Create connection
