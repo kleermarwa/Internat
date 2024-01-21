@@ -106,12 +106,12 @@
     </div>
 
     <div class="popup" id="editPopup">
-        <p>Ajouter élève</p>
+        <p>Ajouter étudiant</p>
         <form id="editForm">
-            <label for="studentName">Nom de l'élève:</label>
+            <label for="studentName">Nom de l'étudiant:</label>
             <input type="text" id="studentName" required>
             <!-- Add other form fields as needed -->
-            <button type="submit">Chercher l'élève</button>
+            <button type="submit">Chercher l'étudiant</button>
             <div id="studentList"></div>
             <button id="editCloseButton">Fermer</button>
 

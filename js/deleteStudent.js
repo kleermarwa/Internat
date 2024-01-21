@@ -1,6 +1,6 @@
 function deleteStudent(studentId) {
     // Show a confirmation dialog
-    const confirmDelete = confirm('Etes-vous sûr de vouloir supprimer cet élève de la chambre?');
+    const confirmDelete = confirm('Etes-vous sûr de vouloir supprimer cet étudiant de la chambre?');
 
     if (confirmDelete) {
         // Proceed with deletion
