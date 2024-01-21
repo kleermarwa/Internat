@@ -49,7 +49,7 @@ function editRoom(roomNumber) {
                         studentItem.onclick = function () {
                             // Set the selected student in the input field
                             studentNameInput.value = student.label;
-                            const confirmAdd = confirm('Etes-vous sûr de vouloir ajouter cet élève ?');
+                            const confirmAdd = confirm('Etes-vous sûr de vouloir ajouter cet étudiant ?');
 
                             if (confirmAdd) {
                                 // Make another AJAX call to move the student to the selected room

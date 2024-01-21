@@ -94,19 +94,7 @@ body {
   display: none;
   border-radius: 2rem;
 }
-#header .left #search-results a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
-  margin-left: 1rem;
-  margin-top: 0.5rem;
-  display: block;
-  font-size: 15px;
-}
-#header .left #search-results a:hover {
-  color: #007bff;
-}
-#header .left #search-results a .search-result {
+#header .left #search-results .search-result {
   display: flex;
   align-items: center;
   padding: 1rem;
@@ -116,11 +104,11 @@ body {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
-#header .left #search-results a .search-result:hover {
+#header .left #search-results .search-result:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
-#header .left #search-results a .search-result img {
+#header .left #search-results .search-result img {
   width: 7rem;
   height: 7rem;
   margin-right: 1rem;
@@ -129,10 +117,10 @@ body {
      object-fit: cover;
   transition: all 0.3s ease-in-out;
 }
-#header .left #search-results a .search-result:hover img {
-  transform: scale(1.2);
+#header .left #search-results .search-result:hover img {
+  transform: scale(1.1);
 }
-#header .left #search-results a .search-result span {
+#header .left #search-results .search-result span {
   font-size: 16px;
 }
 #header .navbar {

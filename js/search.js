@@ -20,7 +20,8 @@ $(document).ready(function() {
                         $.each(data, function(index, student) {
                             results += '<div class="search-result" onclick="showPopupStudent(' + student.roomNumber + ')">';
                             results += '<img src="' + student.image + '" width="50">';
-                            results += '<span>' + student.label + '</span>';
+                            results += '<div> <span>' + student.label + '</span><br>';
+                            results += '<span> Chambre: ' + student.roomNumber + '</span> </div>';
                             results += '</div>';
                         });
                         $searchResults.html(results).show();

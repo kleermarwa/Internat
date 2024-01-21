@@ -22,9 +22,9 @@ function showStudentInfo(studentId) {
                 <p>Téléphone: ${studentInfo.tel}</p>
                 <p>Fillière: ${studentInfo.filliere}</p>
                 <p>Année: ${studentInfo.annee_scolaire}</p>
-                <div class='btn'>;
-                <button style='color:red' onclick="deleteStudent(${studentId})">Supprimer l'élève</button>
-                <button style='color:blue' onclick="moveStudent(${studentId})">Deplacer l'élève</button>
+                <div class='btn'>
+                <button style='color:red' onclick="deleteStudent(${studentId})">Supprimer l'étudiant <i class="fa fa-trash"></i></button>
+                <button style='color:blue' onclick="moveStudent(${studentId})">Deplacer l'étudiant <i class="fa fa-arrow-right"></i></button>
                 </div></div>
             `;
 
