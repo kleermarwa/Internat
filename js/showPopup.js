@@ -31,12 +31,16 @@ function showPopup() {
                 `;
             });
             // Add "Edit Room" button
-            popupImages.innerHTML += `
-                <div class="edit-room-container">
-                    <button class="edit-room-button" onclick="editRoom(${roomNumber})">Ajouter étudiant
-                    <i class="fa fa-plus icon"></i>
-                    </button>
-                </div> `;
+            const studentCount = data.length;
+
+            if (studentCount < 4) {
+                popupImages.innerHTML += `
+                    <div class="edit-room-container">
+                        <button class="edit-room-button" onclick="editRoom(${roomNumber})">Ajouter étudiant
+                        <i class="fa fa-plus icon"></i>
+                        </button>
+                    </div> `;
+            }
             // Show the popup
             popup.style.display = "block";
 
