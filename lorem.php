@@ -9,6 +9,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/select.css">
     <link rel="stylesheet" href="css/sass.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -51,7 +52,7 @@
             <input type="checkbox" id="options-view-button">
             <div id="select-button" class="brd">
                 <div id="selected-value">
-                    <span>Naviguer étage</span>
+                    <span>Select a floor</span>
                 </div>
                 <div id="chevrons">
                     <i class="fas fa-chevron-up"></i>
@@ -63,36 +64,36 @@
                     <input class="s-c top" type="radio" name="platform" value="1">
                     <input class="s-c bottom" type="radio" name="platform" value="1">
                     <i class="fas fa-solid fa-door-open"></i>
-                    <span class="label">Rez de chaussée</span>
-                    <span class="opt-val">Rez de chaussée</span>
+                    <span class="label">Ground floor</span>
+                    <span class="opt-val">Ground floor</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="2">
                     <input class="s-c bottom" type="radio" name="platform" value="2">
                     <i class="fa">1</i>
-                    <span class="label">1<sup>er</sup> étage</span>
-                    <span class="opt-val">1<sup>er</sup> étage</span>
+                    <span class="label">First Floor</span>
+                    <span class="opt-val">First Floor</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="3">
                     <input class="s-c bottom" type="radio" name="platform" value="3">
                     <i class="fa">2</i>
-                    <span class="label">2<sup>ème</sup> étage</span>
-                    <span class="opt-val">2<sup>ème</sup> étage</span>
+                    <span class="label">Second Floor</span>
+                    <span class="opt-val">Second Floor</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="4">
                     <input class="s-c bottom" type="radio" name="platform" value="4">
                     <i class="fa">3</i>
-                    <span class="label">3<sup>ème</sup> étage</span>
-                    <span class="opt-val">3<sup>ème</sup> étage</span>
+                    <span class="label">Third Floor</span>
+                    <span class="opt-val">Third Floor</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="5">
                     <input class="s-c bottom" type="radio" name="platform" value="5">
                     <i class="fa">4</i>
-                    <span class="label">4<sup>ème</sup> étage</span>
-                    <span class="opt-val">4<sup>ème</sup> étage</span>
+                    <span class="label">Fourth Floor</span>
+                    <span class="opt-val">Fourth Floor</span>
                 </div>
                 <div id="option-bg"></div>
             </div>
@@ -100,22 +101,20 @@
     </form>
 
     <div class="popup" id="popup">
-        <p>Informations Chambre</p>
+        <p>Room Information</p>
         <p id="popupRoomNumber"></p>
         <div id="popupImages"></div>
     </div>
 
-    <div class="popup" id="editPopup">
-        <p>Ajouter étudiant</p>
-        <form id="editForm">
-            <label for="studentName">Nom de l'étudiant:</label>
-            <input type="text" id="studentName" required>
-            <!-- Add other form fields as needed -->
-            <button type="submit">Chercher l'étudiant</button>
-            <div id="studentList"></div>
-            <button id="editCloseButton">Fermer</button>
-
-        </form>
+    <div class="pdopup" id="editPopup">
+        <p>Add new student</p>
+        <div class="search-container" id="editForm">
+            <div class="search-container">
+                <label for="search" class="fa fa-search"></label>
+                <input type="search" placeholder="Search Students" id="search">
+            </div>
+            <div id="search-results"></div>
+        </div>
     </div>
 
     <script>
