@@ -16,9 +16,11 @@ if ($result->num_rows > 0) {
     }
 }
 
+$studentCount = count($data);
+
 // Close connection
 $conn->close();
 
 // Return JSON response
 header('Content-Type: application/json');
-echo json_encode($data);
+echo json_encode(['data' => $data, 'studentCount' => $studentCount]);
