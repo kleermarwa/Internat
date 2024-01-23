@@ -129,15 +129,14 @@
     </header>
     <!-- Buttons to change buildings -->
     <div class="building">
-        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
-        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
+        <button class="boys" id="boysButton" onclick="changeBuilding('boys')">Internat Garçons</button>
+        <button class="girls" id="girlsButton" onclick="changeBuilding('girls')">Internat Filles</button>
     </div>
     <script>
         let currentBuilding = 'boys'; // Default to Boys' Building
         // Function to handle building change
         function changeBuilding(building) {
             currentBuilding = building;
-            currentFloor = 1; // Reset floor to Ground Floor when changing building
         }
     </script>
     <div class="RoomList">
