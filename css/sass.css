@@ -123,6 +123,11 @@ body {
 #header .left #search-results .search-result span {
   font-size: 16px;
 }
+#header .left #search-results .search-result p {
+  font-size: 16px;
+  display: flex;
+  margin: auto;
+}
 #header .navbar {
   position: fixed;
   top: 0;
@@ -488,4 +493,39 @@ body {
 }
 .info-popup button:hover {
   scale: 1.1;
+}
+
+/**************************************************************************************************************************************************************************/
+/******************************************************************************* Building CSS *******************************************************************************/
+/**************************************************************************************************************************************************************************/
+.building {
+  position: absolute;
+  top: 17rem;
+}
+.building button {
+  transition: all 0.3s ease-in-out;
+  font-family: "Dosis", sans-serif;
+  width: 130px;
+  height: 50px;
+  border-radius: 50px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  color: white;
+}
+.building button:hover {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+.building button:active {
+  opacity: 0.5;
+}
+.building .boys {
+  background-image: linear-gradient(135deg, #9492fe 0%, #0d09f8 100%);
+  box-shadow: 0 20px 30px -6px rgba(39, 138, 231, 0.5);
+}
+.building .girls {
+  background-image: linear-gradient(135deg, #fe9492 0%, #f809e4 100%);
+  box-shadow: 0 20px 30px -6px rgba(255, 0, 157, 0.5);
 }/*# sourceMappingURL=sass.css.map */

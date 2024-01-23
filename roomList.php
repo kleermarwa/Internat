@@ -24,81 +24,86 @@
 
 </head>
 <style>
-
-.RoomList {
-    margin-top: 20rem; /* Changed from 30rem to 3rem for a more reasonable margin */
-}
-
-.filters {
-    margin-bottom: 20px;
-}
-
-.pagination-container {
-    text-align: center;
-    margin-top: 20px;
-    clear: both;
-}
-
-#data-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-th, td {
-    padding: 12px; /* Adjusted padding for better spacing */
-    text-align: left;
-    border: 1px solid #ddd;
-    width: 120px; /* Set fixed width for each cell */
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* Pagination Links */
-.pagination {
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-
-.pagination li {
-    display: inline;
-    margin-right: 5px;
-}
-
-.pagination a {
-    text-decoration: none;
-    padding: 10px 14px; /* Adjusted padding for better touch interaction */
-    border: 1px solid #ccc;
-    background-color: #f8f8f8;
-    color: #333;
-    border-radius: 3px;
-}
-
-.pagination a:hover {
-    background-color: #e0e0e0;
-}
-
-.pagination .active a {
-    background-color: #428bca;
-    color: #fff;
-}
-
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-    th, td {
-        width: auto; /* Remove fixed width for smaller screens */
+    .RoomList {
+        margin-top: 20rem;
+        /* Changed from 30rem to 3rem for a more reasonable margin */
     }
-}
 
+    .filters {
+        margin-bottom: 20px;
+    }
 
+    .pagination-container {
+        text-align: center;
+        margin-top: 20px;
+        clear: both;
+    }
+
+    #data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        /* Adjusted padding for better spacing */
+        text-align: left;
+        border: 1px solid #ddd;
+        width: 120px;
+        /* Set fixed width for each cell */
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    /* Pagination Links */
+    .pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .pagination li {
+        display: inline;
+        margin-right: 5px;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        padding: 10px 14px;
+        /* Adjusted padding for better touch interaction */
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+        color: #333;
+        border-radius: 3px;
+    }
+
+    .pagination a:hover {
+        background-color: #e0e0e0;
+    }
+
+    .pagination .active a {
+        background-color: #428bca;
+        color: #fff;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 768px) {
+
+        th,
+        td {
+            width: auto;
+            /* Remove fixed width for smaller screens */
+        }
+    }
 </style>
 
 <body>
@@ -122,42 +127,55 @@ tbody tr:nth-child(even) {
             </ul>
         </nav>
     </header>
-<div class="RoomList">
-    <div class="filters">
-    <label for="filter">Filter by Room:</label>
-    <select id="filter">
-        <option value="all">All Rooms</option>
-        <?php
-        for ($i = 1; $i <= 110; $i++) {
-            echo "<option value=\"$i\">Room $i</option>";
+    <!-- Buttons to change buildings -->
+    <div class="building">
+        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
+        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
+    </div>
+    <script>
+        let currentBuilding = 'boys'; // Default to Boys' Building
+        // Function to handle building change
+        function changeBuilding(building) {
+            currentBuilding = building;
+            currentFloor = 1; // Reset floor to Ground Floor when changing building
         }
-        ?>
-    </select>
+    </script>
+    <div class="RoomList">
+        <div class="filters">
+            <label for="filter">Filter by Room:</label>
+            <select id="filter">
+                <option value="all">All Rooms</option>
+                <?php
+                for ($i = 1; $i <= 110; $i++) {
+                    echo "<option value=\"$i\">Room $i</option>";
+                }
+                ?>
+            </select>
+        </div>
+
+
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Room</th>
+                    <th>Student1</th>
+                    <th>Student2</th>
+                    <th>Student3</th>
+                    <th>Student4</th>
+                    <th>Student Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be loaded here -->
+            </tbody>
+        </table>
+
+        <div class='pagination-container'>
+            <ul class="pagination">
+                <!--	Here the JS Function Will Add the Rows -->
+            </ul>
+        </div>
     </div>
-
-
-    <table id="data-table">
-        <thead>
-            <tr>
-                <th>Room</th>
-                <th>Student1</th>
-                <th>Student2</th>
-                <th>Student3</th>
-                <th>Student4</th>
-                <th>Student Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data will be loaded here -->
-        </tbody>
-    </table>
-
-    <div class='pagination-container'>
-        <ul class="pagination">
-            <!--	Here the JS Function Will Add the Rows -->
-        </ul>
-    </div>
-</div>
 
 
 </body>

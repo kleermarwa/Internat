@@ -14,11 +14,11 @@ $(document).ready(function () {
         for (let roomNumber = startRoom; roomNumber <= endRoom; roomNumber++) {
             // Make an AJAX request for each room
             $.ajax({
-                url: 'getRoomData.php',
+                url: `getRoomData.php?roomNumber=${roomNumber}&building=${currentBuilding}`,
                 type: 'GET',
-                data: { roomNumber: roomNumber },
                 dataType: 'json',
                 success: function (response) {
+                    console.log(response);
                     // Handle the response and populate the table
                     displayRoomData(response, roomNumber);
                 },

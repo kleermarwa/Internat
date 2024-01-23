@@ -5,7 +5,7 @@ function showPopupStudent(roomNumber) {
 
     // Fetch student data using AJAX
     $.ajax({
-        url: `getRoomData.php?roomNumber=${roomNumber}`,
+        url: `getRoomData.php?roomNumber=${roomNumber}&building=${currentBuilding}`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
@@ -29,6 +29,9 @@ function showPopupStudent(roomNumber) {
                 `;
             });
             // Add "Edit Room" button
+
+            const studentCount = data.length;
+
             if (studentCount < 4) {
                 popupImages.innerHTML += `
                     <div class="edit-room-container">

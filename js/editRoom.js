@@ -23,11 +23,9 @@ function editRoom(roomNumber) {
 
         // Make an AJAX call to search for the student
         $.ajax({
-            url: 'search.php',
-            data: {
-                term: studentName
-            },
-            dataType: 'json',
+            url: `search.php?term=${studentName}&building=${currentBuilding}`,
+            type: 'GET',
+            dataType: 'json',   
             success: function (data) {
                 if (data.length > 0) {
                     // Display the list of students

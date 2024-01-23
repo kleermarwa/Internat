@@ -1,23 +1,21 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Store references to the search box and results elements
     var $searchBox = $('#search');
     var $searchResults = $('#search-results');
 
     // Bind a keyup event to the search box
-    $searchBox.keyup(function() {
+    $searchBox.keyup(function () {
         var search_term = $(this).val();
 
         if (search_term.trim() !== '') { // Check if search term is not empty
             $.ajax({
-                url: 'search.php',
-                data: {
-                    term: search_term
-                },
+                url: `search.php?term=${search_term}&building=${currentBuilding}`,
+                type: 'GET',
                 dataType: 'json',
-                success: function(data) {
+                success: function (data) {
                     var results = '';
                     if (data.length > 0) {
-                        $.each(data, function(index, student) {
+                        $.each(data, function (index, student) {
                             results += '<div class="search-result" onclick="showPopupStudent(' + student.roomNumber + ')">';
                             results += '<img src="' + student.image + '" width="50">';
                             results += '<div> <span>' + student.label + '</span><br>';
@@ -26,7 +24,10 @@ $(document).ready(function() {
                         });
                         $searchResults.html(results).show();
                     } else {
-                        $searchResults.hide();
+                        results += '<div class="search-result">';
+                        results += '<p>Makayn walo</p>';
+                        results += '</div>';
+                        $searchResults.html(results).show();
                     }
                 }
             });
@@ -36,7 +37,7 @@ $(document).ready(function() {
     });
 
     // Bind a click event to the document object
-    $(document).click(function(event) {
+    $(document).click(function (event) {
         // Check if the click occurred outside of the search box and its results
         if (!$(event.target).is($searchBox) && !$(event.target).is($searchResults)) {
             $searchResults.hide();
@@ -45,23 +46,23 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     "use strict";
 
-    $('#search, .fa-search').mouseenter(function() {
+    $('#search, .fa-search').mouseenter(function () {
         $('.logo').hide();
     });
 
-    $('#search, .fa-search').mouseleave(function() {
+    $('#search, .fa-search').mouseleave(function () {
         $('.logo').show();
     });
 
-    $('.fa-bars').click(function() {
+    $('.fa-bars').click(function () {
         $('.navbar').toggle();
         $(this).toggleClass('fa-times');
     });
 
-    $('.navbar, .navbar a').click(function() {
+    $('.navbar, .navbar a').click(function () {
         $('.navbar').hide();
         $('.fa-bars').removeClass('fa-times');
     });

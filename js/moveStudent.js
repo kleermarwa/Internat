@@ -16,16 +16,16 @@ function moveStudent(studentId) {
             },
             success: function (response) {
                 if (response.success) {
-                    alert('Student moved successfully');
+                    alert('L\'étudiant a déplacé avec succès');
                     // Close the info popup
                     document.querySelector('.info-popup').style.display = 'none';
                 } else {
-                    if (response.error === 'Invalid room number') {
-                        alert('Invalid room number');
-                    } else if (response.error === 'Room is already full') {
-                        alert('Room is already full');
+                    if (response.error === 'Numéro de chambre invalide') {
+                        alert('Numéro de chambre invalide');
+                    } else if (response.error === 'La chambre est déjà pleine') {
+                        alert('La chambre est déjà pleine');
                     } else {
-                        alert('Failed to move student');
+                        alert('Échec du déplacement de l\'étudiant');
                     }
                 }
             },
@@ -34,7 +34,7 @@ function moveStudent(studentId) {
             }
         });
     } else {
-        alert('Invalid room number');
+        alert('Numéro de chambre invalide');
     }
 }
 // Function to close the popup

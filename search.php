@@ -2,13 +2,18 @@
 // Connect to the database and check for errors in the connection
 include 'db_connect.php';
 
-global $conn; 
+global $conn;
 
 // Get the search term from the AJAX request
 $search_term = $_GET['term'];
+$building = $_GET['building'];
 
 // Prepare SQL query
-$stmt = $conn->prepare('SELECT id, name, image , room_number FROM students WHERE name LIKE ?');
+if ($building == 'boys') {
+    $stmt = $conn->prepare("SELECT id, name, image , room_number FROM students WHERE name LIKE ? AND genre = 'boy'");
+} else {
+    $stmt = $conn->prepare("SELECT id, name, image , room_number FROM students WHERE name LIKE ? AND genre = 'girl'");
+}
 $search_term = "%$search_term%";
 $stmt->bind_param('s', $search_term);
 $stmt->execute();

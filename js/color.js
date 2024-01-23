@@ -1,6 +1,6 @@
 // Function to get the color based on the number of students in the room
-function getRoomColor(roomId) {
-    const room = floors[currentFloor].find(room => room.id === roomId);
+function getRoomColor(roomId, buildingData, currentFloor) {
+    const room = buildingData[currentFloor].find(room => room.id === roomId);
 
     if (!room || room.type !== 'room') {
         return '#b3b3b3'; // Default color for non-room elements
@@ -30,11 +30,8 @@ function getNumStudentsInRoom(roomId) {
 
     // Use AJAX to fetch data from the PHP file
     $.ajax({
-        url: 'getStudentsCount.php',
-        type: 'POST',
-        data: {
-            roomId: roomId
-        },
+        url: `getStudentsCount.php?roomId=${roomId}&building=${currentBuilding}`,
+        type: 'GET',
         dataType: 'json',
         async: false, // Make the AJAX call synchronous to wait for the result
         success: function (response) {

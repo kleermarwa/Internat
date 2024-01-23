@@ -23,6 +23,12 @@
 </head>
 
 <body>
+    <!-- Buttons to change buildings -->
+    <div class="building">
+        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
+        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
+    </div>
+
     <!-- Room map container -->
     <div id="roomMap"></div>
 
@@ -120,7 +126,39 @@
 
     <script>
         // Room data for each floor
-        const floors = {
+        const boysBuilding = {
+            1: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 1,
+                type: 'room'
+            })),
+            2: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 23,
+                type: 'room'
+            })),
+            3: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 45,
+                type: 'room'
+            })),
+            4: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 67,
+                type: 'room'
+            })),
+            5: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 89,
+                type: 'room'
+            })),
+        };
+        const girlsBuilding = {
             1: Array.from({
                 length: 22
             }, (_, i) => ({
@@ -153,6 +191,7 @@
             })),
         };
 
+        let currentBuilding = 'boys'; // Default to Boys' Building
         let currentFloor = 1; // Default to Ground Floor
 
         // Room dimensions and layout
@@ -178,14 +217,18 @@
             .attr("width", totalWidth)
             .attr("height", totalHeight);
 
+        const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+
         // Function to update room layout based on the selected floor
         function updateRoomLayout() {
+            const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+
             // Clear existing room groups
             svg.selectAll("g").remove();
 
             // Create rooms for the selected floor
             const roomGroups = svg.selectAll("g")
-                .data(floors[currentFloor])
+                .data(selectedBuilding[currentFloor])
                 .enter()
                 .append("g")
                 .attr("transform", (d, i) => {
@@ -202,7 +245,7 @@
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id)) // Assign color dynamically
+                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) // Assign color dynamically
                 .on("click", showPopup);
 
             // Draw room numbers
@@ -242,6 +285,13 @@
         document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
             radio.addEventListener('change', changeFloor);
         });
+
+        // Function to handle building change
+        function changeBuilding(building) {
+            currentBuilding = building;
+            currentFloor = 1; // Reset floor to Ground Floor when changing building
+            updateRoomLayout();
+        }
 
         // Function to handle floor change
         function changeFloor() {

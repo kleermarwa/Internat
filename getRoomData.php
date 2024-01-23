@@ -1,11 +1,17 @@
 <?php
 include 'db_connect.php';
 
-// Get room number from the request
+// Get room number and building from the request
 $roomNumber = $_GET['roomNumber'];
+$building = $_GET['building'];
 
-// Fetch student data for the given room
-$sql = "SELECT * FROM students WHERE room_number = $roomNumber";
+// Fetch student data for the given room and building
+if ($building == 'boys') {
+    $sql = "SELECT * FROM students WHERE room_number = $roomNumber AND genre = 'boy'";
+} else {
+    $sql = "SELECT * FROM students WHERE room_number = $roomNumber AND genre = 'girl'";
+}
+
 $result = $conn->query($sql);
 
 $data = array();
@@ -23,4 +29,4 @@ $conn->close();
 
 // Return JSON response
 header('Content-Type: application/json');
-echo json_encode(['data' => $data, 'studentCount' => $studentCount]);
+echo json_encode($data);
