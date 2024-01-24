@@ -118,9 +118,8 @@
 
 <body id="body-pd">
 
-    <header id="header" class="header fixed-top" style="background: none;">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
->>>>>>> 85684bf45296119756006c292a492de6c9d3d348
+    <header id="header" class="fixed-top" style="background: none;">
+        <div class="fa fa-bars"></div>
         <div class="left">
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
