@@ -26,7 +26,7 @@
 </head>
 
 <body id="body-pd">
-    <header id="header" class="header fixed-top" style="background: none;">
+    <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="left">
             <div class="search-container">
