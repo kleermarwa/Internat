@@ -18,7 +18,49 @@
 <body id="body-pd">
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="header_txt"><h5>Demande de décharge</h5></div>
+        <div class="header_txt">
+            <h5>Demande de décharge</h5>
+        </div>
+        <div class="action">
+            <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
+                <img src="images/default_user.png" />
+            </div>
+            <div class="menu" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
+                <h3>Lorem Ipsum<br /><span>Bouragba</span></h3>
+                <ul>
+                    <li>
+                        <img src="images/user.png" /><a href="#">Mon Profile</a>
+                    </li>
+                    <li>
+                        <img src="images/edit.png" /><a href="#">Modifier Profile</a>
+                    </li>
+                    <li>
+                        <img src="images/envelope.png" /><a href="#">Inbox</a>
+                    </li>
+                    <li>
+                        <img src="images/question.png" /><a href="#">Aide</a>
+                    </li>
+                    <li>
+                        <img src="images/log-out.png" /><a href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            function menuToggle(isHovered) {
+                const toggleMenu = document.querySelector(".menu");
+                const toggleProfile = document.querySelector(".profile");
+
+                if (isHovered) {
+                    toggleMenu.classList.add("active");
+                    toggleProfile.classList.add("active");
+                } else {
+                    toggleMenu.classList.remove("active");
+                    toggleProfile.classList.remove("active");
+                }
+            }
+        </script>
+
         <div class="left">
 
         </div>
@@ -29,6 +71,9 @@
             <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
                     <a href="index.php" class="nav_link active">
+                        <i class="fas fa-home"></i> <span class="nav_name">Home</span>
+                    </a>
+                    <a href="index.php" class="nav_link">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>
                     </a>
                     <a href="decharge.php" class="nav_link">
@@ -41,6 +86,22 @@
             </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
+
+    <h1>Discharge Request</h1>
+
+    <!-- Button to Create Request -->
+    <form action="submit_request.php" method="post">
+        <button type="submit" name="create_request">Create Discharge Request</button>
+    </form>
+
+    <hr>
+
+    <!-- Previous Requests -->
+    <h2>Your Previous Requests:</h2>
+    <?php
+    // Fetch and display previous discharge requests for the student
+    // ...
+    ?>
 </body>
 
 </html>

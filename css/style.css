@@ -50,22 +50,116 @@ a {
   z-index: var(--z-fixed);
   transition: 0.5s;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-  /******************************************************************************* Search CSS *******************************************************************************/
 }
 .header .header_toggle {
   color: var(--first-color);
   font-size: 1.5rem;
   cursor: pointer;
 }
+.header .action {
+  position: fixed;
+  right: 50px;
+}
+.header .action .profile {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+.header .action .profile img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.header .action .menu.active {
+  top: 40px;
+  visibility: visible;
+  opacity: 1;
+  display: block;
+  /* Show the menu when the active class is applied */
+}
+.header .action .menu {
+  display: none;
+  /* Hide the menu by default */
+  position: absolute;
+  top: 120px;
+  right: -40px;
+  padding: 10px 20px;
+  background: #fff;
+  width: 200px;
+  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  transition: 0.5s;
+  visibility: hidden;
+  opacity: 0;
+}
+.header .action .menu:before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  right: 50px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  transform: rotate(45deg);
+}
+.header .action .menu h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px 0;
+  font-weight: 500;
+  color: #555;
+  line-height: 1.5em;
+}
+.header .action .menu h3 span {
+  font-size: 14px;
+  color: #cecece;
+  font-weight: 300;
+}
+.header .action .menu ul li {
+  list-style: none;
+  padding: 16px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+}
+.header .action .menu ul li img {
+  max-width: 20px;
+  margin-right: 10px;
+  opacity: 0.5;
+  transition: 0.5s;
+}
+.header .action .menu ul li:hover img {
+  opacity: 1;
+}
+.header .action .menu ul li a {
+  display: inline-block;
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+  transition: 0.5s;
+}
+.header .action .menu ul li:hover a {
+  color: #ff5d94;
+}
 .header .header_txt {
   margin: 5px auto 0 0;
   padding: 20px;
 }
-.header .left .search-container {
+
+/******************************************************************************* Search CSS *******************************************************************************/
+.left .search-container {
   display: inline;
   position: relative;
 }
-.header .left .search-container #search {
+.left .search-container #search {
   color: #000;
   text-transform: capitalize;
   position: absolute;
@@ -80,12 +174,12 @@ a {
   border-radius: 5rem;
   transition: all 0.2s ease-in-out;
 }
-.header .left .search-container #search:hover {
+.left .search-container #search:hover {
   width: 20rem;
   height: 3rem;
   margin-right: 10px;
 }
-.header .left .search-container .fa-search {
+.left .search-container .fa-search {
   position: absolute;
   left: -5rem;
   font-size: 1.2rem;
@@ -93,22 +187,22 @@ a {
   z-index: 1;
   transition: all 0.2s ease-in-out;
 }
-.header .left .search-container .fa-search:hover {
+.left .search-container .fa-search:hover {
   color: #004b82;
 }
-.header .left .notification-icon a {
+.left .notification-icon a {
   text-decoration: none;
 }
-.header .left .notification-icon a .fa-bell {
+.left .notification-icon a .fa-bell {
   font-size: 1.2rem;
   color: black;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
-.header .left .notification-icon a .fa-bell:hover {
+.left .notification-icon a .fa-bell:hover {
   color: red;
 }
-.header .left .notification-icon .notification-count {
+.left .notification-icon .notification-count {
   position: absolute;
   top: -12px;
   right: 5px;
@@ -118,7 +212,7 @@ a {
   -webkit-text-decoration: solid;
           text-decoration: solid;
 }
-.header .left #search-results {
+.left #search-results {
   position: absolute;
   top: 100%;
   right: 60px;
@@ -132,7 +226,7 @@ a {
   display: none;
   border-radius: 0 0 0 2rem;
 }
-.header .left #search-results .search-result {
+.left #search-results .search-result {
   display: flex;
   align-items: center;
   padding: 0.5rem;
@@ -142,24 +236,24 @@ a {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
-.header .left #search-results .search-result:hover {
+.left #search-results .search-result:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
-.header .left #search-results .search-result img {
+.left #search-results .search-result img {
   width: 5rem;
   height: 5rem;
   margin-right: 1rem;
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
 }
-.header .left #search-results .search-result:hover img {
+.left #search-results .search-result:hover img {
   transform: scale(1.1);
 }
-.header .left #search-results .search-result span {
+.left #search-results .search-result span {
   font-size: 16px;
 }
-.header .left #search-results .search-result p {
+.left #search-results .search-result p {
   font-size: 16px;
   display: flex;
   margin: auto;
