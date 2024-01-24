@@ -2,6 +2,7 @@
 
 $box-shadow : 0 .5rem 1rem rgba(0, 0, 0, .2);
 $border : 2px solid #c3c6ce;
+$blue : #004b82;
 
 :root {
     --header-height: 3rem;
@@ -11,8 +12,7 @@ $border : 2px solid #c3c6ce;
     --white-color: #F7F6FB;
     --body-font: 'Nunito', sans-serif;
     --normal-font-size: 1rem;
-    --z-fixed: 100
-    --elevation-base-color: black;
+    --z-fixed: 100 --elevation-base-color: black;
 }
 
 html {
@@ -63,6 +63,11 @@ a {
         cursor: pointer
     }
 
+    .header_txt {
+        margin: 5px auto 0 0;
+        padding: 20px;
+    }
+
     /******************************************************************************* Search CSS *******************************************************************************/
 
     .left {
@@ -74,8 +79,8 @@ a {
                 color: #000;
                 text-transform: capitalize;
                 position: absolute;
-                top: -1.5rem;
-                right: 4rem;
+                top: -0.8rem;
+                right: 0;
                 height: 0;
                 width: 0;
                 font-size: 1rem;
@@ -83,30 +88,54 @@ a {
                 border: none;
                 outline: none;
                 border-radius: 5rem;
+                transition: all 0.2s ease-in-out;
 
                 &:hover {
                     width: 20rem;
-                    height: 3.5rem;
-                }
-
-                &:focus {
-                    width: 25rem;
-                    height: 3.5rem;
+                    height: 3rem;
+                    margin-right: 10px;
                 }
             }
 
             .fa-search {
                 position: absolute;
-                top: -.5rem;
-                left: -6.6rem;
+                left: -5rem;
                 font-size: 1.2rem;
                 cursor: pointer;
                 z-index: 1;
+                transition: all 0.2s ease-in-out;
 
                 &:hover {
-                    color: black;
-
+                    color: $blue;
                 }
+            }
+        }
+
+        .notification-icon {
+            
+            a {
+                text-decoration: none;
+
+                .fa-bell {
+                    font-size: 1.2rem;
+                    color: black;
+                    cursor: pointer;
+                    transition: all 0.2s ease-in-out;
+
+                    &:hover {
+                        color: red;
+                    }
+                }
+            }
+
+            .notification-count {
+                position: absolute;
+                top: -12px;
+                right: 5px;
+                color: red;
+                font-size: 12px;
+                font-weight: bolder;
+                text-decoration: solid;
             }
         }
 
@@ -123,7 +152,7 @@ a {
             z-index: 2;
             display: none;
             border-radius: 0 0 0 2rem;
-            
+
             .search-result {
                 display: flex;
                 align-items: center;

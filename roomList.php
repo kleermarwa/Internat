@@ -29,10 +29,19 @@
 <body id="body-pd">
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+        <div class="header_txt">
+            <h5>Tableau de bord</h5>
+        </div>
         <div class="left">
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
                 <input type="search" placeholder="Search Students" id="search">
+            </div>
+            <div class="notification-icon">
+                <a href="cart.php"> <i class="fa fa-bell"></i></a>
+                <div class="notification-count"><?php if (isset($user_id)) {
+                                                    echo $cart_count;
+                                                } ?></div>
             </div>
             <div id="search-results"></div>
         </div>
@@ -48,11 +57,8 @@
                     <a href="roomList.php" class="nav_link active">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="" class="nav_link">
-                        <i class="fas fa-plus-circle"></i> <span class="nav_name">Add New Product</span>
-                    </a>
-                    <a href="" class="nav_link">
-                        <i class="fas fa-users"></i> <span class="nav_name">Customer Management</span>
+                    <a href="decharge.php" class="nav_link">
+                        <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
                 </div>
             </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
