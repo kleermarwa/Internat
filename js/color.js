@@ -10,11 +10,11 @@ function getRoomColor(roomId, buildingData, currentFloor) {
 
     switch (numStudents) {
         case 0:
-            return '#1afa25';
+            return '#175e15';
         case 1:
             return '#66ccff';
         case 2:
-            return 'yellow';
+            return '#d6cf09';
         case 3:
             return 'orange';
         case 4:

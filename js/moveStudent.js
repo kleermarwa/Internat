@@ -1,7 +1,7 @@
 // Function to move a student to another room
 function moveStudent(studentId) {
     // Prompt the user for the new room number
-    const newRoomNumber = prompt('Enter the new room number:');
+    const newRoomNumber = prompt('Entrez le numéro de la nouvelle chambre:');
 
     // Check if the input is valid
     if (newRoomNumber !== null && !isNaN(newRoomNumber) && newRoomNumber !== '') {

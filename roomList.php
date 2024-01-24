@@ -9,9 +9,11 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/select.css">
-    <link rel="stylesheet" href="css/sass.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/select.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/color.js"></script>
     <script src="js/search.js"></script>
     <script src="js/showPopup.js"></script>
@@ -21,13 +23,104 @@
     <script src="js/deleteStudent.js"></script>
     <script src="js/moveStudent.js"></script>
     <script src="js/displayRooms.js"></script>
-
+    <script src="js/navbar.js"></script>
 </head>
+<<<<<<< HEAD
 
 <body>
     <!-- Room map container -->
     <header id="header" class="fixed-top" style="background: none;">
         <div class="fa fa-bars"></div>
+=======
+
+<style>
+    .RoomList {
+        margin-top: 1rem;
+    }
+
+    .filters {
+        margin-bottom: 20px;
+    }
+
+    .pagination-container {
+        text-align: center;
+        margin-top: 20px;
+        clear: both;
+    }
+
+    #data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th,
+    td {
+        padding: 12px;
+        /* Adjusted padding for better spacing */
+        text-align: left;
+        border: 1px solid #ddd;
+        width: 120px;
+        /* Set fixed width for each cell */
+    }
+
+    th {
+        background-color: #f2f2f2;
+        text-align: center;
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    /* Pagination Links */
+    .pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .pagination li {
+        display: inline;
+        margin-right: 5px;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        padding: 10px 14px;
+        /* Adjusted padding for better touch interaction */
+        border: 1px solid #ccc;
+        background-color: #f8f8f8;
+        color: #333;
+        border-radius: 3px;
+    }
+
+    .pagination a:hover {
+        background-color: #e0e0e0;
+    }
+
+    .pagination .active a {
+        background-color: #428bca;
+        color: #fff;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 768px) {
+
+        th,
+        td {
+            width: auto;
+            /* Remove fixed width for smaller screens */
+        }
+    }
+</style>
+
+<body id="body-pd">
+
+    <header id="header" class="header fixed-top" style="background: none;">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+>>>>>>> 85684bf45296119756006c292a492de6c9d3d348
         <div class="left">
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
@@ -35,25 +128,41 @@
             </div>
             <div id="search-results"></div>
         </div>
-        <!-- navbar  -->
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="categories.php">Product</a></li>
-                <li><a href="about.php">About Us</a></li>
-            </ul>
-        </nav>
     </header>
+
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+                <div class="nav_list">
+                    <a href="index.php" class="nav_link">
+                        <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
+                    </a>
+                    <a href="roomList.php" class="nav_link active">
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                    </a>
+                    <a href="" class="nav_link">
+                        <i class="fas fa-plus-circle"></i> <span class="nav_name">Add New Product</span>
+                    </a>
+                    <a href="" class="nav_link">
+                        <i class="fas fa-users"></i> <span class="nav_name">Customer Management</span>
+                    </a>
+                </div>
+            </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+        </nav>
+    </div>
+
     <!-- Buttons to change buildings -->
     <div class="building">
-        <button class="boys" id="boysButton" onclick="changeBuilding('boys')">Internat Garçons</button>
-        <button class="girls" id="girlsButton" onclick="changeBuilding('girls')">Internat Filles</button>
+        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
+        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
     </div>
     <script>
         let currentBuilding = 'boys'; // Default to Boys' Building
         // Function to handle building change
         function changeBuilding(building) {
             currentBuilding = building;
+            // Update the table with the new building data
+            updateTable();
         }
     </script>
     <div class="RoomList">
@@ -73,12 +182,12 @@
         <table id="data-table">
             <thead>
                 <tr>
-                    <th>Room</th>
-                    <th>Student1</th>
-                    <th>Student2</th>
-                    <th>Student3</th>
-                    <th>Student4</th>
-                    <th>Student Count</th>
+                    <th>Chambre</th>
+                    <th>Etudiant(e) 1</th>
+                    <th>Etudiant(e) 2</th>
+                    <th>Etudiant(e) 3</th>
+                    <th>Etudiant(e) 4</th>
+                    <th>Nombre d'Etudiant(e)s</th>
                 </tr>
             </thead>
             <tbody>

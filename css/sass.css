@@ -155,7 +155,7 @@ body {
   height: 4rem;
   width: 25rem;
   border-radius: 5rem;
-  border: 2px solid #fff;
+  border: 2px solid white;
   margin-bottom: 2rem;
   text-align: center;
   font-size: 2rem;
@@ -209,7 +209,7 @@ body {
   height: 15rem;
   border-radius: 50%;
   margin-bottom: 0.5rem;
-  border: 2px solid #fff;
+  border: 2px solid white;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   background: #fff;
 }
@@ -229,7 +229,7 @@ body {
   width: 25rem;
   color: #eee;
   border-radius: 5rem;
-  border: 2px solid #fff;
+  border: 2px solid white;
   text-align: center;
   font-size: 2rem;
   line-height: 4rem;
@@ -487,7 +487,7 @@ body {
   max-width: min-content;
   padding: 10px 20px;
   margin-right: 15px;
-  border: 2px solid #fff;
+  border: 2px solid white;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }

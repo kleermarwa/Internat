@@ -9,10 +9,11 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/select.css">
-    <link rel="stylesheet" href="css/sass.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/color.js"></script>
     <script src="js/search.js"></script>
     <script src="js/showPopup.js"></script>
@@ -21,14 +22,14 @@
     <script src="js/showStudentInfo.js"></script>
     <script src="js/deleteStudent.js"></script>
     <script src="js/moveStudent.js"></script>
+    <script src="js/navbar.js"></script>
+
 </head>
 
-<body>
-    <!-- Room map container -->
-    <div id="roomMap"></div>
+<body id="body-pd">
 
-    <header id="header" class="fixed-top" style="background: none;">
-        <div class="fa fa-bars"></div>
+    <header id="header" class="header fixed-top" style="background: none;">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="left">
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
@@ -36,23 +37,41 @@
             </div>
             <div id="search-results"></div>
         </div>
-        <!-- navbar  -->
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="categories.php">Product</a></li>
-                <li><a href="about.php">About Us</a></li>
-            </ul>
-        </nav>
     </header>
 
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+                <div class="nav_list">
+                    <a href="" class="nav_link active">
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                    </a>
+                    <a href="" class="nav_link">
+                        <i class="fas fa-tasks"></i> <span class="nav_name">Product Management</span>
+                    </a>
+                    <a href="" class="nav_link">
+                        <i class="fas fa-plus-circle"></i> <span class="nav_name">Add New Product</span>
+                    </a>
+                    <a href="" class="nav_link">
+                        <i class="fas fa-users"></i> <span class="nav_name">Customer Management</span>
+                    </a>
+                </div>
+            </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+        </nav>
+    </div>
+
+    <!-- Buttons to change buildings -->
+    <div class="building">
+        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
+        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
+    </div>
     <!-- Floor selection dropdown -->
     <form id="app-cover">
         <div id="select-box">
             <input type="checkbox" id="options-view-button">
             <div id="select-button" class="brd">
                 <div id="selected-value">
-                    <span>Select a floor</span>
+                    <span>Naviguer étage</span>
                 </div>
                 <div id="chevrons">
                     <i class="fas fa-chevron-up"></i>
@@ -64,62 +83,101 @@
                     <input class="s-c top" type="radio" name="platform" value="1">
                     <input class="s-c bottom" type="radio" name="platform" value="1">
                     <i class="fas fa-solid fa-door-open"></i>
-                    <span class="label">Ground floor</span>
-                    <span class="opt-val">Ground floor</span>
+                    <span class="label">Rez de chaussée</span>
+                    <span class="opt-val">Rez de chaussée</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="2">
                     <input class="s-c bottom" type="radio" name="platform" value="2">
                     <i class="fa">1</i>
-                    <span class="label">First Floor</span>
-                    <span class="opt-val">First Floor</span>
+                    <span class="label">1<sup>er</sup> étage</span>
+                    <span class="opt-val">1<sup>er</sup> étage</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="3">
                     <input class="s-c bottom" type="radio" name="platform" value="3">
                     <i class="fa">2</i>
-                    <span class="label">Second Floor</span>
-                    <span class="opt-val">Second Floor</span>
+                    <span class="label">2<sup>ème</sup> étage</span>
+                    <span class="opt-val">2<sup>ème</sup> étage</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="4">
                     <input class="s-c bottom" type="radio" name="platform" value="4">
                     <i class="fa">3</i>
-                    <span class="label">Third Floor</span>
-                    <span class="opt-val">Third Floor</span>
+                    <span class="label">3<sup>ème</sup> étage</span>
+                    <span class="opt-val">3<sup>ème</sup> étage</span>
                 </div>
                 <div class="option">
                     <input class="s-c top" type="radio" name="platform" value="5">
                     <input class="s-c bottom" type="radio" name="platform" value="5">
                     <i class="fa">4</i>
-                    <span class="label">Fourth Floor</span>
-                    <span class="opt-val">Fourth Floor</span>
+                    <span class="label">4<sup>ème</sup> étage</span>
+                    <span class="opt-val">4<sup>ème</sup> étage</span>
                 </div>
                 <div id="option-bg"></div>
             </div>
         </div>
     </form>
 
-    <div class="popup" id="popup">
-        <p>Room Information</p>
-        <p id="popupRoomNumber"></p>
-        <div id="popupImages"></div>
-    </div>
+    <!-- Room map container -->
+    <div id="roomMap">
 
-    <div class="pdopup" id="editPopup">
-        <p>Add new student</p>
-        <div class="search-container" id="editForm">
-            <div class="search-container">
-                <label for="search" class="fa fa-search"></label>
-                <input type="search" placeholder="Search Students" id="search">
-            </div>
-            <div id="search-results"></div>
+        <div class="popup" id="popup">
+            <p style="margin-top: 0.5rem; font-size: 17px">Informations Chambre</p>
+            <p id="popupRoomNumber"></p>
+            <div id="popupImages"></div>
+        </div>
+
+        <div class="info-popup" id="infoPopup"></div>
+
+        <div class="popup" id="editPopup">
+            <p>Ajouter étudiant</p>
+            <form id="editForm">
+                <label for="studentName">Nom de l'étudiant:</label>
+                <input type="text" id="studentName" required>
+                <!-- Add other form fields as needed -->
+                <button class="submit" type="submit">Chercher l'étudiant</button>
+                <div id="studentList"></div>
+                <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>
+
+            </form>
         </div>
     </div>
-
     <script>
         // Room data for each floor
-        const floors = {
+        const boysBuilding = {
+            1: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 1,
+                type: 'room'
+            })),
+            2: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 23,
+                type: 'room'
+            })),
+            3: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 45,
+                type: 'room'
+            })),
+            4: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 67,
+                type: 'room'
+            })),
+            5: Array.from({
+                length: 22
+            }, (_, i) => ({
+                id: i + 89,
+                type: 'room'
+            })),
+        };
+        const girlsBuilding = {
             1: Array.from({
                 length: 22
             }, (_, i) => ({
@@ -152,6 +210,7 @@
             })),
         };
 
+        let currentBuilding = 'boys'; // Default to Boys' Building
         let currentFloor = 1; // Default to Ground Floor
 
         // Room dimensions and layout
@@ -177,14 +236,18 @@
             .attr("width", totalWidth)
             .attr("height", totalHeight);
 
+        const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+
         // Function to update room layout based on the selected floor
         function updateRoomLayout() {
+            const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+
             // Clear existing room groups
             svg.selectAll("g").remove();
 
             // Create rooms for the selected floor
             const roomGroups = svg.selectAll("g")
-                .data(floors[currentFloor])
+                .data(selectedBuilding[currentFloor])
                 .enter()
                 .append("g")
                 .attr("transform", (d, i) => {
@@ -201,7 +264,7 @@
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id)) // Assign color dynamically
+                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) // Assign color dynamically
                 .on("click", showPopup);
 
             // Draw room numbers
@@ -241,6 +304,13 @@
         document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
             radio.addEventListener('change', changeFloor);
         });
+
+        // Function to handle building change
+        function changeBuilding(building) {
+            currentBuilding = building;
+            currentFloor = 1; // Reset floor to Ground Floor when changing building
+            updateRoomLayout();
+        }
 
         // Function to handle floor change
         function changeFloor() {

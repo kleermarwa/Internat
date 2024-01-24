@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if the new room is valid (less than or equal to 110)
     if ($newRoomNumber <= 0 || $newRoomNumber > 110) {
-        echo json_encode(['success' => false, 'error' => 'Invalid room number']);
+        echo json_encode(['success' => false, 'error' => 'Numéro de chambre invalide']);
         exit;
     }
 
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $countStmt->close();
 
     if ($numStudents >= 4) {
-        echo json_encode(['success' => false, 'error' => 'Room is already full']);
+        echo json_encode(['success' => false, 'error' => 'La chambre est déjà pleine']);
         exit;
     }
 

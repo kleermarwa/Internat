@@ -1,6 +1,5 @@
 function showPopup() {
     const roomNumber = d3.select(this).datum().id;
-
     const popup = document.getElementById("popup");
     const popupRoomNumber = document.getElementById("popupRoomNumber");
     const popupImages = document.getElementById("popupImages");
@@ -27,7 +26,7 @@ function showPopup() {
                     <div class="student-container">
                         <img src="${imageUrl}" alt="${student.name}">
                         <p>${student.name}</p>
-                        <button class="student-container-button" onclick="showStudentInfo(${student.id})">Plus d'informations</button>                        
+                        <button class="student-container-button" onclick="showStudentInfo(${student.id})">Plus d'infos</button>                        
                     </div>
                 `;
             });
@@ -52,6 +51,7 @@ function showPopup() {
                     document.removeEventListener("click", closepopupOutside);
                 }
             });
+
         },
         error: function (error) {
             console.log('Error:', error);

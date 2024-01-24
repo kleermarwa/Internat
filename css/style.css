@@ -1,13 +1,119 @@
-/* Position the popup below the student */
-.student-container {
-    position: relative;
-    margin: 10px;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+:root {
+  --header-height: 3rem;
+  --nav-width: 68px;
+  --first-color: #004b82;
+  --first-color-light: #AFA5D9;
+  --white-color: #F7F6FB;
+  --body-font: "Nunito", sans-serif;
+  --normal-font-size: 1rem;
+  --z-fixed: 100 ;
 }
 
-/* Style the "More Info" button */
-.student-container button {
-    margin-top: 5px;
-    cursor: pointer;
+html {
+  scroll-behavior: smooth;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  position: relative;
+  margin: var(--header-height) 0 0 0;
+  padding: 0 1rem;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  transition: 0.5s;
+}
+
+a {
+  text-decoration: none;
+}
+
+/**************************************************************************************************************************************************************************/
+/******************************************************************************* Header CSS *******************************************************************************/
+/**************************************************************************************************************************************************************************/
+.header {
+  width: 100%;
+  height: var(--header-height);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: var(--white-color);
+  z-index: var(--z-fixed);
+  transition: 0.5s;
+  /******************************************************************************* Search CSS *******************************************************************************/
+}
+.header .header_toggle {
+  color: var(--first-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.header .left .search-container {
+  display: inline;
+  position: relative;
+}
+.header .left .search-container #search {
+  color: #000;
+  text-transform: capitalize;
+  position: absolute;
+  top: -1.5rem;
+  right: 4rem;
+  height: 0;
+  width: 0;
+  font-size: 1rem;
+  padding: 0 1rem;
+  border: none;
+  outline: none;
+  border-radius: 5rem;
+}
+.header .left .search-container #search:hover {
+  width: 20rem;
+  height: 3.5rem;
+}
+.header .left .search-container #search:focus {
+  width: 25rem;
+  height: 3.5rem;
+}
+.header .left .search-container .fa-search {
+  position: absolute;
+  top: -0.5rem;
+  left: -6.6rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 1;
+}
+.header .left .search-container .fa-search:hover {
+  color: black;
+}
+.header .left #search-results {
+  position: absolute;
+  top: 100%;
+  right: 60px;
+  width: 25rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  display: none;
+  border-radius: 2rem;
+}
+.header .left #search-results .search-result {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 2px solid #c3c6ce;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 .header .left #search-results .search-result:hover {
   transform: translateY(-0.25rem);
@@ -456,4 +562,75 @@
 }
 .info-popup button:hover {
   scale: 1.1;
+}
+
+/**************************************************************************************************************************************************************************/
+/***************************************************************************** roomList CSS *******************************************************************************/
+/**************************************************************************************************************************************************************************/
+.RoomList {
+  margin-top: 1rem;
+  /* Pagination Links */
+  /* Responsive Styles */
+}
+.RoomList .filters {
+  margin-bottom: 20px;
+}
+.RoomList .pagination-container {
+  text-align: center;
+  margin-top: 20px;
+  clear: both;
+}
+.RoomList #data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.RoomList #data-table th,
+.RoomList #data-table td {
+  padding: 12px;
+  /* Adjusted padding for better spacing */
+  text-align: left;
+  border: 1px solid #ddd;
+  width: 120px;
+  /* Set fixed width for each cell */
+}
+.RoomList #data-table th {
+  background-color: #f2f2f2;
+  text-align: center;
+}
+.RoomList tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+.RoomList .pagination {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.RoomList .pagination li {
+  display: inline;
+  margin-right: 5px;
+}
+.RoomList .pagination li .pagination a {
+  text-decoration: none;
+  padding: 10px 14px;
+  /* Adjusted padding for better touch interaction */
+  border: 1px solid #ccc;
+  background-color: #f8f8f8;
+  color: #333;
+  border-radius: 3px;
+}
+.RoomList .pagination li .pagination a:hover {
+  background-color: #e0e0e0;
+}
+.RoomList .pagination li .pagination .active a {
+  background-color: #428bca;
+  color: #fff;
+}
+@media screen and (max-width: 768px) {
+  .RoomList th,
+  .RoomList td {
+    width: auto;
+    /* Remove fixed width for smaller screens */
+  }
 }/*# sourceMappingURL=style.css.map */
