@@ -1,5 +1,6 @@
 // Function to show more information about a specific student
 function showStudentInfo(studentId) {
+    const infoPopup = document.getElementById("infoPopup");
     // Fetch additional student info using AJAX
     $.ajax({
         url: `getStudentInfo.php?studentId=${studentId}`,
@@ -7,11 +8,11 @@ function showStudentInfo(studentId) {
         dataType: 'json',
         success: function (studentInfo) {
             // Display additional information in a new popup
-            const infoPopup = document.createElement("div");
             const imageUrl = studentInfo.image ? studentInfo.image : 'images/default_user.png';
-            infoPopup.className = "info-popup";
 
-            infoPopup.innerHTML = `
+            infoPopup.innerHTML = "";
+
+            infoPopup.innerHTML += `
                 <div class="card-overlay"></div>
                 <div class="card-inner">
                 <img src="${imageUrl}" alt="${studentInfo.name}">
@@ -28,7 +29,8 @@ function showStudentInfo(studentId) {
                 </div></div>
             `;
 
-            document.body.appendChild(infoPopup);
+            // Show the popup
+            infoPopup.style.display = "block";
 
             // Close the info popup when clicking outside
             document.addEventListener("click", function closeInfoPopupOutside(event) {

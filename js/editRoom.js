@@ -25,7 +25,7 @@ function editRoom(roomNumber) {
         $.ajax({
             url: `search.php?term=${studentName}&building=${currentBuilding}`,
             type: 'GET',
-            dataType: 'json',   
+            dataType: 'json',
             success: function (data) {
                 if (data.length > 0) {
                     // Display the list of students
@@ -62,13 +62,13 @@ function editRoom(roomNumber) {
                                     dataType: 'json',
                                     success: function (response) {
                                         if (response.success) {
-                                            alert('Student added successfully');
+                                            alert('Étudiant ajouté avec succès');
                                             // Close the editing popup
                                             editPopup.style.display = 'none';
                                             // Refresh the room data or update the UI as needed
                                             // You may need to call showPopup or updateRoomLayout function
                                         } else {
-                                            alert('Failed to add student');
+                                            alert('Échec de l\'ajout de l\'étudiant');
                                         }
                                     },
                                     error: function (error) {
@@ -79,9 +79,11 @@ function editRoom(roomNumber) {
                         };
 
                         studentListContainer.appendChild(studentItem);
+                        studentNameInput.value = "";
+
                     });
                 } else {
-                    alert('No students found');
+                    alert('Aucun étudiant trouvé');
                 }
             },
             error: function (error) {
