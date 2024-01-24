@@ -9,9 +9,11 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="css/select.css">
-    <link rel="stylesheet" href="css/sass.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/select.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/color.js"></script>
     <script src="js/search.js"></script>
     <script src="js/showPopup.js"></script>
@@ -20,20 +22,13 @@
     <script src="js/showStudentInfo.js"></script>
     <script src="js/deleteStudent.js"></script>
     <script src="js/moveStudent.js"></script>
+    <script src="js/navbar.js"></script>
 </head>
 
-<body>
-    <!-- Buttons to change buildings -->
-    <div class="building">
-        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
-        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
-    </div>
+<body id="body-pd">
 
-    <!-- Room map container -->
-    <div id="roomMap"></div>
-
-    <header id="header" class="fixed-top" style="background: none;">
-        <div class="fa fa-bars"></div>
+    <header id="header" class="header fixed-top" style="background: none;">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="left">
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
@@ -41,16 +36,34 @@
             </div>
             <div id="search-results"></div>
         </div>
-        <!-- navbar  -->
-        <nav class="navbar">
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="categories.php">Product</a></li>
-                <li><a href="about.php">About Us</a></li>
-            </ul>
-        </nav>
     </header>
 
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+                <div class="nav_list">
+                    <a href="index.php" class="nav_link active">
+                        <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
+                    </a>
+                    <a href="roomList.php" class="nav_link">
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                    </a>
+                    <a href="" class="nav_link">
+                        <i class="fas fa-plus-circle"></i> <span class="nav_name">Add New Product</span>
+                    </a>
+                    <a href="" class="nav_link">
+                        <i class="fas fa-users"></i> <span class="nav_name">Customer Management</span>
+                    </a>
+                </div>
+            </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+        </nav>
+    </div>
+
+    <!-- Buttons to change buildings -->
+    <div class="building">
+        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
+        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
+    </div>
     <!-- Floor selection dropdown -->
     <form id="app-cover">
         <div id="select-box">
@@ -105,25 +118,30 @@
         </div>
     </form>
 
-    <div class="popup" id="popup">
-        <p>Informations Chambre</p>
-        <p id="popupRoomNumber"></p>
-        <div id="popupImages"></div>
+    <!-- Room map container -->
+    <div id="roomMap">
+
+        <div class="popup" id="popup">
+            <p style="margin-top: 0.5rem; font-size: 17px">Informations Chambre</p>
+            <p id="popupRoomNumber"></p>
+            <div id="popupImages"></div>
+        </div>
+
+        <div class="info-popup" id="infoPopup"></div>
+
+        <div class="popup" id="editPopup">
+            <p>Ajouter étudiant</p>
+            <form id="editForm">
+                <label for="studentName">Nom de l'étudiant:</label>
+                <input type="text" id="studentName" required>
+                <!-- Add other form fields as needed -->
+                <button class="submit" type="submit">Chercher l'étudiant</button>
+                <div id="studentList"></div>
+                <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>
+
+            </form>
+        </div>
     </div>
-
-    <div class="popup" id="editPopup">
-        <p>Ajouter étudiant</p>
-        <form id="editForm">
-            <label for="studentName">Nom de l'étudiant:</label>
-            <input type="text" id="studentName" required>
-            <!-- Add other form fields as needed -->
-            <button type="submit">Chercher l'étudiant</button>
-            <div id="studentList"></div>
-            <button id="editCloseButton">Fermer</button>
-
-        </form>
-    </div>
-
     <script>
         // Room data for each floor
         const boysBuilding = {

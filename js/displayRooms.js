@@ -1,74 +1,115 @@
-// roomList.js
+const roomsPerPage = 22;
+let currentPage = 1;
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Function to fetch and display room list
-    function fetchRoomList(building) {
-        // Fetch room data using AJAX
-        for (let roomNumber = 1; roomNumber <= 10; roomNumber++) {
+// Function to display data in the table with pagination
+function displayData(building) {
+    // Remove existing rows from the table
+    $('#data-table tbody').empty();
+
+    // Calculate the start and end indices based on the current page
+    const startIndex = (currentPage - 1) * roomsPerPage + 1;
+    const endIndex = Math.min(startIndex + roomsPerPage - 1, 110);
+
+    // Create an array to store promises for each AJAX request
+    const promises = [];
+
+    // Iterate over the rooms within the current page range
+    for (let roomNumber = startIndex; roomNumber <= endIndex; roomNumber++) {
+        // Push the promise of the AJAX request to the array
+        promises.push(
             $.ajax({
                 url: `getRoomData.php?roomNumber=${roomNumber}&building=${building}`,
                 type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    console.log(data)
-                    displayRoomList(data);
-                },
-                error: function (error) {
-                    console.log('Error:', error);
-                }
+                dataType: 'json'
+            })
+        );
+    }
+
+    // Use Promise.all() to wait for all promises to resolve
+    Promise.all(promises)
+        .then(dataArray => {
+            // Iterate over the received data and update the table
+            dataArray.forEach((data, index) => {
+                const roomNumber = startIndex + index;
+                const row = `
+                    <tr>
+                        <td>${roomNumber}</td>
+                        ${getStudentColumns(data)}
+                        <td>${data.length}</td>
+                    </tr>
+                `;
+                $('#data-table tbody').append(row);
             });
+
+            // Update the pagination links
+            updatePagination();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+
+
+// Function to generate HTML for student columns
+function getStudentColumns(data) {
+    let columnsHTML = '';
+
+    // Iterate over the students in the room
+    for (let i = 1; i <= 4; i++) {
+        const student = data[i - 1]; // Get the i-th student
+
+        // Check if there is a student for the current column
+        if (student) {
+            // Add the student column
+            columnsHTML += `
+                <td>
+                    ${student.name}
+                </td>
+            `;
+        } else {
+            // No student for the current column, display "-"
+            columnsHTML += '<td>-</td>';
         }
     }
 
- // Function to display room list in the table
- function displayRoomList(data) {
-    // Select the table body where the list will be displayed
-    const tableBody = document.querySelector("#data-table tbody");
+    return columnsHTML;
+}
 
-    // Clear existing content
-    tableBody.innerHTML = "";
+// Function to update the table when the filter changes
+function updateTable() {
+    const building = currentBuilding;
 
-    // Iterate through all rooms (110 rooms)
-    for (let roomNumber = 1; roomNumber <= 10; roomNumber++) {
-        // Find the room data for the current room number
-        const room = data.find(room => room.room_number === roomNumber);
+    // Call the displayData function to update the table
+    displayData(building);
+}
 
-        // Create a table row for each room
-        var tableRow = '<tr>';
-        tableRow += '<td>' + roomNumber + '</td>';
+// Initialize the table when the page loads
+$(document).ready(function () {
+    // Attach the updateTable function to the filter change event
+    $('#filter').change(updateTable);
 
-        // Iterate through each student in the room
-        for (let i = 0; i < 4; i++) {
-            if (room && i < room.students.length) {
-                tableRow += '<td>' + room.students[i].name + '</td>';
-            } else {
-                // If there are fewer than 4 students, leave the remaining cells empty
-                tableRow += '<td>-</td>';
-            }
-        }
+    // Call the displayData function with default values (building: boys)
+    displayData('boys');
+});
 
-        // Add student count to the row
-        const studentCountCell = '<td>' + (room ? room.students.length : 0) + '</td>';
-        tableRow += studentCountCell;
+// Function to update the pagination links
+function updatePagination() {
+    // Remove existing pagination links
+    $('.pagination').empty();
 
-        // Append the row to the table body
-        tableRow += '</tr>';
-        tableBody.innerHTML += tableRow;
+    // Calculate the total number of pages
+    const totalPages = Math.ceil(110 / roomsPerPage);
+
+    // Add pagination links for each page
+    for (let page = 1; page <= totalPages; page++) {
+        const liClass = page === currentPage ? 'active' : '';
+        $('.pagination').append(`<li class="${liClass}"><a href="#" onclick="changePage(${page})">${page}</a></li>`);
     }
 }
 
-    // Fetch room list for boys (initial load)
-    fetchRoomList('boys');
 
-    // Event listeners for building buttons
-    const boysButton = document.getElementById("boysButton");
-    const girlsButton = document.getElementById("girlsButton");
-
-    boysButton.addEventListener("click", function () {
-        fetchRoomList('boys');
-    });
-
-    girlsButton.addEventListener("click", function () {
-        fetchRoomList('girls');
-    });
-});
+// Function to change the current page
+function changePage(newPage) {
+    currentPage = newPage;
+    updateTable();
+}
