@@ -23,92 +23,9 @@
     <script src="js/displayRooms.js"></script>
 
 </head>
-<style>
-    .RoomList {
-        margin-top: 20rem;
-        /* Changed from 30rem to 3rem for a more reasonable margin */
-    }
-
-    .filters {
-        margin-bottom: 20px;
-    }
-
-    .pagination-container {
-        text-align: center;
-        margin-top: 20px;
-        clear: both;
-    }
-
-    #data-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-
-    th,
-    td {
-        padding: 12px;
-        /* Adjusted padding for better spacing */
-        text-align: left;
-        border: 1px solid #ddd;
-        width: 120px;
-        /* Set fixed width for each cell */
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    /* Pagination Links */
-    .pagination {
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-    }
-
-    .pagination li {
-        display: inline;
-        margin-right: 5px;
-    }
-
-    .pagination a {
-        text-decoration: none;
-        padding: 10px 14px;
-        /* Adjusted padding for better touch interaction */
-        border: 1px solid #ccc;
-        background-color: #f8f8f8;
-        color: #333;
-        border-radius: 3px;
-    }
-
-    .pagination a:hover {
-        background-color: #e0e0e0;
-    }
-
-    .pagination .active a {
-        background-color: #428bca;
-        color: #fff;
-    }
-
-    /* Responsive Styles */
-    @media screen and (max-width: 768px) {
-
-        th,
-        td {
-            width: auto;
-            /* Remove fixed width for smaller screens */
-        }
-    }
-</style>
 
 <body>
     <!-- Room map container -->
-
     <header id="header" class="fixed-top" style="background: none;">
         <div class="fa fa-bars"></div>
         <div class="left">
