@@ -27,8 +27,8 @@
 </head>
 
 <body id="body-pd">
-    <header id="header" class="fixed-top" style="background: none;">
-        <div class="fa fa-bars"></div>
+    <header id="header" class="header fixed-top" style="background: none;">
+        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="left">
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
@@ -42,10 +42,10 @@
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="index.php" class="nav_link">
+                    <a href="index.php" class="nav_link active">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
-                    <a href="roomList.php" class="nav_link active">
+                    <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <a href="" class="nav_link">
