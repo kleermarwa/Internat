@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Move student to another room
-    $query = "UPDATE students SET room_number = ? WHERE id = ?";
+    $query = "UPDATE students SET room_number = ? , status = 'interne' WHERE id = ?";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param('ii', $newRoomNumber, $studentId);

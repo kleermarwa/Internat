@@ -17,17 +17,26 @@ function showStudentInfo(studentId) {
                 <div class="card-inner">
                 <img src="${imageUrl}" alt="${studentInfo.name}">
                 <p class='name'>${studentInfo.name}</p>
+                <p style="text-transform: capitalize;">Status: ${studentInfo.status}</p>
                 <p>Email: ${studentInfo.email}</p>
                 <p>Date de naissance ${studentInfo.date_naissance}</p>
                 <p>Ville: ${studentInfo.ville}</p>
                 <p>Téléphone: ${studentInfo.tel}</p>
                 <p>Fillière: ${studentInfo.filliere}</p>
-                <p>Année: ${studentInfo.annee_scolaire}</p>
+                <p>Année: ${studentInfo.annee_scolaire}</p>`;
+            if (studentInfo.status === 'interne') {
+                infoPopup.innerHTML += `
                 <div class='btn'>
                 <button style='color:red' onclick="deleteStudent(${studentId})">Supprimer l'étudiant <i class="fa fa-trash"></i></button>
                 <button style='color:blue' onclick="moveStudent(${studentId})">Deplacer l'étudiant <i class="fa fa-arrow-right"></i></button>
-                </div></div>
-            `;
+                </div></div> `;
+            }
+            else {
+                infoPopup.innerHTML += `
+                <div class='btn' style='display:block'>
+                <button style='color:blue' onclick="moveStudent(${studentId})">Ajouter à une chambre <i class="fa fa-arrow-right"></i></button>
+                </div></div> `;
+            }
 
             // Show the popup
             infoPopup.style.display = "block";

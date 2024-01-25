@@ -16,11 +16,21 @@ $(document).ready(function () {
                     var results = '';
                     if (data.length > 0) {
                         $.each(data, function (index, student) {
-                            results += '<div class="search-result" onclick="showPopupStudent(' + student.roomNumber + ')">';
-                            results += '<img src="' + student.image + '" width="50">';
-                            results += '<div> <span>' + student.label + '</span><br>';
-                            results += '<span> Chambre: ' + student.roomNumber + '</span> </div>';
-                            results += '</div>';
+                            if (student.status === 'interne') {
+                                results += '<div class="search-result" onclick="showPopupStudent(' + student.roomNumber + ')">';
+                                results += '<img src="' + student.image + '" width="50">';
+                                results += '<div> <span>' + student.label + '</span><br>';
+                                results += '<span> Status: <span style="color:green; text-transform: capitalize;">' + student.status + '</span></span><br>';
+                                results += '<span> Chambre: ' + student.roomNumber + '</span> </div>';
+                                results += '</div>';
+                            }
+                            else {
+                                results += '<div class="search-result" onclick="showStudentInfo(' + student.id + ')" >';
+                                results += '<img src="' + student.image + '" width="50">';
+                                results += '<div> <span>' + student.label + '</span><br>';
+                                results += '<span> Status: <span style="color:red; text-transform: capitalize;">' + student.status + '</span></span> </div> <br>';
+                                results += '</div>';
+                            }
                         });
                         $searchResults.html(results).show();
                     } else {

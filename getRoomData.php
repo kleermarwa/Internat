@@ -7,9 +7,9 @@ $building = $_GET['building'];
 
 // Fetch student data for the given room and building
 if ($building == 'boys') {
-    $sql = "SELECT * FROM students WHERE room_number = $roomNumber AND genre = 'boy'";
+    $sql = "SELECT * FROM students WHERE room_number = $roomNumber AND status='interne' AND genre = 'boy'";
 } else {
-    $sql = "SELECT * FROM students WHERE room_number = $roomNumber AND genre = 'girl'";
+    $sql = "SELECT * FROM students WHERE room_number = $roomNumber AND status='interne' AND genre = 'girl'";
 }
 
 $result = $conn->query($sql);

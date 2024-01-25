@@ -10,14 +10,14 @@ $building = $_GET['building'];
 
 // Prepare SQL query
 if ($building == 'boys') {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number FROM students WHERE name LIKE ? AND genre = 'boy'");
+    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'boy'");
 } else {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number FROM students WHERE name LIKE ? AND genre = 'girl'");
+    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'girl'");
 }
 $search_term = "%$search_term%";
 $stmt->bind_param('s', $search_term);
 $stmt->execute();
-$stmt->bind_result($id, $name, $image, $room_number);
+$stmt->bind_result($id, $name, $image, $room_number, $status);
 
 // Build the search results array
 $search_results = array();
@@ -27,7 +27,8 @@ while ($stmt->fetch()) {
         'label' => $name,
         'value' => $name,
         'image' => $image,
-        'roomNumber' => $room_number
+        'roomNumber' => $room_number,
+        'status' => $status
     );
 }
 
