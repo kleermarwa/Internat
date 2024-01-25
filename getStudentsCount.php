@@ -11,9 +11,9 @@ function getNumStudentsInRoom($roomId, $building)
 
     // Perform a query to count the number of students in the specified room
     if ($building == 'boys') {
-        $query = "SELECT COUNT(*) as num_students FROM students WHERE room_number = ? AND genre = 'boy'";
+        $query = "SELECT COUNT(*) as num_students FROM students WHERE room_number = ? AND status='interne' AND genre = 'boy'";
     } else {
-        $query = "SELECT COUNT(*) as num_students FROM students WHERE room_number = ? AND genre = 'girl'";
+        $query = "SELECT COUNT(*) as num_students FROM students WHERE room_number = ? AND status='interne' AND genre = 'girl'";
     }
 
     // Use prepared statements to prevent SQL injection

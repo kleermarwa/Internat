@@ -1,16 +1,15 @@
 <?php
-require_once('d
-'); // Replace with your actual database connection file
+require_once('db_connect.php'); // Replace with your actual database connection file
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $studentId = $_POST['studentId'];
 
     // Delete student from the room
-    $query = "UPDATE students SET room_number = NULL WHERE id = ?";
-    
+    $query = "UPDATE students SET room_number = NULL, status = 'externe' WHERE id = ?";
+
     $stmt = $conn->prepare($query);
     $stmt->bind_param('i', $studentId);
-    
+
     if ($stmt->execute()) {
         echo json_encode(['success' => true]);
     } else {
@@ -19,4 +18,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid request method']);
 }
-?>
