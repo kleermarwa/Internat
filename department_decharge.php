@@ -21,17 +21,17 @@ session_start();
 <body id="body-pd">
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="error-message" onclick="this.remove()"><?php echo $_SESSION['error'];
-                                    unset($_SESSION['error']); ?></div>
+                                                            unset($_SESSION['error']); ?></div>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['success'])) : ?>
         <div class="success-message" onclick="this.remove()"><?php echo $_SESSION['success'];
-                                        unset($_SESSION['success']); ?></div>
+                                                                unset($_SESSION['success']); ?></div>
     <?php endif; ?>
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Demande de décharge</h5>
+            <h5>Validation de décharge - Département </h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -83,33 +83,55 @@ session_start();
             <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
                     <a href="index.php" class="nav_link active">
-                        <i class="fas fa-home"></i> <span class="nav_name">Home</span>
+                        <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
-                    <a href="index.php" class="nav_link">
-                        <i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>
+                    <a href="roomList.php" class="nav_link">
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="decharge.php" class="nav_link">
-                        <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>
-                    </a>
-                    <a href="" class="nav_link">
-                        <i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>
+                    <a href="department_decharge.php" class="nav_link">
+                        <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
                 </div>
             </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demande de décharge</h2>
-
-    <form class="discharge-container" action="submit_request.php" method="post">
-        <button class="discharge-button" type="submit" name="create_request">Créer une demande</button>
-    </form>
+    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge</h2>
 
     <hr>
 
     <div> <?php
-            include 'display_requests.php';
-            ?></div>
+            include 'db_connect.php';
+
+            // Retrieve pending requests from the database (adjust the SQL query based on your schema)
+            $sql = "SELECT decharge.*, students.*
+FROM decharge
+JOIN students ON decharge.student_id = students.id
+WHERE decharge.status = 'pending' AND decharge.valide_departement = 0;
+";
+            $result = $conn->query($sql);
+
+            // Display requests in a table
+            echo "<div class='RoomList'>";
+            echo "<table id='data-table'>";
+            echo '<thead><tr><th>Numéro de requete</th><th>Nom de l\'édudiant</th><th>Submission Date</th><th>Action</th></tr></thead>';
+            echo '<tbody>';
+
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>' . $row['id_demande'] . '</td>';
+                echo '<td>' . $row['id'] . '</td>';
+                echo '<td>' . $row['name'] . '</td>';
+                echo '<td>' . $row['created_at'] . '</td>';
+
+                // Action button to validate the request
+                echo '<td><a href="validate_request.php?request_id=' . $row['id_demande'] . '">Validate</a></td>';
+
+                echo '</tr>';
+            }
+
+            echo '</tbody></table>';
+            ?>
 </body>
 
 </html>

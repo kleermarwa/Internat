@@ -39,8 +39,8 @@
             <div class="notification-icon">
                 <a href="cart.php"> <i class="fa fa-bell"></i></a>
                 <div class="notification-count"><?php if (isset($user_id)) {
-                                            echo $cart_count;
-                                        } ?></div>
+                                                    echo $cart_count;
+                                                } ?></div>
             </div>
             <div id="search-results"></div>
         </div>
@@ -56,9 +56,39 @@
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="decharge.php" class="nav_link">
-                        <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
-                    </a>
+                    <?php
+                    $_SESSION['user_role'] = 'Department';
+
+                    // Check if the user is logged in
+                    if (isset($_SESSION['user_role'])) {
+                        // Determine the appropriate href based on the user's role
+                        switch ($_SESSION['user_role']) {
+                            case 'Student':
+                                $href = 'decharge.php'; // Adjust the link for students
+                                break;
+                            case 'Department':
+                                $href = 'department_decharge.php'; // Adjust the link for department validators
+                                break;
+                            case 'Service_des_affaires_dinternat':
+                                $href = 'boarding_affairs_validator_dashboard.php'; // Adjust the link for boarding affairs validators
+                                break;
+                            case 'Service_economique':
+                                $href = 'economic_service_validator_dashboard.php'; // Adjust the link for economic service validators
+                                break;
+                            case 'Administration':
+                                $href = 'administration_validator_dashboard.php'; // Adjust the link for administration validators
+                                break;
+                        }
+                    } else {
+                        // Set a default link for users who are not logged in
+                        $href = 'login.php';
+                    }
+
+                    // Output the dynamically generated link
+                    echo '<a href="' . $href . '" class="nav_link">';
+                    echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
+                    echo '</a>';
+                    ?>
                 </div>
             </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
