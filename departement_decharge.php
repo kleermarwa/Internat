@@ -114,21 +114,34 @@ WHERE decharge.status = 'pending' AND decharge.valide_departement = 0;
             // Display requests in a table
             echo "<div class='RoomList'>";
             echo "<table id='data-table'>";
-            echo '<thead><tr><th>Numéro de requete</th><th>Nom de l\'édudiant</th><th>Submission Date</th><th>Action</th></tr></thead>';
+            echo '<thead><tr><th>Numéro de requete</th><th>Nom de l\'étudiant</th><th>Status</th>';
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                echo $row['status'] === 'interne' ? '<th>N° chambre</th>' : '';
+            }
+            echo '<th>Filière</th><th>Date de création</th><th>Action</th></tr></thead>';
             echo '<tbody>';
+
+            // Reset the result pointer to the beginning of the result set
+            $result->data_seek(0);
 
             while ($row = $result->fetch_assoc()) {
                 echo '<tr>';
                 echo '<td>' . $row['id_demande'] . '</td>';
-                echo '<td>' . $row['id'] . '</td>';
                 echo '<td>' . $row['name'] . '</td>';
+                echo '<td>' . $row['status'] . '</td>';
+                echo $row['status'] === 'interne' ? '<td>' . $row['room_number'] . '</td>' : '';
+                echo '<td>' . $row['filliere'] . '</td>';
                 echo '<td>' . $row['created_at'] . '</td>';
-
                 // Action button to validate the request
-                echo '<td><a href="validate_request.php?request_id=' . $row['id_demande'] . '">Validate</a></td>';
-
+                echo '<td><a href="departement_validation.php?request_id=' . $row['id_demande'] . '">Validate</a></td>';
                 echo '</tr>';
             }
+
+            echo '</tbody>';
+            echo '</table>';
+            echo '</div>';
+
 
             echo '</tbody></table>';
             ?>
