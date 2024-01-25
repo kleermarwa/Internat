@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_request'])) {
@@ -11,13 +12,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_request'])) {
     $result = $selectStmt->get_result();
 
     if ($result->num_rows > 0) {
-        echo "You have already submitted a discharge request.";
+        $_SESSION['error'] = "Vous avez déjà soumis une demande de décharge.";
+        header('Location: decharge.php');
+        exit();
     } else {
         $insertQuery = "INSERT INTO decharge (student_id) VALUES (?)";
         $insertStmt = $conn->prepare($insertQuery);
         $insertStmt->bind_param('i', $studentId);
 
         if ($insertStmt->execute()) {
+            $_SESSION['success'] = "Demande crée avec succes!";
             header('Location: decharge.php');
             exit();
         } else {

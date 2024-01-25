@@ -9,15 +9,15 @@ $selectStmt->bind_param('i', $studentId);
 $selectStmt->execute();
 $result = $selectStmt->get_result();
 
-echo "<h2>Votre demande de charge précédente:</h2>";
+echo "<h3 style='text-align: center'>Votre demande de décharge précédente:</h3>";
 if ($result->num_rows > 0) {
     echo "<div class='RoomList'>";
     echo "<table id='data-table'>";
-    echo "<tr><th>ID de la demande</th><th>Date de soumission</th><th>Status</th></tr>";
+    echo "<tr><th>Numéro de la demande</th><th>Date de soumission</th><th>Status</th></tr>";
 
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td>" . $row['id'] . "</td>";
+        echo "<td>" . $row['id_demande'] . "</td>";
         echo "<td>" . $row['created_at'] . "</td>";
         echo "<td>" . $row['status'] . "</td>";
         echo "</tr>";
