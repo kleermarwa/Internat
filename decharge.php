@@ -87,21 +87,17 @@
         </nav>
     </div>
 
-    <h1>Discharge Request</h1>
+    <h1>Demande de décharge</h1>
 
-    <!-- Button to Create Request -->
     <form action="submit_request.php" method="post">
-        <button type="submit" name="create_request">Create Discharge Request</button>
+        <button type="submit" name="create_request">Créer une demande</button>
     </form>
 
     <hr>
 
-    <!-- Previous Requests -->
-    <h2>Your Previous Requests:</h2>
-    <?php
-    // Fetch and display previous discharge requests for the student
-    // ...
-    ?>
+    <div> <?php
+            include 'display_requests.php';
+            ?></div>
 </body>
 
 </html>
