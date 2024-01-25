@@ -65,20 +65,19 @@
         </nav>
     </div>
 
-    <!-- Buttons to change buildings -->
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
         <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
     </div>
+
     <script>
-        let currentBuilding = 'boys'; // Default to Boys' Building
-        // Function to handle building change
+        let currentBuilding = 'boys'; 
         function changeBuilding(building) {
             currentBuilding = building;
-            // Update the table with the new building data
             updateTable();
         }
     </script>
+
     <div class="RoomList">
         <div class="filters">
             <label for="filter">Filter by Room:</label>
@@ -91,7 +90,6 @@
                 ?>
             </select>
         </div>
-
 
         <table id="data-table">
             <thead>
@@ -111,7 +109,7 @@
 
         <div class='pagination-container'>
             <ul class="pagination">
-                <!--	Here the JS Function Will Add the Rows -->
+                <!-- Here the JS Function Will Add the Rows -->
             </ul>
         </div>
     </div>

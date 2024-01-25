@@ -1,25 +1,31 @@
-<!-- submit_request.php -->
 <?php
-// Include your database connection and other necessary files
-// ...
+include 'db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_request'])) {
-    // Assuming you have the student ID from the session
-    $studentId = $_SESSION['student_id'];
+    $studentId = 1;
 
-    // Insert the request into the database
-    $insertQuery = "INSERT INTO decharge (student_id) VALUES (?)";
-    $insertStmt = $conn->prepare($insertQuery);
-    $insertStmt->bind_param('i', $studentId);
+    $selectQuery = "SELECT * FROM decharge WHERE student_id = ?";
+    $selectStmt = $conn->prepare($selectQuery);
+    $selectStmt->bind_param('i', $studentId);
+    $selectStmt->execute();
+    $result = $selectStmt->get_result();
 
-    if ($insertStmt->execute()) {
-        echo "Request submitted successfully!";
+    if ($result->num_rows > 0) {
+        echo "You have already submitted a discharge request.";
     } else {
-        echo "Failed to submit request.";
-    }
+        $insertQuery = "INSERT INTO decharge (student_id) VALUES (?)";
+        $insertStmt = $conn->prepare($insertQuery);
+        $insertStmt->bind_param('i', $studentId);
 
-    $insertStmt->close();
-    $conn->close();
+        if ($insertStmt->execute()) {
+            header('Location: decharge.php');
+            exit();
+        } else {
+            echo "Failed to submit request.";
+        }
+        $insertStmt->close();
+        $conn->close();
+    }
 } else {
     echo "Invalid request method.";
 }

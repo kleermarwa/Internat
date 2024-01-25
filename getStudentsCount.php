@@ -1,15 +1,11 @@
 <?php
-// Include your database connection file
 include('db_connect.php');
 
-    $building = $_GET['building'];
-
-// Function to get the number of students in a room
+$building = $_GET['building'];
 function getNumStudentsInRoom($roomId, $building)
 {
-    global $conn; // Assuming $conn is your database connection object
+    global $conn; 
 
-    // Perform a query to count the number of students in the specified room
     if ($building == 'boys') {
         $query = "SELECT COUNT(*) as num_students FROM students WHERE room_number = ? AND status='interne' AND genre = 'boy'";
     } else {
@@ -35,18 +31,13 @@ function getNumStudentsInRoom($roomId, $building)
     return $numStudents;
 }
 
-// Get the room ID from the request (assumes it's sent via POST)
 $roomId = isset($_GET['roomId']) ? $_GET['roomId'] : null;
 
-// Check if roomId is set and not empty
 if ($roomId !== null && !empty($roomId)) {
-    // Call the function and echo the result
-    $numStudents = getNumStudentsInRoom($roomId,$building);
+    $numStudents = getNumStudentsInRoom($roomId, $building);
     echo json_encode(['success' => true, 'numStudents' => $numStudents]);
 } else {
-    // Return an error if roomId is not provided
     echo json_encode(['success' => false, 'message' => 'Room ID not provided.']);
 }
 
-// Close the database connection
 $conn->close();
