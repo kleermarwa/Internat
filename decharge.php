@@ -1,5 +1,5 @@
 <?php
-session_start();
+include 'user_info.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,27 +21,27 @@ session_start();
 <body id="body-pd">
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="error-message" onclick="this.remove()"><?php echo $_SESSION['error'];
-                                    unset($_SESSION['error']); ?></div>
+                                                            unset($_SESSION['error']); ?></div>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['success'])) : ?>
         <div class="success-message" onclick="this.remove()"><?php echo $_SESSION['success'];
-                                        unset($_SESSION['success']); ?></div>
+                                                                unset($_SESSION['success']); ?></div>
     <?php endif; ?>
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Demande de décharge</h5>
+            <h5>Profil</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
-                <img src="images/default_user.png" />
+                <img src="<?php echo $image ?>" />
             </div>
             <div class="menu" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
-                <h3>Lorem Ipsum<br /><span>Bouragba</span></h3>
+                <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="images/user.png" /><a href="#">Mon Profile</a>
+                        <img src="images/user.png" /><a href="Student.php">Mon Profile</a>
                     </li>
                     <li>
                         <img src="images/edit.png" /><a href="#">Modifier Profile</a>
@@ -53,7 +53,8 @@ session_start();
                         <img src="images/question.png" /><a href="#">Aide</a>
                     </li>
                     <li>
-                        <img src="images/log-out.png" /><a href="#">Logout</a>
+                        <img src="images/log-out.png" />
+                        <a href="user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
                     </li>
                 </ul>
             </div>

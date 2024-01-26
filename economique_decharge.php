@@ -1,5 +1,6 @@
 <?php
-session_start();
+include 'user_info.php';
+$_SESSION['role'] == 'economique' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">

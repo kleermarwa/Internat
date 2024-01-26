@@ -1,11 +1,7 @@
 <?php
-include 'db_connect.php';
-
-$studentId = 1;
-
 $selectQuery = "SELECT * FROM decharge WHERE student_id = ?";
 $selectStmt = $conn->prepare($selectQuery);
-$selectStmt->bind_param('i', $studentId);
+$selectStmt->bind_param('i', $user_id);
 $selectStmt->execute();
 $result = $selectStmt->get_result();
 

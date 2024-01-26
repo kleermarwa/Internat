@@ -18,8 +18,8 @@ if (isset($_POST['login'])) {
             case 'student':
                 $href = 'student.php'; // Adjust the link for students
                 break;
-            case 'department':
-                $href = 'department_decharge.php'; // Adjust the link for department validators
+            case 'departement':
+                $href = 'departement_decharge.php'; // Adjust the link for department validators
                 break;
             case 'internat':
                 $href = 'boarding_affairs_validator_dashboard.php'; // Adjust the link for boarding affairs validators
