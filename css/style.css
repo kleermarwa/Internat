@@ -183,6 +183,35 @@ a {
 }
 
 /******************************************************************************* Search CSS *******************************************************************************/
+.dechargeSearch {
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  width: 500px;
+  height: 50px;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.box > i {
+  font-size: 20px;
+  color: #2c2c2c;
+}
+
+.box > input {
+  flex: 1;
+  height: 40px;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
 .left {
   margin-right: 7rem;
 }
