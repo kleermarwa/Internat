@@ -71,6 +71,23 @@ if (isset($_GET['logout'])) {
     header("Location: login.php");
 };
 
+$sqlcount = "SELECT decharge.*, students.*
+        FROM decharge
+        JOIN students ON decharge.student_id = students.id
+        WHERE decharge.valide_departement = 0
+          AND decharge.notification_status = 'unread'
+        ORDER BY decharge.created_at DESC";
+$result = $conn->query($sqlcount);
+
+$notifications = array();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $notifications[] = $row;
+    }
+}
+$count = count($notifications);
+
+
 // elseif (isset($_GET['id'])) {
     // Check if user ID is set
 //     $id = $_GET['id'];

@@ -27,6 +27,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     <script src="../js/deleteStudent.js"></script>
     <script src="../js/moveStudent.js"></script>
     <script src="../js/navbar.js"></script>
+    <script src="../js/notifications.js"></script>
 </head>
 
 <body id="body-pd">
@@ -80,12 +81,16 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 <label for="search" class="fa fa-search"></label>
                 <input type="search" placeholder="Search Students" id="search">
             </div>
-            <div class="notification-icon">
-                <a href="cart.php"> <i class="fa fa-bell"></i></a>
-                <div class="notification-count"><?php if (isset($user_id)) {
-                                                    echo "1";
-                                                } ?></div>
+            <!-- Add this within your HTML body where the bell icon is located -->
+            <div class="notification-icon" onclick="fetchNotifications()">
+                <i class="fa fa-bell"></i>
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <!-- Notification dropdown content -->
+                <div class="notification-dropdown">
+                    <!-- Notifications will be dynamically added here via JavaScript -->
+                </div>
             </div>
+
             <div id="search-results"></div>
         </div>
     </header>
