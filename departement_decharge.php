@@ -134,7 +134,7 @@ WHERE decharge.status = 'pending' AND decharge.valide_departement = 0;
                 echo '<td>' . $row['filliere'] . '</td>';
                 echo '<td>' . $row['created_at'] . '</td>';
                 // Action button to validate the request
-                echo '<td><a href="departement_validation.php?request_id=' . $row['id_demande'] . '">Validate</a></td>';
+                echo '<td><a href="departement_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Validate</a></td>';
                 echo '</tr>';
             }
 
