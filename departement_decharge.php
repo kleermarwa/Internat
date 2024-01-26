@@ -1,5 +1,6 @@
 <?php
-session_start();
+include 'user_info.php';
+$_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,51 @@ session_start();
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/navbar.js"></script>
+
+    <style>
+        .validateDecharge {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            padding-block: 0.5rem;
+            padding-inline: 1.25rem;
+            background-color: #5cb85c;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffff;
+            gap: 10px;
+            font-weight: bold;
+            border: 3px solid #ffffff4d;
+            outline: none;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        .validateDecharge:hover {
+            color: white;
+            transform: scale(1.05);
+            border-color: #fff9;
+        }
+
+        .validateDecharge:hover::before {
+            animation: shine 1.5s ease-out infinite;
+        }
+
+        .validateDecharge::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100%;
+            background-image: linear-gradient(120deg,
+                    rgba(255, 255, 255, 0) 30%,
+                    rgba(255, 255, 255, 0.8),
+                    rgba(255, 255, 255, 0) 70%);
+            top: 0;
+            left: -100px;
+            opacity: 0.6;
+        }
+    </style>
 </head>
 
 <body id="body-pd">
@@ -31,17 +77,17 @@ session_start();
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Validation de décharge - Département </h5>
+            <h5>Profil</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
-                <img src="images/default_user.png" />
+                <img src="<?php echo $image ?>" />
             </div>
             <div class="menu" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
-                <h3>Lorem Ipsum<br /><span>Bouragba</span></h3>
+                <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="images/user.png" /><a href="#">Mon Profile</a>
+                        <img src="images/user.png" /><a href="Student.php">Mon Profile</a>
                     </li>
                     <li>
                         <img src="images/edit.png" /><a href="#">Modifier Profile</a>
@@ -53,7 +99,8 @@ session_start();
                         <img src="images/question.png" /><a href="#">Aide</a>
                     </li>
                     <li>
-                        <img src="images/log-out.png" /><a href="#">Logout</a>
+                        <img src="images/log-out.png" />
+                        <a href="user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -101,14 +148,12 @@ session_start();
     <hr>
 
     <div> <?php
-            include 'db_connect.php';
-
             // Retrieve pending requests from the database (adjust the SQL query based on your schema)
             $sql = "SELECT decharge.*, students.*
-FROM decharge
-JOIN students ON decharge.student_id = students.id
-WHERE decharge.status = 'pending' AND decharge.valide_departement = 0;
-";
+            FROM decharge
+            JOIN students ON decharge.student_id = students.id
+            WHERE decharge.status = 'pending' AND decharge.valide_departement = 0;
+            ";
             $result = $conn->query($sql);
 
             // Display requests in a table
@@ -133,8 +178,7 @@ WHERE decharge.status = 'pending' AND decharge.valide_departement = 0;
                 echo $row['status'] === 'interne' ? '<td>' . $row['room_number'] . '</td>' : '';
                 echo '<td>' . $row['filliere'] . '</td>';
                 echo '<td>' . $row['created_at'] . '</td>';
-                // Action button to validate the request
-                echo '<td><a href="departement_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Validate</a></td>';
+                echo '<td><a class="validateDecharge" href="departement_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Valider</a></td>';
                 echo '</tr>';
             }
 

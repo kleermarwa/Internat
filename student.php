@@ -1,5 +1,6 @@
 <?php
 include 'user_info.php';
+$_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,10 @@ include 'user_info.php';
     <link rel="stylesheet" href="css/style.css">
     <script src="js/navbar.js"></script>
     <style>
+        .etudiant-infos tr td {
+            padding-bottom: 10px;
+        }
+
         ol,
         ul {
             padding-left: 0rem;
