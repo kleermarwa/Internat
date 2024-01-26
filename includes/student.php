@@ -1,6 +1,6 @@
 <?php
 include 'user_info.php';
-$_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,14 @@ $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaul
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internat</title>
-    <link rel="shortcut icon" href="images/ESTC.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/navbar.js"></script>
     <style>
         .etudiant-infos tr td {
             padding-bottom: 10px;
@@ -54,20 +54,20 @@ $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaul
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="images/user.png" /><a href="Student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="Student.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
                     </li>
                     <li>
-                        <img src="images/envelope.png" /><a href="#">Inbox</a>
+                        <img src="../images/envelope.png" /><a href="#">Inbox</a>
                     </li>
                     <li>
-                        <img src="images/question.png" /><a href="#">Aide</a>
+                        <img src="../images/question.png" /><a href="#">Aide</a>
                     </li>
                     <li>
-                        <img src="images/log-out.png" />
-                        <a href="user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
+                        <img src="../images/log-out.png" />
+                        <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -94,22 +94,22 @@ $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaul
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="index.php" class="nav_link active">
+                    <a href="student.php" class="nav_link active">
                         <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>
-                    <a href="index.php" class="nav_link">
+                    <a href="../students/index.php" class="nav_link">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>
                     </a>
-                    <a href="decharge.php" class="nav_link">
+                    <a href="../students/decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>
                     </a>
                     <a href="" class="nav_link">
                         <i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                 </div>
-            </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
@@ -123,7 +123,7 @@ $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaul
             <div class="animated fadeIn">
                 <div class="row d-flex align-items-stretch justify-content-between px-0 px-sm-5">
                     <div style="min-width: 160px; padding: 15px;" class="col-md-3 col-sm-4 mb-3 col-12 d-flex flex-column justify-content-start align-items-center profile-section">
-                        <img style="width: 100%; min-width: 150px; max-width: 250px;" src="<?php echo $image ?>" alt="AIT OUFKIR">
+                        <img style="width: 100%; min-width: 150px; max-width: 250px;" src="<?php echo $image ?>" alt="<?php echo $name ?>">
                     </div>
                     <div class="col-md-8 col-sm-7 mb-3 col-12 profile-section" style="min-width: 290px;">
                         <table class="p-1 mt-3 p-sm-4 etudiant-infos w-100">

@@ -1,6 +1,6 @@
 <?php
-include 'user_info.php';
-$_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+include '../includes/user_info.php';
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,59 +9,14 @@ $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['de
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internat</title>
-    <link rel="shortcut icon" href="images/ESTC.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/navbar.js"></script>
-
-    <style>
-        .validateDecharge {
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            padding-block: 0.5rem;
-            padding-inline: 1.25rem;
-            background-color: #5cb85c;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffff;
-            gap: 10px;
-            font-weight: bold;
-            border: 3px solid #ffffff4d;
-            outline: none;
-            overflow: hidden;
-            font-size: 15px;
-        }
-
-        .validateDecharge:hover {
-            color: white;
-            transform: scale(1.05);
-            border-color: #fff9;
-        }
-
-        .validateDecharge:hover::before {
-            animation: shine 1.5s ease-out infinite;
-        }
-
-        .validateDecharge::before {
-            content: "";
-            position: absolute;
-            width: 100px;
-            height: 100%;
-            background-image: linear-gradient(120deg,
-                    rgba(255, 255, 255, 0) 30%,
-                    rgba(255, 255, 255, 0.8),
-                    rgba(255, 255, 255, 0) 70%);
-            top: 0;
-            left: -100px;
-            opacity: 0.6;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/navbar.js"></script>
 </head>
 
 <body id="body-pd">
@@ -77,7 +32,7 @@ $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['de
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Profil</h5>
+            <h5>Validation de décharge - Service des affaires d'internat </h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -87,20 +42,20 @@ $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['de
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="images/user.png" /><a href="Student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="Student.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
                     </li>
                     <li>
-                        <img src="images/envelope.png" /><a href="#">Inbox</a>
+                        <img src="../images/envelope.png" /><a href="#">Inbox</a>
                     </li>
                     <li>
-                        <img src="images/question.png" /><a href="#">Aide</a>
+                        <img src="../images/question.png" /><a href="#">Aide</a>
                     </li>
                     <li>
-                        <img src="images/log-out.png" />
-                        <a href="user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
+                        <img src="../images/log-out.png" />
+                        <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -127,19 +82,19 @@ $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['de
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="index.php" class="nav_link active">
+                    <a href="internat.php" class="nav_link active">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="department_decharge.php" class="nav_link">
+                    <a href="internat_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
                 </div>
-            </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
@@ -148,12 +103,14 @@ $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['de
     <hr>
 
     <div> <?php
+            include '../includes/db_connect.php';
+
             // Retrieve pending requests from the database (adjust the SQL query based on your schema)
             $sql = "SELECT decharge.*, students.*
-            FROM decharge
-            JOIN students ON decharge.student_id = students.id
-            WHERE decharge.status = 'pending' AND decharge.valide_departement = 0;
-            ";
+FROM decharge
+JOIN students ON decharge.student_id = students.id
+WHERE decharge.status = 'pending' AND decharge.valide_departement = 1 AND decharge.valide_internat = 0;
+";
             $result = $conn->query($sql);
 
             // Display requests in a table
@@ -178,7 +135,8 @@ $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['de
                 echo $row['status'] === 'interne' ? '<td>' . $row['room_number'] . '</td>' : '';
                 echo '<td>' . $row['filliere'] . '</td>';
                 echo '<td>' . $row['created_at'] . '</td>';
-                echo '<td><a class="validateDecharge" href="departement_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Valider</a></td>';
+                // Action button to validate the request
+                echo '<td><a class="validateDecharge" href="internat_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Validate</a></td>';
                 echo '</tr>';
             }
 

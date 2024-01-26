@@ -3,7 +3,7 @@ function showStudentInfo(studentId) {
     const infoPopup = document.getElementById("infoPopup");
     // Fetch additional student info using AJAX
     $.ajax({
-        url: `getStudentInfo.php?studentId=${studentId}`,
+        url: `../includes/getStudentInfo.php?studentId=${studentId}`,
         type: 'GET',
         dataType: 'json',
         success: function (studentInfo) {

@@ -30,7 +30,7 @@ function getNumStudentsInRoom(roomId) {
 
     // Use AJAX to fetch data from the PHP file
     $.ajax({
-        url: `getStudentsCount.php?roomId=${roomId}&building=${currentBuilding}`,
+        url: `../includes/getStudentsCount.php?roomId=${roomId}&building=${currentBuilding}`,
         type: 'GET',
         dataType: 'json',
         async: false, // Make the AJAX call synchronous to wait for the result

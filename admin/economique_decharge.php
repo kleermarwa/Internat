@@ -1,6 +1,6 @@
 <?php
-include 'user_info.php';
-$_SESSION['role'] == 'economique' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+include '../includes/user_info.php';
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,14 @@ $_SESSION['role'] == 'economique' ?  null :  header("Location:" . $_SESSION['def
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internat</title>
-    <link rel="shortcut icon" href="images/ESTC.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/navbar.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/navbar.js"></script>
 </head>
 
 <body id="body-pd">
@@ -36,25 +36,26 @@ $_SESSION['role'] == 'economique' ?  null :  header("Location:" . $_SESSION['def
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
-                <img src="images/default_user.png" />
+                <img src="<?php echo $image ?>" />
             </div>
             <div class="menu" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
-                <h3>Lorem Ipsum<br /><span>Bouragba</span></h3>
+                <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="images/user.png" /><a href="#">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="Student.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
                     </li>
                     <li>
-                        <img src="images/envelope.png" /><a href="#">Inbox</a>
+                        <img src="../images/envelope.png" /><a href="#">Inbox</a>
                     </li>
                     <li>
-                        <img src="images/question.png" /><a href="#">Aide</a>
+                        <img src="../images/question.png" /><a href="#">Aide</a>
                     </li>
                     <li>
-                        <img src="images/log-out.png" /><a href="#">Logout</a>
+                        <img src="../images/log-out.png" />
+                        <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -81,19 +82,19 @@ $_SESSION['role'] == 'economique' ?  null :  header("Location:" . $_SESSION['def
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="index.php" class="nav_link active">
+                    <a href="internat.php" class="nav_link active">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="department_decharge.php" class="nav_link">
+                    <a href="economique_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
                 </div>
-            </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
@@ -102,7 +103,7 @@ $_SESSION['role'] == 'economique' ?  null :  header("Location:" . $_SESSION['def
     <hr>
 
     <div> <?php
-            include 'db_connect.php';
+            include '../includes/db_connect.php';
 
             // Retrieve pending requests from the database (adjust the SQL query based on your schema)
             $sql = "SELECT decharge.*, students.*
@@ -135,7 +136,7 @@ WHERE decharge.status = 'pending' AND decharge.valide_departement = 1 AND dechar
                 echo '<td>' . $row['filliere'] . '</td>';
                 echo '<td>' . $row['created_at'] . '</td>';
                 // Action button to validate the request
-                echo '<td><a href="economique_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Validate</a></td>';
+                echo '<td><a class="validateDecharge" href="economique_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Validate</a></td>';
                 echo '</tr>';
             }
 

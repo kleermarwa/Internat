@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         if (search_term.trim() !== '') { // Check if search term is not empty
             $.ajax({
-                url: `search.php?term=${search_term}&building=${currentBuilding}`,
+                url: `../includes/search.php?term=${search_term}&building=${currentBuilding}`,
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {

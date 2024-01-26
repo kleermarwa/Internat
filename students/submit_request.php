@@ -1,9 +1,11 @@
 <?php
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+
 session_start();
-include 'db_connect.php';
+include '../includes/db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_request'])) {
-    $studentId = 1;
+    $studentId = $_SESSION['student_id'];
 
     $selectQuery = "SELECT * FROM decharge WHERE student_id = ?";
     $selectStmt = $conn->prepare($selectQuery);

@@ -7,7 +7,7 @@ function moveStudent(studentId) {
     if (newRoomNumber !== null && !isNaN(newRoomNumber) && newRoomNumber !== '') {
         // Send AJAX request to move student
         $.ajax({
-            url: 'moveStudent.php',
+            url: '../includes/moveStudent.php',
             type: 'POST',
             dataType: 'json',
             data: {

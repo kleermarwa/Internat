@@ -23,7 +23,7 @@ function editRoom(roomNumber) {
 
         // Make an AJAX call to search for the student
         $.ajax({
-            url: `search.php?term=${studentName}&building=${currentBuilding}`,
+            url: `../includes/search.php?term=${studentName}&building=${currentBuilding}`,
             type: 'GET',
             dataType: 'json',
             success: function (data) {
@@ -52,7 +52,7 @@ function editRoom(roomNumber) {
                             if (confirmAdd) {
                                 // Make another AJAX call to move the student to the selected room
                                 $.ajax({
-                                    url: 'moveStudent.php',
+                                    url: '../includes/moveStudent.php',
                                     type: 'POST',
                                     data: {
                                         studentId: student.id,

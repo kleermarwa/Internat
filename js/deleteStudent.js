@@ -5,7 +5,7 @@ function deleteStudent(studentId) {
     if (confirmDelete) {
         // Proceed with deletion
         $.ajax({
-            url: 'deleteStudent.php',
+            url: '../includes/deleteStudent.php',
             type: 'POST',
             data: {
                 studentId: studentId

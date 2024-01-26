@@ -1,4 +1,6 @@
 <?php
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+
 $selectQuery = "SELECT * FROM decharge WHERE student_id = ?";
 $selectStmt = $conn->prepare($selectQuery);
 $selectStmt->bind_param('i', $user_id);

@@ -18,7 +18,7 @@ function displayData(building) {
         // Push the promise of the AJAX request to the array
         promises.push(
             $.ajax({
-                url: `getRoomData.php?roomNumber=${roomNumber}&building=${building}`,
+                url: `../includes/getRoomData.php?roomNumber=${roomNumber}&building=${building}`,
                 type: 'GET',
                 dataType: 'json'
             })

@@ -19,16 +19,19 @@ if (isset($_POST['login'])) {
                 $href = 'student.php'; // Adjust the link for students
                 break;
             case 'departement':
-                $href = 'departement_decharge.php'; // Adjust the link for department validators
+                $href = '../admin/internat.php'; // Adjust the link for department validators
                 break;
             case 'internat':
-                $href = 'boarding_affairs_validator_dashboard.php'; // Adjust the link for boarding affairs validators
+                $href = '../admin/internat.php'; // Adjust the link for boarding affairs validators
                 break;
             case 'economique':
-                $href = 'economic_service_validator_dashboard.php'; // Adjust the link for economic service validators
+                $href = '../admin/internat.php'; // Adjust the link for economic service validators
                 break;
             case 'administration':
-                $href = 'administration_validator_dashboard.php'; // Adjust the link for administration validators
+                $href = '../admin/internat.php'; // Adjust the link for administration validators
+                break;
+            case 'super_admin':
+                $href = '../admin/internat.php';
                 break;
         }
         header("Location:" . $href); // redirect to admin page
@@ -44,11 +47,11 @@ if (isset($_POST['login'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internat</title>
-    <link rel="shortcut icon" href="images/ESTC.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
+    <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
     <style>
@@ -67,7 +70,7 @@ if (isset($_POST['login'])) {
         <div class="ibox-content" style="width:60%;margin:auto">
 
             <div class="text-center" style="margin-bottom:30px">
-                <img style="width: 50%" src="images/EST.png" alt="logo">
+                <img style="width: 50%" src="../images/EST.png" alt="logo">
             </div>
 
             <form method="post" action="">

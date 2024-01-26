@@ -5,7 +5,7 @@ function showPopupStudent(roomNumber) {
 
     // Fetch student data using AJAX
     $.ajax({
-        url: `getRoomData.php?roomNumber=${roomNumber}&building=${currentBuilding}`,
+        url: `../includes/getRoomData.php?roomNumber=${roomNumber}&building=${currentBuilding}`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
