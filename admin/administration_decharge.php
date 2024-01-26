@@ -16,6 +16,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/dechargeAdministrationSearch.js"></script>
     <script src="../js/navbar.js"></script>
 </head>
 
@@ -99,54 +100,18 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
     </div>
 
     <h2 style="text-align: center; margin-top:6rem">Demandes de décharge</h2>
+    <div class="dechargeSearch">
+        <div class="box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande" onkeyup="search()">
+        </div>
+    </div>
 
     <hr>
 
-    <div> <?php
-            include '../includes/db_connect.php';
-
-            // Retrieve pending requests from the database (adjust the SQL query based on your schema)
-            $sql = "SELECT decharge.*, students.*
-FROM decharge
-JOIN students ON decharge.student_id = students.id
-WHERE decharge.status = 'pending' AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 1 AND decharge.valide_administration = 0;
-";
-            $result = $conn->query($sql);
-
-            // Display requests in a table
-            echo "<div class='RoomList'>";
-            echo "<table id='data-table'>";
-            echo '<thead><tr><th>Numéro de requete</th><th>Nom de l\'étudiant</th><th>Status</th>';
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                echo $row['status'] === 'interne' ? '<th>N° chambre</th>' : '';
-            }
-            echo '<th>Filière</th><th>Date de création</th><th>Action</th></tr></thead>';
-            echo '<tbody>';
-
-            // Reset the result pointer to the beginning of the result set
-            $result->data_seek(0);
-
-            while ($row = $result->fetch_assoc()) {
-                echo '<tr>';
-                echo '<td>' . $row['id_demande'] . '</td>';
-                echo '<td>' . $row['name'] . '</td>';
-                echo '<td>' . $row['status'] . '</td>';
-                echo $row['status'] === 'interne' ? '<td>' . $row['room_number'] . '</td>' : '';
-                echo '<td>' . $row['filliere'] . '</td>';
-                echo '<td>' . $row['created_at'] . '</td>';
-                // Action button to validate the request
-                echo '<td><a class="validateDecharge" href="administration_validation.php?request_id=' . $row['id_demande'] . '&amp;name=' . urlencode($row['name']) . '">Validate</a></td>';
-                echo '</tr>';
-            }
-
-            echo '</tbody>';
-            echo '</table>';
-            echo '</div>';
-
-
-            echo '</tbody></table>';
-            ?>
+    <div id="searchResults">
+        <!-- Search results will be displayed here -->
+    </div>
 </body>
 
 </html>
