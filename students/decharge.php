@@ -33,7 +33,7 @@ $_SESSION['student_id'] = $user_id;
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Profil</h5>
+            <h5>Créer une demande de décharge</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -43,7 +43,7 @@ $_SESSION['student_id'] = $user_id;
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="Student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/student.php">Mon Profile</a>
                     </li>
                     <li>
                         <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
@@ -85,7 +85,7 @@ $_SESSION['student_id'] = $user_id;
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="index.php" class="nav_link active">
+                    <a href="../includes/student.php" class="nav_link active">
                         <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>
                     <a href="index.php" class="nav_link">

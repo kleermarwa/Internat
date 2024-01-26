@@ -1,6 +1,10 @@
 <?php
 session_start();
 include 'db_connect.php';
+if (!isset($_SESSION['role'])) {
+    header('Location: ../includes/login.php');
+    exit;
+}
 // Check if user is logged in
 if (isset($_SESSION['user_id'])) {
     switch ($_SESSION['role']) {
@@ -55,13 +59,14 @@ if (isset($_SESSION['user_id'])) {
                 $user_image = 'images/default_user.png';
             }
         }
+    } else {
+        header('Location: ../includes/login.php');
     }
-} else {
-    header('Location: login.php');
 }
 
 if (isset($_GET['logout'])) {
     unset($user_id);
+    unset($role);
     session_destroy();
     header("Location: login.php");
 };
