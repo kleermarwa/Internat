@@ -103,7 +103,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
     <div class="dechargeSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande" onkeyup="search()">
+            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="search()">
         </div>
     </div>
 

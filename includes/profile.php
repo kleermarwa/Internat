@@ -104,7 +104,7 @@ include 'user_info.php';
                     <a href="../students/decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>
                     </a>
-                    <a href="" class="nav_link">
+                    <a href="../students/internat.php" class="nav_link">
                         <i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                 </div>
