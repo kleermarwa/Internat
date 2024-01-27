@@ -43,7 +43,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="Student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
                     </li>
                     <li>
                         <img src="../images/edit.png" /><a href="#">Modifier Profile</a>

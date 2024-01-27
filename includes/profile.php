@@ -1,6 +1,5 @@
 <?php
 include 'user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +53,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="Student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
                     </li>
                     <li>
                         <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
@@ -96,7 +95,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="student.php" class="nav_link active">
+                    <a href="profile.php" class="nav_link active">
                         <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>
                     <a href="../students/index.php" class="nav_link">

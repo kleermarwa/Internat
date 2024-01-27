@@ -33,6 +33,23 @@ a {
   text-decoration: none;
 }
 
+.messageErr,
+.messageSuc {
+  position: sticky;
+  top: 64px;
+  left: 0;
+  right: 0;
+  padding: 15px 10px;
+  background-color: rgba(49, 49, 49, 0.6);
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 20px;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
 .success-message {
   background-color: #5cb85c;
   color: #f7f7f7;
@@ -945,4 +962,136 @@ a {
 
 .notification-item:hover {
   background-color: #f5f5f5;
+}
+
+/**************************************************************************************************************************************************************************/
+/******************************************************************************* Update CSS *******************************************************************************/
+/**************************************************************************************************************************************************************************/
+.update-profile {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.update-profile form {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid #c3c6ce;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 70%;
+  text-align: center;
+  border-radius: 5px;
+}
+.update-profile form img {
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+.update-profile form .flex {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+.update-profile form .flex .inputBox {
+  width: 49%;
+}
+.update-profile form .flex #info {
+  border-right: 2px solid #c3c6ce;
+  padding-right: 2rem;
+}
+.update-profile form .flex #pass {
+  padding-left: 1rem;
+  align-self: center;
+}
+.update-profile form .flex h3 {
+  margin: 1rem 0 2rem 0;
+  font-weight: 600;
+}
+.update-profile form .flex span {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 17px;
+  text-align: center;
+}
+.update-profile form .flex .box {
+  width: 100%;
+  height: 55px;
+  margin-bottom: 20px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 15px;
+  text-align: center;
+  border-radius: 5px;
+  transition: 0.5s;
+  transition-property: border-left, border-right, box-shadow;
+  border-radius: 5px;
+  border: 2px solid white;
+  padding: 12px 14px;
+}
+.update-profile form .flex .box:hover, .update-profile form .flex .box:focus, .update-profile form .flex .box:active {
+  border-left: solid 5px #004b82;
+  border-right: solid 5px #004b82;
+  box-shadow: 0 0 5px #004b82;
+  border-top: 2px solid #004b82;
+  border-bottom: 2px solid #004b82;
+  transition: 0.3s ease;
+}
+.update-profile form .flex .field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #c3c6ce;
+  margin-bottom: 25px;
+}
+.update-profile form .flex .field:hover .ua, .update-profile form .flex .field:focus-within .ua, .update-profile form .flex .field:active .ua {
+  color: #004b82;
+  transition: 0.3s ease;
+}
+.update-profile form .flex .field .ua {
+  color: #828daa;
+  font-size: 1.5rem;
+  margin-right: 10px;
+  margin-bottom: 17px;
+}
+.update-profile form .flex .field .country-list,
+.update-profile form .flex .field .iti__country-list {
+  background-color: #333;
+}
+.update-profile form .flex .field input[type=text]#country_selector,
+.update-profile form .flex .field input[type=tel]#phone {
+  height: 35px;
+  font-size: 100%;
+  width: 100%;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+.update-profile form .btn,
+.update-profile form .delete-btn {
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  font-size: 20px;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 10px auto 10px auto;
+  color: white;
+}
+.update-profile form .btn {
+  background-color: #004b82;
+}
+.update-profile form .btn:hover {
+  background-color: #2980b9;
+}
+.update-profile form .delete-btn {
+  background-color: rgba(203, 0, 20, 0.8901960784);
+}
+.update-profile form .delete-btn:hover {
+  background-color: #f55858;
 }/*# sourceMappingURL=style.css.map */

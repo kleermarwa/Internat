@@ -16,7 +16,7 @@ if (isset($_POST['login'])) {
         $href = "";
         switch ($_SESSION['role']) {
             case 'student':
-                $href = 'student.php'; // Adjust the link for students
+                $href = 'profile.php'; // Adjust the link for students
                 break;
             case 'departement':
                 $href = '../admin/internat.php'; // Adjust the link for department validators

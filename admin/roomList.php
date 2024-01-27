@@ -1,6 +1,6 @@
-<?php 
+<?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' ||$_SESSION['role'] == 'administration' || $_SESSION['role'] == 'internat' || $_SESSION['role'] == 'economique' || $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $_SESSION['role'] == 'internat' || $_SESSION['role'] == 'economique' || $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +45,7 @@ $_SESSION['role'] == 'super_admin' ||$_SESSION['role'] == 'administration' || $_
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="Student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
                     </li>
                     <li>
                         <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
