@@ -1,5 +1,8 @@
 <?php
 session_start();
+// echo $_SESSION['status'];
+// echo $_SESSION['role'];
+// echo $_SESSION['user_id'];
 include 'db_connect.php';
 if (!isset($_SESSION['role'])) {
     header('Location: ../includes/login.php');
@@ -63,22 +66,27 @@ if (isset($_SESSION['user_id'])) {
         header('Location: ../includes/login.php');
     }
 }
-
-if (isset($_GET['logout'])) {
-    unset($user_id);
-    unset($role);
-    session_destroy();
-    header("Location: login.php");
-};
-
 $sqlcount = "SELECT decharge.*, students.*
-        FROM decharge
-        JOIN students ON decharge.student_id = students.id
-        WHERE decharge.valide_departement = 0
-          AND decharge.notification_status = 'unread'
-        ORDER BY decharge.created_at DESC";
-$result = $conn->query($sqlcount);
+    FROM decharge
+    JOIN students ON decharge.student_id = students.id";
 
+if (isset($_SESSION['role'])) {
+    switch ($_SESSION['role']) {
+        case 'departement':
+            $sqlcount .= " WHERE decharge.read_departement = 0 AND decharge.valide_departement = 0";
+            break;
+        case 'internat':
+            $sqlcount .= " AND decharge.read_internat = 0 AND decharge.valide_departement = 1 AND decharge.valide_internat = 0";
+            break;
+        case 'economique':
+            $sqlcount .= " AND decharge.read_economique = 0 AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 0";
+            break;
+        case 'administration':
+            $sqlcount .= " AND decharge.read_administartion = 0 AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 1 AND decharge.valide_administration = 0";
+            break;
+    }
+}
+$result = $conn->query($sqlcount);
 $notifications = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -87,8 +95,14 @@ if ($result->num_rows > 0) {
 }
 $count = count($notifications);
 
-
-// elseif (isset($_GET['id'])) {
+if (isset($_GET['logout'])) {
+    unset($user_id);
+    unset($role);
+    session_destroy();
+    header("Location: login.php");
+};
+    
+    // elseif (isset($_GET['id'])) {
     // Check if user ID is set
 //     $id = $_GET['id'];
     // Connect to database

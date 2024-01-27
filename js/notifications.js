@@ -4,6 +4,7 @@ function fetchNotifications() {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
+            console.log(data);
             updateNotificationDropdown(data);
         },
         error: function (error) {
@@ -12,28 +13,34 @@ function fetchNotifications() {
     });
 }
 
-
 function updateNotificationDropdown(notifications) {
-    $('.notification-dropdown').empty();
+    const dropdown = $('.notification-dropdown');
+    dropdown.empty();
 
-    notifications.forEach(function (notification) {
-        $('.notification-dropdown').append(`
-            <div class="notification-item">
-                <p>${notification.message}</p>
-            </div>
-        `);
-    });
+    if (notifications.length === 0) {
+        // Display a message when there are no notifications
+        dropdown.append('<div class="notification-item"><p style="text-align:center">Aucune nouvelle notification</p></div>');
+    } else {
+        notifications.forEach(function (notification) {
+            dropdown.append(`
+                <div class="notification-item">
+                    <p>${notification.message}</p>
+                </div>
+            `);
+        });
+    }
 
-    $('.notification-dropdown').show();
+    dropdown.show();
 
+    // Attach the click event listener to the document to close the dropdown
     $(document).on('click', function (event) {
         if (!$(event.target).closest('.notification-icon').length && !$(event.target).closest('.notification-dropdown').length) {
-            $('.notification-dropdown').hide();
+            dropdown.hide();
         }
     });
 }
 
-
+// Click event for the notification icon
 $('.notification-icon').on('click', function () {
     fetchNotifications();
 });

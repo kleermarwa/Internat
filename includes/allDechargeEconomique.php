@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
         $output .= "<td>" . $row['filliere'] . "</td>";
         $output .= "<td>" . $row['created_at'] . "</td>";
         // Action button to validate the request
-        $output .= "<td><a class='validateDecharge' href='economique_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Validate</a></td>";
+        $output .= "<td><a class='validateDecharge' href='../admin/economique_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Validate</a></td>";
         $output .= "</tr>";
     }
 
