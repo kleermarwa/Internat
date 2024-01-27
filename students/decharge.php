@@ -85,16 +85,17 @@ $_SESSION['student_id'] = $user_id;
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="../includes/profile.php" class="nav_link active">
+
+                    <a href="../includes/profile.php" class="nav_link">
                         <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>
                     <a href="index.php" class="nav_link">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>
                     </a>
-                    <a href="decharge.php" class="nav_link">
+                    <a href="decharge.php" class="nav_link active">
                         <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>
                     </a>
-                    <a href="" class="nav_link">
+                    <a href="internat.php" class="nav_link">
                         <i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                 </div>

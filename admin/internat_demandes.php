@@ -16,9 +16,108 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/dechargeInternatSearch.js"></script>
+    <script src="../js/demandeInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
-    <script src="../js/notifications.js"></script>
+    <style>
+        .validate {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            padding-block: 0.5rem;
+            padding-inline: 1.25rem;
+            background-color: #5cb85c;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            gap: 10px;
+            font-weight: bold;
+            border: 3px solid rgba(255, 255, 255, 0.3019607843);
+            outline: none;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        .validate:hover {
+            color: white;
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .validate:hover::before {
+            animation: shine 1.5s ease-out infinite;
+        }
+
+        .validate::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100%;
+            background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%);
+            top: 0;
+            left: -100px;
+            opacity: 0.6;
+        }
+
+        .reject {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            padding-block: 0.5rem;
+            padding-inline: 1.25rem;
+            background-color: #ca4b4b;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            gap: 10px;
+            font-weight: bold;
+            border: 3px solid rgba(255, 255, 255, 0.3019607843);
+            outline: none;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        .reject {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            padding-block: 0.5rem;
+            padding-inline: 1.25rem;
+            background-color: #ca4b4b;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            gap: 10px;
+            font-weight: bold;
+            border: 3px solid rgba(255, 255, 255, 0.3019607843);
+            outline: none;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        .reject:hover {
+            color: white;
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .reject:hover::before {
+            animation: shine 1.5s ease-out infinite;
+        }
+
+        .reject::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100%;
+            background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%);
+            top: 0;
+            left: -100px;
+            opacity: 0.6;
+        }
+    </style>
 </head>
 
 <body id="body-pd">
@@ -44,10 +143,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -78,14 +177,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </script>
 
         <div class="left">
-            <div class="notification-icon" onclick="fetchNotifications()">
-                <i class="fa fa-bell"></i>
-                <div class="notification-count" id="count"><?php echo $count ?></div>
-                <!-- Notification dropdown content -->
-                <div class="notification-dropdown">
-                    <!-- Notifications will be dynamically added here via JavaScript -->
-                </div>
-            </div>
+
         </div>
     </header>
 
@@ -110,20 +202,29 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge</h2>
-    <div class="dechargeSearch">
+
+
+    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Externes</h2>
+    <div class="internatSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande" onkeyup="search()">
+            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="searchExterne()">
         </div>
     </div>
-
-    <hr>
-
     <div id="searchResults">
         <!-- Search results will be displayed here -->
     </div>
-
+    <hr>
+    <h2 style="text-align: center; margin-bottom:2rem">Demandes Casablanca</h2>
+    <div class="internatSearch">
+        <div class="box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchCasa" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="searchCasa()">
+        </div>
+    </div>
+    <div id="casaResults">
+        <!-- Search results will be displayed here -->
+    </div>
 </body>
 
 </html>

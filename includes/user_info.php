@@ -53,6 +53,7 @@ if (isset($_SESSION['user_id'])) {
             $date_naissance = $row['date_naissance'];
             $ville = $row['ville'];
             $tel = $row['tel'];
+            $gender = $row['genre'];
             $status = $row['status'];
             $annee_scolaire = $row['annee_scolaire'];
 
@@ -95,14 +96,15 @@ if ($result->num_rows > 0) {
 }
 $count = count($notifications);
 
+
 if (isset($_GET['logout'])) {
     unset($user_id);
     unset($role);
     session_destroy();
     header("Location: login.php");
-};
-    
+};    
     // elseif (isset($_GET['id'])) {
+
     // Check if user ID is set
 //     $id = $_GET['id'];
     // Connect to database

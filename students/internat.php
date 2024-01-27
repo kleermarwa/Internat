@@ -1,6 +1,7 @@
 <?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['student_id'] = $user_id;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,9 +17,67 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/dechargeDepartementSearch.js"></script>
     <script src="../js/navbar.js"></script>
-    <script src="../js/notifications.js"></script>
+    <style>
+        .reject {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            padding-block: 0.5rem;
+            padding-inline: 1.25rem;
+            background-color: #ca4b4b;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            gap: 10px;
+            font-weight: bold;
+            border: 3px solid rgba(255, 255, 255, 0.3019607843);
+            outline: none;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        .reject {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            padding-block: 0.5rem;
+            padding-inline: 1.25rem;
+            background-color: #ca4b4b;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            gap: 10px;
+            font-weight: bold;
+            border: 3px solid rgba(255, 255, 255, 0.3019607843);
+            outline: none;
+            overflow: hidden;
+            font-size: 15px;
+        }
+
+        .reject:hover {
+            color: white;
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        .reject:hover::before {
+            animation: shine 1.5s ease-out infinite;
+        }
+
+        .reject::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100%;
+            background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%);
+            top: 0;
+            left: -100px;
+            opacity: 0.6;
+        }
+    </style>
 </head>
 
 <body id="body-pd">
@@ -34,7 +93,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Validation de décharge - Département</h5>
+            <h5>Créer une demande de décharge</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -44,10 +103,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/student.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -76,15 +135,9 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                 }
             }
         </script>
+
         <div class="left">
-            <div class="notification-icon" onclick="fetchNotifications()">
-                <i class="fa fa-bell"></i>
-                <div class="notification-count" id="count"><?php echo $count ?></div>
-                <!-- Notification dropdown content -->
-                <div class="notification-dropdown">
-                    <!-- Notifications will be dynamically added here via JavaScript -->
-                </div>
-            </div>
+
         </div>
     </header>
 
@@ -92,35 +145,30 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="internat.php" class="nav_link active">
-                        <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
+                    <a href="../includes/profile.php" class="nav_link">
+                        <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>
-                    <a href="roomList.php" class="nav_link">
-                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                    <a href="index.php" class="nav_link">
+                        <i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>
                     </a>
-                    <a href="departement_decharge.php" class="nav_link">
-                        <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
+                    <a href="decharge.php" class="nav_link">
+                        <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>
+                    </a>
+                    <a href="" class="nav_link active">
+                        <i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge</h2>
-    <div class="dechargeSearch">
-        <div class="box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="search()">
-        </div>
-    </div>
+    <h2 style="text-align: center; margin-top:6rem">Demande d'Internat</h2>
 
     <hr>
 
-    <div id="searchResults">
-        <!-- Search results will be displayed here -->
-    </div>
-
-
+    <div> <?php
+            include 'display_Internatrequests.php';
+            ?></div>
 </body>
 
 </html>
