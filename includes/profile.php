@@ -53,10 +53,10 @@ include 'user_info.php';
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -94,20 +94,61 @@ include 'user_info.php';
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
-                <div class="nav_list">
-                    <a href="profile.php" class="nav_link active">
-                        <i class="fas fa-home"></i> <span class="nav_name">Home</span>
-                    </a>
-                    <a href="../students/index.php" class="nav_link">
-                        <i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>
-                    </a>
-                    <a href="../students/decharge.php" class="nav_link">
-                        <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>
-                    </a>
-                    <a href="../students/internat.php" class="nav_link">
-                        <i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>
-                    </a>
-                </div>
+                <?php
+                if ($_SESSION['role'] == 'student') {
+                    echo '<div class="nav_list">';
+                    echo '<a href="../includes/profile.php" class="nav_link active">';
+                    echo '<i class="fas fa-home"></i> <span class="nav_name">Home</span>';
+                    echo '</a>';
+                    echo '<a href="../students/index.php" class="nav_link">';
+                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>';
+                    echo '</a>';
+                    echo '<a href="../students/decharge.php" class="nav_link">';
+                    echo '<i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>';
+                    echo '</a>';
+                    echo '<a href="" class="nav_link">';
+                    echo '<i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>';
+                    echo '</a>';
+                    echo '</div>';
+                } else if ($_SESSION['status'] == 'admin') {
+                    echo '<a href="../admin/internat.php" class="nav_link active">';
+                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Map</span>';
+                    echo '</a>';
+                    echo '<a href="../admin/roomList.php" class="nav_link">';
+                    echo '<i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Dashboard</span>';
+                    echo '</a>';
+
+                    // Check if the user is logged in
+                    if (isset($_SESSION['user_id'])) {
+                        // Determine the appropriate href based on the user's role
+                        switch ($_SESSION['role']) {
+                            case 'student':
+                                $href = 'decharge.php'; // Adjust the link for students
+                                break;
+                            case 'departement':
+                                $href = 'departement_decharge.php';
+                                break;
+                            case 'internat':
+                                $href = 'internat_decharge.php';
+                                break;
+                            case 'economique':
+                                $href = 'economique_decharge.php';
+                                break;
+                            case 'administration':
+                                $href = 'administration_decharge.php';
+                                break;
+                            case 'super_admin':
+                                $href = 'departement_decharge.php';
+                                break;
+                        }
+                    } else {
+                        $href = 'login.php';
+                    }
+                    echo '<a href="' . $href . '" class="nav_link">';
+                    echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
+                    echo '</a>';
+                }
+                ?>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
@@ -164,7 +205,7 @@ include 'user_info.php';
                         </table>
                         <div class="col-12 d-flex justify-content-end p-0 my-3">
 
-                            <a class="btn btn-primary m-0 ml-3" style="min-width: 100px;" href="/espaceetudiant/profile/update/">
+                            <a class="btn btn-primary m-0 ml-3" style="min-width: 100px;" href="../includes/updateProfile.php">
                                 Modifier
                             </a>
 

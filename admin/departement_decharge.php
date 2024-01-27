@@ -18,6 +18,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/dechargeDepartementSearch.js"></script>
     <script src="../js/navbar.js"></script>
+    <script src="../js/notifications.js"></script>
 </head>
 
 <body id="body-pd">
@@ -43,10 +44,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -75,9 +76,15 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                 }
             }
         </script>
-
         <div class="left">
-
+            <div class="notification-icon" onclick="fetchNotifications()">
+                <i class="fa fa-bell"></i>
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <!-- Notification dropdown content -->
+                <div class="notification-dropdown">
+                    <!-- Notifications will be dynamically added here via JavaScript -->
+                </div>
+            </div>
         </div>
     </header>
 
@@ -91,7 +98,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="department_decharge.php" class="nav_link">
+                    <a href="departement_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
                 </div>

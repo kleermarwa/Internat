@@ -43,10 +43,10 @@ $_SESSION['student_id'] = $user_id;
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="../includes/student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -85,6 +85,7 @@ $_SESSION['student_id'] = $user_id;
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
+
                     <a href="../includes/profile.php" class="nav_link">
                         <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>

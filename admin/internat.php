@@ -44,7 +44,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="../includes/student.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
                     </li>
                     <li>
                         <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
@@ -106,37 +106,35 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <?php
-                    $_SESSION['user_role'] = 'Department';
 
                     // Check if the user is logged in
-                    if (isset($_SESSION['user_role'])) {
+                    if (isset($_SESSION['role'])) {
                         // Determine the appropriate href based on the user's role
-                        switch ($_SESSION['user_role']) {
+                        switch ($_SESSION['role']) {
                             case 'Student':
                                 $href = 'decharge.php'; // Adjust the link for students
                                 break;
-                            case 'Department':
-                                $href = 'departement_decharge.php'; // Adjust the link for department validators
+                            case 'departement':
+                                $href = 'departement_decharge.php';
                                 break;
-                            case 'Service_des_affaires_dinternat':
-                                $href = 'internat_decharge.php'; // Adjust the link for boarding affairs validators
+                            case 'internat':
+                                $href = 'internat_decharge.php';
                                 break;
-                            case 'Service_economique':
-                                $href = 'economique_decharge.php'; // Adjust the link for economic service validators
+                            case 'economique':
+                                $href = 'economique_decharge.php';
                                 break;
-                            case 'Administration':
-                                $href = 'administration_decharge.php'; // Adjust the link for administration validators
+                            case 'administration':
+                                $href = 'administration_decharge.php';
                                 break;
                         }
                     } else {
-                        // Set a default link for users who are not logged in
                         $href = 'login.php';
                     }
                     echo '<a href="' . $href . '" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
                     echo '</a>';
 
-                    if ($_SESSION['user_role'] = 'super_admin') {
+                    if ($_SESSION['role'] === 'super_admin') {
                         echo '<a href="internat_decharge.php" class="nav_link">';
                         echo '<i class="fa fa-copy"></i> <span class="nav_name">Internat decharge</span>';
                         echo '</a>';

@@ -29,6 +29,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     <script src="../js/moveStudent.js"></script>
     <script src="../js/displayRooms.js"></script>
     <script src="../js/navbar.js"></script>
+    <script src="../js/notifications.js"></script>
 </head>
 
 <body id="body-pd">
@@ -45,10 +46,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -58,7 +59,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     </li>
                     <li>
                         <img src="../images/log-out.png" />
-                        <a href="../user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
+                        <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -82,11 +83,13 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 <label for="search" class="fa fa-search"></label>
                 <input type="search" placeholder="Search Students" id="search">
             </div>
-            <div class="notification-icon">
-                <a href="cart.php"> <i class="fa fa-bell"></i></a>
-                <div class="notification-count"><?php if (isset($user_id)) {
-                                                    echo "1";
-                                                } ?></div>
+            <div class="notification-icon" onclick="fetchNotifications()">
+                <i class="fa fa-bell"></i>
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <!-- Notification dropdown content -->
+                <div class="notification-dropdown">
+                    <!-- Notifications will be dynamically added here via JavaScript -->
+                </div>
             </div>
             <div id="search-results"></div>
         </div>
@@ -103,34 +106,30 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <?php
-                    $_SESSION['user_role'] = 'Department';
 
                     // Check if the user is logged in
-                    if (isset($_SESSION['user_role'])) {
+                    if (isset($_SESSION['role'])) {
                         // Determine the appropriate href based on the user's role
-                        switch ($_SESSION['user_role']) {
+                        switch ($_SESSION['role']) {
                             case 'Student':
-                                $href = 'decharge.php';
+                                $href = 'decharge.php'; // Adjust the link for students
                                 break;
-                            case 'Department':
+                            case 'departement':
                                 $href = 'departement_decharge.php';
                                 break;
-                            case 'Service_des_affaires_dinternat':
+                            case 'internat':
                                 $href = 'internat_decharge.php';
                                 break;
-                            case 'Service_economique':
+                            case 'economique':
                                 $href = 'economique_decharge.php';
                                 break;
-                            case 'Administration':
+                            case 'administration':
                                 $href = 'administration_decharge.php';
                                 break;
                         }
                     } else {
-                        // Set a default link for users who are not logged in
                         $href = 'login.php';
                     }
-
-                    // Output the dynamically generated link
                     echo '<a href="' . $href . '" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
                     echo '</a>';

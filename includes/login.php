@@ -13,28 +13,29 @@ if (isset($_POST['login'])) {
         $row = mysqli_fetch_assoc($select);
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['role'] = $row['role'];
+        $_SESSION['status'] = $row['status'];
         $href = "";
         switch ($_SESSION['role']) {
             case 'student':
                 $href = 'profile.php'; // Adjust the link for students
                 break;
             case 'departement':
-                $href = '../admin/internat.php'; // Adjust the link for department validators
+                $href = '../admin/internat.php';
                 break;
             case 'internat':
-                $href = '../admin/internat.php'; // Adjust the link for boarding affairs validators
+                $href = '../admin/internat.php';
                 break;
             case 'economique':
-                $href = '../admin/internat.php'; // Adjust the link for economic service validators
+                $href = '../admin/internat.php';
                 break;
             case 'administration':
-                $href = '../admin/internat.php'; // Adjust the link for administration validators
+                $href = '../admin/internat.php';
                 break;
             case 'super_admin':
                 $href = '../admin/internat.php';
                 break;
         }
-        header("Location:" . $href); // redirect to admin page
+        header("Location:" . $href);
         exit;
     }
 }

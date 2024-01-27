@@ -18,6 +18,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/dechargeInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
+    <script src="../js/notifications.js"></script>
 </head>
 
 <body id="body-pd">
@@ -43,10 +44,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -77,7 +78,14 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </script>
 
         <div class="left">
-
+            <div class="notification-icon" onclick="fetchNotifications()">
+                <i class="fa fa-bell"></i>
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <!-- Notification dropdown content -->
+                <div class="notification-dropdown">
+                    <!-- Notifications will be dynamically added here via JavaScript -->
+                </div>
+            </div>
         </div>
     </header>
 
