@@ -1035,7 +1035,7 @@ a {
     }
 }
 
-.validateDecharge {
+.validate{
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
     padding-block: 0.5rem;
@@ -1054,17 +1054,17 @@ a {
     font-size: 15px;
 }
 
-.validateDecharge:hover {
+.validate:hover {
     color: white;
     transform: scale(1.05);
     border-color: #fff9;
 }
 
-.validateDecharge:hover::before {
+.validate:hover::before {
     animation: shine 1.5s ease-out infinite;
 }
 
-.validateDecharge::before {
+.validate::before {
     content: "";
     position: absolute;
     width: 100px;
@@ -1078,6 +1078,66 @@ a {
     opacity: 0.6;
 }
 
+.reject{
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    padding-block: 0.5rem;
+    padding-inline: 1.25rem;
+    background-color: #ca4b4b;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffff;
+    gap: 10px;
+    font-weight: bold;
+    border: 3px solid #ffffff4d;
+    outline: none;
+    overflow: hidden;
+    font-size: 15px;
+}
+.reject{
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    padding-block: 0.5rem;
+    padding-inline: 1.25rem;
+    background-color: #ca4b4b;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffff;
+    gap: 10px;
+    font-weight: bold;
+    border: 3px solid #ffffff4d;
+    outline: none;
+    overflow: hidden;
+    font-size: 15px;
+}
+
+.reject:hover {
+    color: white;
+    transform: scale(1.05);
+    border-color: #fff9;
+}
+
+.reject:hover::before {
+    animation: shine 1.5s ease-out infinite;
+}
+
+.reject::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100%;
+    background-image: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 30%,
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0) 70%);
+    top: 0;
+    left: -100px;
+    opacity: 0.6;
+}
 .notification-dropdown {
     position: absolute;
     top: 4.5rem;
