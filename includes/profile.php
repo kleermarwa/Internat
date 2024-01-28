@@ -153,9 +153,8 @@ include 'user_info.php';
         </nav>
     </div>
 
-    <h1 style="font-weight:500; text-align:center;" class="w-100 my-3">
-        Bienvenue dans votre Espace Étudiant <br />
-        DUT-GI2 2023-2024
+    <h1 style="font-weight:500; padding-top:2rem; text-align:center;" class="w-100 my-3">
+        Bienvenue dans votre Espace Gestion Internat
     </h1>
 
     <div class="home-content" style="padding-top: 1em;">

@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $countStmt->fetch();
     $countStmt->close();
 
+    echo $numStudents;
+
     if ($numStudents >= 4) {
         echo json_encode(['success' => false, 'error' => 'La chambre est déjà pleine']);
         exit;

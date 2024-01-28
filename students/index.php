@@ -111,10 +111,10 @@ $_SESSION['student_id'] = $user_id;
     </div>
     <!-- Floor selection dropdown -->
 
-    <h1 style="font-weight:500; text-align:center;" class="w-100 my-3">
-        Bienvenue dans votre Espace Étudiant <br />
-        DUT-GI2 2023-2024
+    <h1 style="font-weight:500; padding-top:2rem ; text-align:center;" class="w-100 my-3">
+        Bienvenue dans votre Espace Gestion Internat
     </h1>
+    <h3 style="font-weight:400; padding-top:1rem ; text-align:center;">Choisissez votre chambre</h3>
 
 
     <form id="app-cover">

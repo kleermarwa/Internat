@@ -37,6 +37,17 @@ if (isset($_POST['login'])) {
         }
         header("Location:" . $href);
         exit;
+    } else {
+        // Check whether the email exists in the database
+        $emailCheck = mysqli_query($conn, "SELECT * FROM `students` WHERE email = '$email'");
+
+        if (mysqli_num_rows($emailCheck) > 0) {
+            // Email is correct, but password is incorrect
+            $messages[] = 'Incorrect password!';
+        } else {
+            // Both email and password are incorrect
+            $messages[] = 'Incorrect email or password!';
+        }
     }
 }
 
@@ -50,6 +61,7 @@ if (isset($_POST['login'])) {
     <title>Internat</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -65,6 +77,15 @@ if (isset($_POST['login'])) {
 </head>
 
 <body style="background-color:#686c6d">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Display error messages with fade-in, delay, and fade-out
+            <?php foreach ($messages as $message) : ?>
+                $('<div class="error" style="top:2rem;" ><?= $message ?></div>').appendTo('body').fadeIn(300).delay(3000).fadeOut(400);
+            <?php endforeach; ?>
+        });
+    </script>
 
     <div class="loginColumns animated fadeInDown">
 
