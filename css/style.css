@@ -63,6 +63,38 @@ a {
   text-align: center;
 }
 
+.error {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #d9534f;
+  color: #f7f7f7;
+  padding: 1rem;
+  width: 75%;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.success {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #5cb85c;
+  color: #f7f7f7;
+  padding: 1rem;
+  width: 75%;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: center;
+}
+
 .error-message {
   background-color: #d9534f;
   color: #f7f7f7;

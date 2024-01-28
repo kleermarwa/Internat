@@ -28,10 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($demand_result->num_rows > 0) {
         // If a demand with the same ID exists, return error message
-        $_SESSION['error'] = "Error: A demand with the same ID already exists.";
+        $response = array("success" => false, "message" => "Erreur : Une demande avec le même ID existe déjà.");
+        echo json_encode($response);
     } elseif ($student_result->num_rows > 0) {
-        $_SESSION['error'] = "Etudiant existe déja dans la chambre N° " . $roomNumber . "";
-        header("Location: index.php?error=validation_errorp");
+        $response = array("success" => false, "message" => "Etudiant existe déja dans la chambre N° " . $roomNumber);
+        echo json_encode($response);
     } else {
         // Prepare the SQL statement to insert data into the database table
         $insert_sql = "INSERT INTO internat (student_id, name, room_number, status, genre, ville,valide) 
@@ -45,12 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Attempt to execute the prepared statement
         if ($insert_stmt->execute()) {
-            $_SESSION['success'] = "La demande à été effectuée avec succès - N° Chambre " . $roomNumber . "";
-            header("Location: ../students/internat.php");
-            exit();
+            $response = array("success" => true, "message" => "La demande à été effectuée avec succès - N° Chambre " . $roomNumber);
+            echo json_encode($response);
         } else {
             // Return error message if insertion fails
-            $_SESSION['error'] = "Error: Unable to add demand.";
+            $response = array("success" => false, "message" => "Error: Unable to add demand.");
+            echo json_encode($response);
         }
     }
 } else {
