@@ -59,7 +59,7 @@ include 'user_info.php';
                         <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
-                        <img src="../images/envelope.png" /><a href="#">Inbox</a>
+                        <img src="../images/envelope.png" /><a href="../students/internat.php">Inbox</a>
                     </li>
                     <li>
                         <img src="../images/question.png" /><a href="#">Aide</a>
@@ -106,7 +106,7 @@ include 'user_info.php';
                     echo '<a href="../students/decharge.php" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>';
                     echo '</a>';
-                    echo '<a href="" class="nav_link">';
+                    echo '<a href="../students/internat.php" class="nav_link">';
                     echo '<i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>';
                     echo '</a>';
                     echo '</div>';

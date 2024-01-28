@@ -57,7 +57,7 @@ $_SESSION['student_id'] = $user_id;
                         <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
-                        <img src="../images/envelope.png" /><a href="#">Inbox</a>
+                        <img src="../images/envelope.png" /><a href="../students/internat.php">Inbox</a>
                     </li>
                     <li>
                         <img src="../images/question.png" /><a href="#">Aide</a>

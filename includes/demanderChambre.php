@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include the database connection file
 include '../includes/db_connect.php';
 
@@ -27,9 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($demand_result->num_rows > 0) {
         // If a demand with the same ID exists, return error message
-        echo "Error: A demand with the same ID already exists.";
+        $_SESSION['error'] = "Error: A demand with the same ID already exists.";
     } elseif ($student_result->num_rows > 0) {
-        $_SESSION['success'] = "Etudiant existe déja dans la chambre N° " . $roomNumber . "";
+        $_SESSION['error'] = "Etudiant existe déja dans la chambre N° " . $roomNumber . "";
         header("Location: index.php?error=validation_errorp");
     } else {
         // Prepare the SQL statement to insert data into the database table
@@ -45,11 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Attempt to execute the prepared statement
         if ($insert_stmt->execute()) {
             $_SESSION['success'] = "La demande à été effectuée avec succès - N° Chambre " . $roomNumber . "";
-            header("Location: ../students/index.php");
+            header("Location: ../students/internat.php");
             exit();
         } else {
             // Return error message if insertion fails
-            echo "Error: Unable to add demand.";
+            $_SESSION['error'] = "Error: Unable to add demand.";
         }
     }
 } else {
