@@ -134,6 +134,12 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
                     echo '</a>';
 
+                    if ($_SESSION['role'] === 'internat') {
+                        echo '<a href="internat_demandes.php" class="nav_link">';
+                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '</a>';
+                    }
+
                     if ($_SESSION['role'] === 'super_admin') {
                         echo '<a href="internat_decharge.php" class="nav_link">';
                         echo '<i class="fa fa-copy"></i> <span class="nav_name">Internat decharge</span>';

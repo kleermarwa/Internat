@@ -18,106 +18,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/demandeInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
-    <style>
-        .validate {
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            padding-block: 0.5rem;
-            padding-inline: 1.25rem;
-            background-color: #5cb85c;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            gap: 10px;
-            font-weight: bold;
-            border: 3px solid rgba(255, 255, 255, 0.3019607843);
-            outline: none;
-            overflow: hidden;
-            font-size: 15px;
-        }
-
-        .validate:hover {
-            color: white;
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.6);
-        }
-
-        .validate:hover::before {
-            animation: shine 1.5s ease-out infinite;
-        }
-
-        .validate::before {
-            content: "";
-            position: absolute;
-            width: 100px;
-            height: 100%;
-            background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%);
-            top: 0;
-            left: -100px;
-            opacity: 0.6;
-        }
-
-        .reject {
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            padding-block: 0.5rem;
-            padding-inline: 1.25rem;
-            background-color: #ca4b4b;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            gap: 10px;
-            font-weight: bold;
-            border: 3px solid rgba(255, 255, 255, 0.3019607843);
-            outline: none;
-            overflow: hidden;
-            font-size: 15px;
-        }
-
-        .reject {
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            padding-block: 0.5rem;
-            padding-inline: 1.25rem;
-            background-color: #ca4b4b;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            gap: 10px;
-            font-weight: bold;
-            border: 3px solid rgba(255, 255, 255, 0.3019607843);
-            outline: none;
-            overflow: hidden;
-            font-size: 15px;
-        }
-
-        .reject:hover {
-            color: white;
-            transform: scale(1.05);
-            border-color: rgba(255, 255, 255, 0.6);
-        }
-
-        .reject:hover::before {
-            animation: shine 1.5s ease-out infinite;
-        }
-
-        .reject::before {
-            content: "";
-            position: absolute;
-            width: 100px;
-            height: 100%;
-            background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%);
-            top: 0;
-            left: -100px;
-            opacity: 0.6;
-        }
-    </style>
+    
 </head>
 
 <body id="body-pd">
@@ -133,7 +34,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Validation de décharge - Service des affaires d'internat </h5>
+            <h5>Validation demande de chambre - Service des affaires d'internat </h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -143,10 +44,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                 <h3><?php echo $name ?></h3>
                 <ul>
                     <li>
-                        <img src="../images/user.png" /><a href="profile.php">Mon Profile</a>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
                     </li>
                     <li>
-                        <img src="../images/edit.png" /><a href="#">Modifier Profile</a>
+                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
                         <img src="../images/envelope.png" /><a href="#">Inbox</a>
@@ -191,12 +92,53 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="internat_demandes.php" class="nav_link">
-                        <i class="fa fa-copy"></i> <span class="nav_name">Demandes Internat</span>
-                    </a>
-                    <a href="internat_decharge.php" class="nav_link">
-                        <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
-                    </a>
+                    <?php
+
+                    // Check if the user is logged in
+                    if (isset($_SESSION['role'])) {
+                        // Determine the appropriate href based on the user's role
+                        switch ($_SESSION['role']) {
+                            case 'Student':
+                                $href = 'decharge.php'; // Adjust the link for students
+                                break;
+                            case 'departement':
+                                $href = 'departement_decharge.php';
+                                break;
+                            case 'internat':
+                                $href = 'internat_decharge.php';
+                                break;
+                            case 'economique':
+                                $href = 'economique_decharge.php';
+                                break;
+                            case 'administration':
+                                $href = 'administration_decharge.php';
+                                break;
+                        }
+                    } else {
+                        $href = 'login.php';
+                    }
+                    echo '<a href="' . $href . '" class="nav_link">';
+                    echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
+                    echo '</a>';
+
+                    if ($_SESSION['role'] === 'internat') {
+                        echo '<a href="internat_demandes.php" class="nav_link">';
+                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '</a>';
+                    }
+
+                    if ($_SESSION['role'] === 'super_admin') {
+                        echo '<a href="internat_decharge.php" class="nav_link">';
+                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Internat decharge</span>';
+                        echo '</a>';
+                        echo '<a href="economique_decharge.php" class="nav_link">';
+                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Economique decharge</span>';
+                        echo '</a>';
+                        echo '<a href="administration_decharge.php" class="nav_link">';
+                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Administration decharge</span>';
+                        echo '</a>';
+                    }
+                    ?>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
