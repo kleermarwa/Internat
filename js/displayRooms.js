@@ -107,7 +107,6 @@ function updatePagination() {
     }
 }
 
-
 // Function to change the current page
 function changePage(newPage) {
     currentPage = newPage;

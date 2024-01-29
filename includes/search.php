@@ -10,9 +10,9 @@ $building = $_GET['building'];
 
 // Prepare SQL query
 if ($building == 'boys') {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'boy'");
+    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'boy' AND status != 'admin'");
 } else {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'girl'");
+    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'girl' AND status != 'admin'");
 }
 $search_term = "%$search_term%";
 $stmt->bind_param('s', $search_term);

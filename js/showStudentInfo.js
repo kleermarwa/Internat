@@ -9,6 +9,9 @@ function showStudentInfo(studentId) {
         success: function (studentInfo) {
             // Display additional information in a new popup
             const imageUrl = studentInfo.image ? studentInfo.image : 'images/default_user.png';
+            // const building = (studentInfo.genre == 'boy') ? 'boy'
+            // $designation = ($genre == 'boy') ? 'Etudiant :' : 'Etudiante :';
+
 
             infoPopup.innerHTML = "";
 
@@ -28,7 +31,7 @@ function showStudentInfo(studentId) {
                 infoPopup.innerHTML += `
                 <div class='btn'>
                 <button style='color:red' onclick="deleteStudent(${studentId})">Supprimer l'étudiant <i class="fa fa-trash"></i></button>
-                <button style='color:blue' onclick="moveStudent(${studentId})">Deplacer l'étudiant <i class="fa fa-arrow-right"></i></button>
+                <button style='color:blue' onclick="moveStudent(${studentId},'${studentInfo.genre}')">Deplacer l'étudiant <i class="fa fa-arrow-right"></i></button>
                 </div></div> `;
             }
             else {

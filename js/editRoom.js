@@ -56,7 +56,8 @@ function editRoom(roomNumber) {
                                     type: 'POST',
                                     data: {
                                         studentId: student.id,
-                                        newRoomNumber: roomNumber
+                                        newRoomNumber: roomNumber,
+                                        currentBuilding : currentBuilding
                                         // Add other form fields as needed
                                     },
                                     dataType: 'json',

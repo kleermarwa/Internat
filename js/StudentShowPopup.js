@@ -39,14 +39,25 @@ function showPopup() {
       // Add "Edit Room" button
       const studentCount = data.length;
 
-      if (studentCount < 4) {
-        popupImages.innerHTML += `
+      $.ajax({
+        url: `../includes/getStudentInfo.php?studentId=${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (studentInfo) {
+
+          if (studentCount < 4 && studentInfo.status == 'externe') {
+            popupImages.innerHTML += `
                     <div class="edit-room-container">
                         <button class="edit-room-button" onclick="demanderChambre(${roomNumber}, ${id}, '${name}', '${gender}','${ville}')">Demander Chambre
                         <i class="fa fa-plus icon"></i>
                         </button>
                     </div> `;
-      }
+          }
+        },
+        error: function (error) {
+          console.log('Error:', error);
+        }
+      });
       // Show the popup
       popup.style.display = "block";
 
