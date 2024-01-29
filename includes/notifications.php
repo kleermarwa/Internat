@@ -8,8 +8,9 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQ
   exit('<div style="text-align: center; width: max-content; margin: 2rem auto 0 auto; border: 1px solid;">
   <h1 style="font-weight: 900;">Forbidden</h1>
   <h4 style="font-weight: 600;"> <strong>Error 403: </strong>You don\'t have permission to access this resource.</h4>
-  <h2 style="font-weight: 600; color:red;">⬇⬇ 7esslek A7sen Admin Réseau ⬇⬇</h2>
-  <img style="width: 20rem; height: 20rem; margin-bottom: 1rem;" src="../images/bouragba.jpg" alt="">
+  <h2 style="font-weight: 600; color:red;">⬇⬇ 7esslek A7sen 2 sikiriti ⬇⬇</h2>
+  <img style="width: 17rem; height: 17rem; margin : 1rem;" src="../images/lklb.jpeg" alt="">
+  <img style="width: 17rem; height: 17rem; margin : 1rem;" src="../images/moulchi.jpeg" alt="">
   <hr>
   Direct access not allowed. This endpoint is intended for AJAX requests only.
 </div>');
