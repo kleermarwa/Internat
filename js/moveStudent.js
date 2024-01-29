@@ -1,5 +1,5 @@
 // Function to move a student to another room
-function moveStudent(studentId) {
+function moveStudent(studentId, currentBuilding) {
     // Prompt the user for the new room number
     const newRoomNumber = prompt('Entrez le numéro de la nouvelle chambre:');
 
@@ -12,9 +12,11 @@ function moveStudent(studentId) {
             dataType: 'json',
             data: {
                 studentId: studentId,
-                newRoomNumber: newRoomNumber
+                newRoomNumber: newRoomNumber,
+                currentBuilding : currentBuilding
             },
             success: function (response) {
+                console.log(response)
                 if (response.success) {
                     alert('L\'étudiant a déplacé avec succès');
                     // Close the info popup

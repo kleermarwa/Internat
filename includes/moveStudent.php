@@ -4,6 +4,7 @@ require_once('db_connect.php'); // Replace with your actual database connection 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $studentId = $_POST['studentId'];
     $newRoomNumber = $_POST['newRoomNumber'];
+    $currentBuilding = $_POST['currentBuilding'];
 
     // Check if the new room is valid (less than or equal to 110)
     if ($newRoomNumber <= 0 || $newRoomNumber > 110) {
@@ -12,16 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Check if the room is already full (4 students)
-    $countQuery = "SELECT COUNT(*) FROM students WHERE room_number = ?";
+    $countQuery = "SELECT COUNT(*) FROM students WHERE room_number = ? AND genre = ?";
     
     $countStmt = $conn->prepare($countQuery);
-    $countStmt->bind_param('i', $newRoomNumber);
+    $countStmt->bind_param('is', $newRoomNumber, $currentBuilding); // 'i' for integer and 's' for string
     $countStmt->execute();
     $countStmt->bind_result($numStudents);
     $countStmt->fetch();
     $countStmt->close();
-
-    echo $numStudents;
 
     if ($numStudents >= 4) {
         echo json_encode(['success' => false, 'error' => 'La chambre est déjà pleine']);
@@ -42,3 +41,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(['success' => false, 'error' => 'Invalid request method']);
 }
+?>

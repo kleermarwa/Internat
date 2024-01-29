@@ -26,6 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $check_student_stmt->execute();
     $student_result = $check_student_stmt->get_result();
 
+    // Check if a student is external 
+    $check_status_sql = "SELECT * FROM students WHERE name = ? AND status = 'externe' ";
+    $check_status_stmt = $conn->prepare($check_status_sql);
+    $check_status_stmt->bind_param('s', $name);
+    $check_status_stmt->execute();
+    $status_result = $check_status_stmt->get_result();
+
     if ($demand_result->num_rows > 0) {
         // If a demand with the same ID exists, return error message
         $response = array("success" => false, "message" => "Erreur : Une demande avec le même ID existe déjà.");
@@ -33,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($student_result->num_rows > 0) {
         $response = array("success" => false, "message" => "Etudiant existe déja dans la chambre N° " . $roomNumber);
         echo json_encode($response);
-    } else {
+    } elseif ($status_result->num_rows > 0) {
         // Prepare the SQL statement to insert data into the database table
         $insert_sql = "INSERT INTO internat (student_id, name, room_number, status, genre, ville,valide) 
                 VALUES (?, ?, ?, 'pending', ?, ?,0)";
