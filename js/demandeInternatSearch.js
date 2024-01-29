@@ -24,20 +24,16 @@ function loadCasaResults() {
   });
 }
 
-// Call loadAllResults() when the page is loaded initially
 $(document).ready(function () {
   loadExterneResults();
   loadCasaResults();
 });
 
-// Function to handle search when the user types in the search box
 function searchExterne() {
   var input = document.getElementById("searchExterne").value;
   if (input.trim() === "") {
-    // If the search box is empty, load all results
     loadExterneResults();
   } else {
-    // If the search box is not empty, perform search
     $.ajax({
       type: "GET",
       url: "../includes/demandeInternatSearch.php",
@@ -57,10 +53,8 @@ function searchExterne() {
 function searchCasa() {
   var input = document.getElementById("searchCasa").value;
   if (input.trim() === "") {
-    // If the search box is empty, load all results
     loadCasaResults();
   } else {
-    // If the search box is not empty, perform search
     $.ajax({
       type: "GET",
       url: "../includes/demandeInternatCasaSearch.php",

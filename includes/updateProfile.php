@@ -108,13 +108,11 @@ $user_id = $_SESSION['user_id'];
                     echo '<a href="../admin/roomList.php" class="nav_link">';
                     echo '<i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Dashboard</span>';
                     echo '</a>';
-
-                    // Check if the user is logged in
-                    if (isset($_SESSION['user_id'])) {
-                        // Determine the appropriate href based on the user's role
+                    
+                    if (isset($_SESSION['user_id'])) {                        
                         switch ($_SESSION['role']) {
                             case 'student':
-                                $href = 'decharge.php'; // Adjust the link for students
+                            $href = 'decharge.php'; 
                                 break;
                             case 'departement':
                                 $href = 'departement_decharge.php';

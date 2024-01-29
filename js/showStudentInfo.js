@@ -1,17 +1,12 @@
-// Function to show more information about a specific student
+
 function showStudentInfo(studentId) {
     const infoPopup = document.getElementById("infoPopup");
-    // Fetch additional student info using AJAX
     $.ajax({
         url: `../includes/getStudentInfo.php?studentId=${studentId}`,
         type: 'GET',
         dataType: 'json',
         success: function (studentInfo) {
-            // Display additional information in a new popup
             const imageUrl = studentInfo.image ? studentInfo.image : 'images/default_user.png';
-            // const building = (studentInfo.genre == 'boy') ? 'boy'
-            // $designation = ($genre == 'boy') ? 'Etudiant :' : 'Etudiante :';
-
 
             infoPopup.innerHTML = "";
 
@@ -41,10 +36,8 @@ function showStudentInfo(studentId) {
                 </div></div> `;
             }
 
-            // Show the popup
             infoPopup.style.display = "block";
 
-            // Close the info popup when clicking outside
             document.addEventListener("click", function closeInfoPopupOutside(event) {
                 if (!infoPopup.contains(event.target)) {
                     infoPopup.style.display = "none";

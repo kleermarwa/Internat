@@ -5,29 +5,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
             nav = document.getElementById(navId),
             bodypd = document.getElementById(bodyId),
             headerpd = document.getElementById(headerId)
-
-        // Validate that all variables exist
+        
         if (toggle && nav && bodypd && headerpd) {
-            toggle.addEventListener('click', () => {
-                // show navbar
-                nav.classList.toggle('show');
-                // change icon
-                toggle.classList.toggle('bx-x');
-                // add padding to body
-                bodypd.classList.toggle('body-pd');
-                // add padding to header
+            toggle.addEventListener('click', () => {                
+                nav.classList.toggle('show');                
+                toggle.classList.toggle('bx-x');                
+                bodypd.classList.toggle('body-pd');                
                 headerpd.classList.toggle('body-pd');
             });
-
-            // Close the navbar if clicked outside
+            
             document.addEventListener('click', (e) => {
                 const isClickInsideNavbar = nav.contains(e.target) || toggle.contains(e.target);
-                if (!isClickInsideNavbar) {
-                    // Hide the navbar
-                    nav.classList.remove('show');
-                    // Reset icon
-                    toggle.classList.remove('bx-x');
-                    // Remove padding from body and header
+                if (!isClickInsideNavbar) {                    
+                    nav.classList.remove('show');                    
+                    toggle.classList.remove('bx-x');                    
                     bodypd.classList.remove('body-pd');
                     headerpd.classList.remove('body-pd');
                 }
@@ -47,11 +38,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
     linkColor.forEach(l => l.addEventListener('click', colorLink))
-
-    // Your code to run since DOM is loaded and ready
+    
 });
 
-// ---------Responsive-navbar-active-animation-----------
 function test() {
     var tabsNewAnim = $('#navbarSupportedContent');
     var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
@@ -96,17 +85,13 @@ $(".navbar-toggler").click(function () {
     });
 });
 
-// --------------add active class-on another-page move----------
-jQuery(document).ready(function ($) {
-    // Get current path and find target link
+jQuery(document).ready(function ($) {    
     var path = window.location.pathname.split("/").pop();
-
-    // Account for home page with empty path
+    
     if (path == '') {
         path = 'index.html';
     }
 
-    var target = $('#navbarSupportedContent ul li a[href="' + path + '"]');
-    // Add active class to target link
+    var target = $('#navbarSupportedContent ul li a[href="' + path + '"]');    
     target.parent().addClass('active');
 });

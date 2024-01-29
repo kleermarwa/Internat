@@ -1,6 +1,6 @@
 <?php
 session_start();
-// Connect to the database and check for errors in the connection
+
 include 'db_connect.php';
 
 if (isset($_POST['login'])) {
@@ -17,7 +17,7 @@ if (isset($_POST['login'])) {
         $href = "";
         switch ($_SESSION['role']) {
             case 'student':
-                $href = 'profile.php'; // Adjust the link for students
+                $href = 'profile.php';
                 break;
             case 'departement':
                 $href = '../admin/internat.php';
@@ -38,15 +38,12 @@ if (isset($_POST['login'])) {
         header("Location:" . $href);
         exit;
     } else {
-        // Check whether the email exists in the database
         $emailCheck = mysqli_query($conn, "SELECT * FROM `students` WHERE email = '$email'");
 
         if (mysqli_num_rows($emailCheck) > 0) {
-            // Email is correct, but password is incorrect
-            $messages[] = 'Incorrect password!';
+            $messages[] = 'Mot de passe incorrect pour ' . $email . ' !';
         } else {
-            // Both email and password are incorrect
-            $messages[] = 'Incorrect email or password!';
+            $messages[] = 'Email Incorrect';
         }
     }
 }
@@ -60,7 +57,7 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Internat</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/login.css">
+    <!-- <link rel="stylesheet" href="../css/login.css"> -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
@@ -69,8 +66,8 @@ if (isset($_POST['login'])) {
 
     <style>
         .btn-primary {
-            background-color: #00cbcc;
-            border-color: #00cbcc;
+            background-color: #004b82;
+            border-color: #004b82;
         }
     </style>
 
@@ -80,7 +77,6 @@ if (isset($_POST['login'])) {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Display error messages with fade-in, delay, and fade-out
             <?php foreach ($messages as $message) : ?>
                 $('<div class="error" style="top:2rem;" ><?= $message ?></div>').appendTo('body').fadeIn(300).delay(3000).fadeOut(400);
             <?php endforeach; ?>
@@ -105,7 +101,7 @@ if (isset($_POST['login'])) {
                 </div>
 
                 <button type="submit" class="btn btn-primary block" name="login">Connexion</button>
-                <a style="color:#00cbcc; display: block; text-align: center;" href="#">Mot de passe oublié ?</a>
+                <a style="color:#004b82; display: block; text-align: center;" href="#">Mot de passe oublié ?</a>
             </form>
         </div>
     </div>

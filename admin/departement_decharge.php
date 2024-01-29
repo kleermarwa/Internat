@@ -79,10 +79,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
         <div class="left">
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
-                <div class="notification-count" id="count"><?php echo $count ?></div>
-                <!-- Notification dropdown content -->
-                <div class="notification-dropdown">
-                    <!-- Notifications will be dynamically added here via JavaScript -->
+                <div class="notification-count" id="count"><?php echo $count ?></div>                
+                <div class="notification-dropdown">                    
                 </div>
             </div>
         </div>
@@ -116,8 +114,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
 
     <hr>
 
-    <div id="searchResults">
-        <!-- Search results will be displayed here -->
+    <div id="searchResults">        
     </div>
 
 

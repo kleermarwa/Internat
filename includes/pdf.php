@@ -87,7 +87,6 @@ $html = <<<EOD
 </tr>
 </table> <br> <hr> <br>
 <h2 style="text-align: center;font-style: italic;"> ATTESTATION D'APPROBATION </h2>
-<!-- Section du corps -->
 <div>
 <p style="margin-left: 10rem;">$designation $name<p>
 <p>Email : <span style="color:blue"> $email </span> </p>

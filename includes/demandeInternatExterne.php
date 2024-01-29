@@ -1,14 +1,11 @@
 <?php
-// Include database connection
 include 'db_connect.php';
 
-// Construct the SQL query to fetch all results
 $sql = "SELECT * FROM internat WHERE ville != 'Casablanca' AND valide = 0";
 
 $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
-    // Prepare the HTML for displaying all results
+if ($result->num_rows > 0) {    
     $output = "<div class='RoomList'>";
     $output .= "<table id='data-table'>";
     $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Ville</th><th>Numéro de chambre</th><th>Status</th><th>Genre</th><th>Date de création</th><th colspan=2>Action</th></tr></thead>";

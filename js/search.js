@@ -1,13 +1,11 @@
-$(document).ready(function () {
-    // Store references to the search box and results elements
+$(document).ready(function () {    
     var $searchBox = $('#search');
     var $searchResults = $('#search-results');
-
-    // Bind a keyup event to the search box
+    
     $searchBox.keyup(function () {
         var search_term = $(this).val();
 
-        if (search_term.trim() !== '') { // Check if search term is not empty
+    if (search_term.trim() !== '') { 
             $.ajax({
                 url: `../includes/search.php?term=${search_term}&building=${currentBuilding}`,
                 type: 'GET',
@@ -41,14 +39,12 @@ $(document).ready(function () {
                     }
                 }
             });
-        } else { // Hide results if search term is empty
+    } else { 
             $searchResults.hide();
         }
     });
-
-    // Bind a click event to the document object
-    $(document).click(function (event) {
-        // Check if the click occurred outside of the search box and its results
+    
+    $(document).click(function (event) {        
         if (!$(event.target).is($searchBox) && !$(event.target).is($searchResults)) {
             $searchResults.hide();
             $('#search').val('');

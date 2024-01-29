@@ -18,7 +18,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/demandeInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
-    
+
 </head>
 
 <body id="body-pd">
@@ -92,53 +92,12 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <?php
-
-                    // Check if the user is logged in
-                    if (isset($_SESSION['role'])) {
-                        // Determine the appropriate href based on the user's role
-                        switch ($_SESSION['role']) {
-                            case 'Student':
-                                $href = 'decharge.php'; // Adjust the link for students
-                                break;
-                            case 'departement':
-                                $href = 'departement_decharge.php';
-                                break;
-                            case 'internat':
-                                $href = 'internat_decharge.php';
-                                break;
-                            case 'economique':
-                                $href = 'economique_decharge.php';
-                                break;
-                            case 'administration':
-                                $href = 'administration_decharge.php';
-                                break;
-                        }
-                    } else {
-                        $href = 'login.php';
-                    }
-                    echo '<a href="' . $href . '" class="nav_link">';
-                    echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
-                    echo '</a>';
-
-                    if ($_SESSION['role'] === 'internat') {
-                        echo '<a href="internat_demandes.php" class="nav_link">';
-                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
-                        echo '</a>';
-                    }
-
-                    if ($_SESSION['role'] === 'super_admin') {
-                        echo '<a href="internat_decharge.php" class="nav_link">';
-                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Internat decharge</span>';
-                        echo '</a>';
-                        echo '<a href="economique_decharge.php" class="nav_link">';
-                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Economique decharge</span>';
-                        echo '</a>';
-                        echo '<a href="administration_decharge.php" class="nav_link">';
-                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Administration decharge</span>';
-                        echo '</a>';
-                    }
-                    ?>
+                    <a href="internat_decharge.php" class="nav_link">
+                        <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
+                    </a>
+                    <a href="internat_demandes.php" class="nav_link">
+                        <i class="fa fa-bed"></i> <span class="nav_name">Demandes Internat</span>
+                    </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
@@ -154,7 +113,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </div>
     </div>
     <div id="searchResults">
-        <!-- Search results will be displayed here -->
     </div>
     <hr>
     <h2 style="text-align: center; margin-bottom:2rem">Demandes Casablanca</h2>
@@ -165,7 +123,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </div>
     </div>
     <div id="casaResults">
-        <!-- Search results will be displayed here -->
     </div>
 </body>
 

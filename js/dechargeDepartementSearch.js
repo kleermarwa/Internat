@@ -10,20 +10,15 @@ function loadAllResults() {
     },
   });
 }
-
-// Call loadAllResults() when the page is loaded initially
 $(document).ready(function () {
   loadAllResults();
 });
 
-// Function to handle search when the user types in the search box
 function search() {
   var input = document.getElementById("searchBox").value;
   if (input.trim() === "") {
-    // If the search box is empty, load all results
     loadAllResults();
   } else {
-    // If the search box is not empty, perform search
     $.ajax({
       type: "GET",
       url: "../includes/dechargeDepartementSearch.php",

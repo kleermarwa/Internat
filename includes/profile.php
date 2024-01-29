@@ -117,13 +117,11 @@ include 'user_info.php';
                     echo '<a href="../admin/roomList.php" class="nav_link">';
                     echo '<i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Dashboard</span>';
                     echo '</a>';
-
-                    // Check if the user is logged in
+                    
                     if (isset($_SESSION['user_id'])) {
-                        // Determine the appropriate href based on the user's role
                         switch ($_SESSION['role']) {
                             case 'student':
-                                $href = 'decharge.php'; // Adjust the link for students
+                                $href = 'decharge.php';
                                 break;
                             case 'departement':
                                 $href = 'departement_decharge.php';
@@ -204,7 +202,7 @@ include 'user_info.php';
                         </table>
                         <div class="col-12 d-flex justify-content-end p-0 my-3">
 
-                            <a class="btn btn-primary m-0 ml-3" style="min-width: 100px;" href="../includes/updateProfile.php">
+                            <a class="btn btn-primary m-0 ml-3" style="max-width: 100px;" href="../includes/updateProfile.php">
                                 Modifier
                             </a>
 

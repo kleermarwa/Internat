@@ -109,7 +109,6 @@ $_SESSION['student_id'] = $user_id;
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-    <!-- Floor selection dropdown -->
 
     <h1 style="font-weight:500; padding-top:2rem ; text-align:center;" class="w-100 my-3">
         Bienvenue dans votre Espace Gestion Internat
@@ -170,7 +169,6 @@ $_SESSION['student_id'] = $user_id;
         </div>
     </form>
 
-    <!-- Room map container -->
     <div id="roomMap">
 
         <div class="popup" id="popup">
@@ -186,7 +184,7 @@ $_SESSION['student_id'] = $user_id;
             <form id="editForm">
                 <label for="studentName">Nom de l'étudiant:</label>
                 <input type="text" id="studentName" required>
-                <!-- Add other form fields as needed -->
+
                 <button class="submit" type="submit">Chercher l'étudiant</button>
                 <div id="studentList"></div>
                 <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>
@@ -195,7 +193,6 @@ $_SESSION['student_id'] = $user_id;
         </div>
     </div>
     <script>
-        // Room data for each floor
         const boysBuilding = {
             1: Array.from({
                 length: 22
@@ -261,26 +258,22 @@ $_SESSION['student_id'] = $user_id;
             })),
         };
 
-        let currentFloor = 1; // Default to Ground Floor
+        let currentFloor = 1;
 
-        // Room dimensions and layout
         const roomWidth = 70;
         const roomHeight = 70;
         const spacing = 10;
         const numRows = 2;
         const numCols = 11;
 
-        // Calculate total width and height
         const totalWidth = (numCols * roomWidth) + ((numCols - 1) * spacing) + 160;
         const totalHeight = (numRows * roomHeight) + ((numRows - 1) * spacing);
 
-        // Create SVG container
         const svg = d3.select("#roomMap")
             .append("svg")
             .attr("width", totalWidth)
             .attr("height", totalHeight);
 
-        // Draw building border
         svg.append("rect")
             .attr("class", "building")
             .attr("width", totalWidth)
@@ -288,14 +281,11 @@ $_SESSION['student_id'] = $user_id;
 
         const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
 
-        // Function to update room layout based on the selected floor
         function updateRoomLayout() {
             const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
 
-            // Clear existing room groups
             svg.selectAll("g").remove();
 
-            // Create rooms for the selected floor
             const roomGroups = svg.selectAll("g")
                 .data(selectedBuilding[currentFloor])
                 .enter()
@@ -308,16 +298,14 @@ $_SESSION['student_id'] = $user_id;
                     return `translate(${x}, ${y})`;
                 });
 
-            // Draw rooms
             roomGroups.append("rect")
                 .attr("class", 'room')
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) // Assign color dynamically
+                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor))
                 .on("click", showPopup);
 
-            // Draw room numbers
             roomGroups.append("text")
                 .attr("class", "roomNumber")
                 .text(d => d.id)
@@ -326,21 +314,18 @@ $_SESSION['student_id'] = $user_id;
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle");
 
-            // Draw bathroom
             svg.append("rect")
                 .attr("class", "bathroom")
                 .attr("width", 80)
                 .attr("height", totalHeight)
-                .attr("x", 0); // Adjust the position based on room layout
+                .attr("x", 0);
 
-            // Draw stairs
             svg.append("rect")
                 .attr("class", "stairs")
                 .attr("width", 50)
                 .attr("height", totalHeight)
-                .attr("x", totalWidth - 50); // Adjust the position based on room layout
+                .attr("x", totalWidth - 50);
 
-            // Draw divider line
             svg.append("line")
                 .attr("class", "divider")
                 .attr("x1", roomWidth + 20)
@@ -349,36 +334,28 @@ $_SESSION['student_id'] = $user_id;
                 .attr("y2", totalHeight);
         }
 
-        // Initial room layout for the default floor
         updateRoomLayout();
         document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
             radio.addEventListener('change', changeFloor);
         });
 
 
-        // Function to handle floor change
         function changeFloor() {
-            // Assuming you have a reference to the selected option element
             currentFloor = parseInt(document.querySelector('#options input[type="radio"]:checked').value);
             updateRoomLayout();
         }
-        // Event listener for document click to close the dropdown
         document.addEventListener("click", function(event) {
             var dropdown = document.getElementById("options-view-button");
             var dropdownContainer = document.getElementById("options");
 
-            // Check if the clicked element is not inside the dropdown or its container
             if (!dropdownContainer.contains(event.target) && event.target !== dropdown) {
-                // Close the dropdown by unchecking the checkbox
                 dropdown.checked = false;
             }
         });
 
-        // Event listener for radio inputs to close the dropdown when a value is selected
         var radioInputs = document.querySelectorAll('#options input[type="radio"]');
         radioInputs.forEach(function(radioInput) {
             radioInput.addEventListener("change", function() {
-                // Close the dropdown by unchecking the checkbox
                 document.getElementById("options-view-button").checked = false;
             });
         });

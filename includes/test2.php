@@ -1,5 +1,4 @@
 <?php
-// Include database connection
 include 'db_connect.php';
 
 $user_id = 1;
@@ -33,7 +32,6 @@ $firstName = $nameArray[0];
     </td>
   </tr>
 </table>
-<!-- Section du corps -->
 <div style="padding: 20px;">
   <p>Date : <?= $data[0]['updated_at'] ?></p>
   <p><?php echo $data[0]['genre'] == 'boy' ? 'Etudiant : ' : 'Etudiante : '; ?><?= $data[0]['name'] ?><br>

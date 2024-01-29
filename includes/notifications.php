@@ -1,10 +1,8 @@
 <?php
 session_start();
-// echo $_SESSION['role'];
 
-// Check if the request is not an AJAX request
 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
-  http_response_code(403); // Forbidden
+  http_response_code(403);
   exit('<div style="text-align: center; width: max-content; margin: 2rem auto 0 auto; border: 1px solid;">
   <h1 style="font-weight: 900;">Forbidden</h1>
   <h4 style="font-weight: 600;"> <strong>Error 403: </strong>You don\'t have permission to access this resource.</h4>
@@ -16,9 +14,7 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQ
 </div>');
 }
 
-// Include database connection and other necessary files
 include '../includes/db_connect.php';
-// Your default SQL query
 $sqlcount = "SELECT decharge.*, students.*
     FROM decharge
     JOIN students ON decharge.student_id = students.id";
@@ -37,11 +33,11 @@ if (isset($_SESSION['role'])) {
       $updateSql .= "SET decharge.read_internat = 1 WHERE decharge.read_internat = 0 AND decharge.valide_departement = 1";
       break;
     case 'economique':
-      $sqlcount .= " WHERE AND decharge.read_economique = 0 AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 0";
+      $sqlcount .= " WHERE decharge.read_economique = 0 AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 0";
       $updateSql .= "SET decharge.read_economique = 1 WHERE decharge.read_economique = 0 AND decharge.valide_internat = 1";
       break;
     case 'administration':
-      $sqlcount .= " WHERE AND decharge.read_administartion = 0 AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 1 AND decharge.valide_administration = 0";
+      $sqlcount .= " WHERE decharge.read_administartion = 0 AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 1 AND decharge.valide_administration = 0";
       $updateSql .= "SET decharge.read_administartion = 1 WHERE decharge.read_administartion = 0 AND decharge.valide_economique = 1";
       break;
   }
@@ -49,7 +45,6 @@ if (isset($_SESSION['role'])) {
 
 $sqlcount .= " ORDER BY decharge.created_at DESC";
 
-// Continue with the rest of your code...
 $result = $conn->query($sqlcount);
 $notifications = array();
 
@@ -60,10 +55,9 @@ if ($result->num_rows > 0) {
       'message' => 'New decharge request from student ' . $row['name']
     );
   }
-  // Mark fetched notifications as read
+
   $conn->query($updateSql);
 }
 
-// Return JSON response
 header('Content-Type: application/json');
 echo json_encode($notifications);

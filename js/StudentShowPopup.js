@@ -7,23 +7,18 @@ function showPopup() {
   const popup = document.getElementById("popup");
   const popupRoomNumber = document.getElementById("popupRoomNumber");
   const popupImages = document.getElementById("popupImages");
-
-  // Fetch student data using AJAX
+  
   $.ajax({
     url: `../includes/getRoomData.php?roomNumber=${roomNumber}&building=${currentBuilding}`,
     type: "GET",
     dataType: "json",
     success: function (data) {
-      console.log(data);
-      // Set room number in popup
+      console.log(data);      
       popupRoomNumber.textContent = `Chambre ${roomNumber}`;
-
-      // Set images and student info in popup
+      
       popupImages.innerHTML = "";
-
-      // Add student data to popup
-      data.forEach((student) => {
-        // Check if the image field is empty, assign a default avatar
+      
+      data.forEach((student) => {        
         const imageUrl = student.image
           ? student.image
           : "images/default_user.png";
@@ -32,11 +27,9 @@ function showPopup() {
                     <div class="student-container">
                         <img src="${imageUrl}" alt="${student.name}">
                         <p>${student.name}</p>
-                        <button class="student-container-button" onclick=showStudentInfo(${student.id})>Plus d'infos</button>                        
                     </div>
                 `;
-      });
-      // Add "Edit Room" button
+      });      
       const studentCount = data.length;
 
       $.ajax({
@@ -57,11 +50,9 @@ function showPopup() {
         error: function (error) {
           console.log('Error:', error);
         }
-      });
-      // Show the popup
+      });      
       popup.style.display = "block";
-
-      // Close the info popup when clicking outside
+      
       document.addEventListener("click", function closepopupOutside(event) {
         if (!popup.contains(event.target)) {
           popup.style.display = "none";

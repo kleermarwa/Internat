@@ -1,11 +1,8 @@
 <?php
 session_start();
-// Include the database connection file
 include '../includes/db_connect.php';
 
-// Check if the data is sent via POST method
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Extract data from the POST request
     $roomNumber = $_POST['roomNumber'];
     $id = $_POST['id'];
     $name = $_POST['name'];
@@ -34,34 +31,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $status_result = $check_status_stmt->get_result();
 
     if ($demand_result->num_rows > 0) {
-        // If a demand with the same ID exists, return error message
         $response = array("success" => false, "message" => "Erreur : Une demande avec le même ID existe déjà.");
         echo json_encode($response);
     } elseif ($student_result->num_rows > 0) {
         $response = array("success" => false, "message" => "Etudiant existe déja dans la chambre N° " . $roomNumber);
         echo json_encode($response);
     } elseif ($status_result->num_rows > 0) {
-        // Prepare the SQL statement to insert data into the database table
         $insert_sql = "INSERT INTO internat (student_id, name, room_number, status, genre, ville,valide) 
                 VALUES (?, ?, ?, 'pending', ?, ?,0)";
 
-        // Prepare the SQL statement
         $insert_stmt = $conn->prepare($insert_sql);
-
-        // Bind parameters
         $insert_stmt->bind_param('isiss', $id, $name, $roomNumber, $gender, $ville);
-
-        // Attempt to execute the prepared statement
         if ($insert_stmt->execute()) {
             $response = array("success" => true, "message" => "La demande à été effectuée avec succès - N° Chambre " . $roomNumber);
             echo json_encode($response);
         } else {
-            // Return error message if insertion fails
             $response = array("success" => false, "message" => "Error: Unable to add demand.");
             echo json_encode($response);
         }
     }
 } else {
-    // Return error if request method is not POST
     echo "Error: Invalid request method.";
 }

@@ -17,8 +17,7 @@ function updateNotificationDropdown(notifications) {
     const dropdown = $('.notification-dropdown');
     dropdown.empty();
 
-    if (notifications.length === 0) {
-        // Display a message when there are no notifications
+    if (notifications.length === 0) {        
         dropdown.append('<div class="notification-item"><p style="text-align:center">Aucune nouvelle notification</p></div>');
     } else {
         notifications.forEach(function (notification) {
@@ -31,8 +30,7 @@ function updateNotificationDropdown(notifications) {
     }
 
     dropdown.show();
-
-    // Attach the click event listener to the document to close the dropdown
+    
     $(document).on('click', function (event) {
         if (!$(event.target).closest('.notification-icon').length && !$(event.target).closest('.notification-dropdown').length) {
             dropdown.hide();
@@ -40,7 +38,6 @@ function updateNotificationDropdown(notifications) {
     });
 }
 
-// Click event for the notification icon
 $('.notification-icon').on('click', function () {
     fetchNotifications();
 });

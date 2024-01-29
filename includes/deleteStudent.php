@@ -1,10 +1,9 @@
 <?php
-require_once('db_connect.php'); // Replace with your actual database connection file
+require_once('db_connect.php'); 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $studentId = $_POST['studentId'];
 
-    // Delete student from the room
     $query = "UPDATE students SET room_number = NULL, status = 'externe' WHERE id = ?";
 
     $stmt = $conn->prepare($query);

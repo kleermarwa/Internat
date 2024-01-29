@@ -4,7 +4,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -80,9 +79,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
                 <div class="notification-count" id="count"><?php echo $count ?></div>
-                <!-- Notification dropdown content -->
                 <div class="notification-dropdown">
-                    <!-- Notifications will be dynamically added here via JavaScript -->
                 </div>
             </div>
         </div>
@@ -117,7 +114,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
     <hr>
 
     <div id="searchResults">
-        <!-- Search results will be displayed here -->
     </div>
 
 </body>

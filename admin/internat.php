@@ -80,14 +80,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
                 <input type="search" placeholder="Search Students" id="search">
-            </div>
-            <!-- Add this within your HTML body where the bell icon is located -->
+            </div>            
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
-                <div class="notification-count" id="count"><?php echo $count ?></div>
-                <!-- Notification dropdown content -->
-                <div class="notification-dropdown">
-                    <!-- Notifications will be dynamically added here via JavaScript -->
+                <div class="notification-count" id="count"><?php echo $count ?></div>                
+                <div class="notification-dropdown">                    
                 </div>
             </div>
 
@@ -156,13 +153,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-
-    <!-- Buttons to change buildings -->
+    
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
         <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
-    </div>
-    <!-- Floor selection dropdown -->
+    </div>    
     <form id="app-cover">
         <div id="select-box">
             <input type="checkbox" id="options-view-button">
@@ -215,8 +210,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             </div>
         </div>
     </form>
-
-    <!-- Room map container -->
+    
     <div id="roomMap">
 
         <div class="popup" id="popup">
@@ -231,8 +225,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             <p>Ajouter étudiant</p>
             <form id="editForm">
                 <label for="studentName">Nom de l'étudiant:</label>
-                <input type="text" id="studentName" required>
-                <!-- Add other form fields as needed -->
+                <input type="text" id="studentName" required>                
                 <button class="submit" type="submit">Chercher l'étudiant</button>
                 <div id="studentList"></div>
                 <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>

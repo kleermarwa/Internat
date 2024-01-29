@@ -1,16 +1,13 @@
 <?php
-// Include database connection
 include 'db_connect.php';
 
-if (isset($_GET['input']) && !empty($_GET['input'])) {
-    // Sanitize the input to prevent SQL injection
+if (isset($_GET['input']) && !empty($_GET['input'])) {    
     $searchInput = $conn->real_escape_string($_GET['input']);
     $sql = "SELECT * FROM internat WHERE ville != 'Casablanca' AND name LIKE '%$searchInput%' AND valide = 0";
 
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        // Prepare the HTML for displaying all results
+    if ($result->num_rows > 0) {        
         $output = "<div class='RoomList'>";
         $output .= "<table id='data-table'>";
         $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Ville</th><th>Numéro de chambre</th><th>Status</th><th>Genre</th><th>Date de création</th></tr></thead>";

@@ -1,13 +1,8 @@
 <?php
-// Include database connection
 include 'db_connect.php';
 
-// Check if the input parameter is set and not empty
 if (isset($_GET['input']) && !empty($_GET['input'])) {
-    // Sanitize the input to prevent SQL injection
     $searchInput = $conn->real_escape_string($_GET['input']);
-
-    // Construct the SQL query to search for pending requests
     $sql = "SELECT decharge.*, students.*
             FROM decharge
             JOIN students ON decharge.student_id = students.id
@@ -17,7 +12,6 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Prepare the HTML for displaying search results
         $output = "<div class='RoomList'>";
         $output .= "<table id='data-table'>";
         $output .= "<thead><tr><th>Numéro de requete</th><th>Nom de l'étudiant</th><th>Status</th><th>Filière</th><th>Date de création</th><th>Action</th></tr></thead>";
@@ -30,7 +24,6 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
             $output .= "<td>" . $row['status'] . "</td>";
             $output .= "<td>" . $row['filliere'] . "</td>";
             $output .= "<td>" . $row['created_at'] . "</td>";
-            // Action button to validate the request
             $output .= "<td><a class='validateDecharge' href='internat_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Validate</a></td>";
             $output .= "</tr>";
         }

@@ -86,9 +86,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
                 <div class="notification-count" id="count"><?php echo $count ?></div>
-                <!-- Notification dropdown content -->
                 <div class="notification-dropdown">
-                    <!-- Notifications will be dynamically added here via JavaScript -->
                 </div>
             </div>
             <div id="search-results"></div>
@@ -106,13 +104,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <?php
-
-                    // Check if the user is logged in
                     if (isset($_SESSION['role'])) {
-                        // Determine the appropriate href based on the user's role
                         switch ($_SESSION['role']) {
                             case 'Student':
-                                $href = 'decharge.php'; // Adjust the link for students
+                                $href = 'decharge.php';
                                 break;
                             case 'departement':
                                 $href = 'departement_decharge.php';
@@ -178,13 +173,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 </tr>
             </thead>
             <tbody>
-                <!-- Data will be loaded here -->
             </tbody>
         </table>
 
         <div class='pagination-container'>
             <ul class="pagination">
-                <!-- Here the JS Function Will Add the Rows -->
             </ul>
         </div>
     </div>

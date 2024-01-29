@@ -59,13 +59,11 @@
             </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-
-    <!-- Buttons to change buildings -->
+    
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
         <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
-    </div>
-    <!-- Floor selection dropdown -->
+    </div>    
     <form id="app-cover">
         <div id="select-box">
             <input type="checkbox" id="options-view-button">
@@ -118,8 +116,7 @@
             </div>
         </div>
     </form>
-
-    <!-- Room map container -->
+    
     <div id="roomMap">
 
         <div class="popup" id="popup">
@@ -134,8 +131,7 @@
             <p>Ajouter étudiant</p>
             <form id="editForm">
                 <label for="studentName">Nom de l'étudiant:</label>
-                <input type="text" id="studentName" required>
-                <!-- Add other form fields as needed -->
+                <input type="text" id="studentName" required>                
                 <button class="submit" type="submit">Chercher l'étudiant</button>
                 <div id="studentList"></div>
                 <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>
@@ -143,8 +139,7 @@
             </form>
         </div>
     </div>
-    <script>
-        // Room data for each floor
+    <script>        
         const boysBuilding = {
             1: Array.from({
                 length: 22
@@ -210,42 +205,35 @@
             })),
         };
 
-        let currentBuilding = 'boys'; // Default to Boys' Building
-        let currentFloor = 1; // Default to Ground Floor
-
-        // Room dimensions and layout
+    let currentBuilding = 'boys'; 
+    let currentFloor = 1; 
+        
         const roomWidth = 70;
         const roomHeight = 70;
         const spacing = 10;
         const numRows = 2;
         const numCols = 11;
-
-        // Calculate total width and height
+        
         const totalWidth = (numCols * roomWidth) + ((numCols - 1) * spacing) + 160;
         const totalHeight = (numRows * roomHeight) + ((numRows - 1) * spacing);
-
-        // Create SVG container
+        
         const svg = d3.select("#roomMap")
             .append("svg")
             .attr("width", totalWidth)
             .attr("height", totalHeight);
-
-        // Draw building border
+        
         svg.append("rect")
             .attr("class", "building")
             .attr("width", totalWidth)
             .attr("height", totalHeight);
 
         const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
-
-        // Function to update room layout based on the selected floor
+        
         function updateRoomLayout() {
             const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
-
-            // Clear existing room groups
+            
             svg.selectAll("g").remove();
-
-            // Create rooms for the selected floor
+            
             const roomGroups = svg.selectAll("g")
                 .data(selectedBuilding[currentFloor])
                 .enter()
@@ -257,17 +245,15 @@
                     const y = row * (roomHeight + spacing);
                     return `translate(${x}, ${y})`;
                 });
-
-            // Draw rooms
+            
             roomGroups.append("rect")
                 .attr("class", 'room')
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) // Assign color dynamically
+            .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) 
                 .on("click", showPopup);
-
-            // Draw room numbers
+            
             roomGroups.append("text")
                 .attr("class", "roomNumber")
                 .text(d => d.id)
@@ -275,22 +261,19 @@
                 .attr("y", roomHeight / 2)
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle");
-
-            // Draw bathroom
+            
             svg.append("rect")
                 .attr("class", "bathroom")
                 .attr("width", 80)
                 .attr("height", totalHeight)
-                .attr("x", 0); // Adjust the position based on room layout
-
-            // Draw stairs
+            .attr("x", 0); 
+            
             svg.append("rect")
                 .attr("class", "stairs")
                 .attr("width", 50)
                 .attr("height", totalHeight)
-                .attr("x", totalWidth - 50); // Adjust the position based on room layout
-
-            // Draw divider line
+            .attr("x", totalWidth - 50); 
+            
             svg.append("line")
                 .attr("class", "divider")
                 .attr("x1", roomWidth + 20)
@@ -298,43 +281,34 @@
                 .attr("x2", roomWidth + 20)
                 .attr("y2", totalHeight);
         }
-
-        // Initial room layout for the default floor
+        
         updateRoomLayout();
         document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
             radio.addEventListener('change', changeFloor);
         });
-
-        // Function to handle building change
+        
         function changeBuilding(building) {
             currentBuilding = building;
-            currentFloor = 1; // Reset floor to Ground Floor when changing building
+        currentFloor = 1; 
             updateRoomLayout();
         }
-
-        // Function to handle floor change
-        function changeFloor() {
-            // Assuming you have a reference to the selected option element
+        
+        function changeFloor() {            
             currentFloor = parseInt(document.querySelector('#options input[type="radio"]:checked').value);
             updateRoomLayout();
-        }
-        // Event listener for document click to close the dropdown
+        }        
         document.addEventListener("click", function(event) {
             var dropdown = document.getElementById("options-view-button");
             var dropdownContainer = document.getElementById("options");
-
-            // Check if the clicked element is not inside the dropdown or its container
-            if (!dropdownContainer.contains(event.target) && event.target !== dropdown) {
-                // Close the dropdown by unchecking the checkbox
+            
+            if (!dropdownContainer.contains(event.target) && event.target !== dropdown) {                
                 dropdown.checked = false;
             }
         });
-
-        // Event listener for radio inputs to close the dropdown when a value is selected
+        
         var radioInputs = document.querySelectorAll('#options input[type="radio"]');
         radioInputs.forEach(function(radioInput) {
-            radioInput.addEventListener("change", function() {
-                // Close the dropdown by unchecking the checkbox
+            radioInput.addEventListener("change", function() {                
                 document.getElementById("options-view-button").checked = false;
             });
         });

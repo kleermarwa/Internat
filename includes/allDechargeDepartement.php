@@ -1,8 +1,6 @@
 <?php
-// Include database connection
 include 'db_connect.php';
 
-// Construct the SQL query to fetch all results
 $sql = "SELECT decharge.*, students.*
         FROM decharge
         JOIN students ON decharge.student_id = students.id
@@ -11,7 +9,7 @@ $sql = "SELECT decharge.*, students.*
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    // Prepare the HTML for displaying all results
+
     $output = "<div class='RoomList'>";
     $output .= "<table id='data-table'>";
     $output .= "<thead><tr><th>Numéro de requete</th><th>Nom de l'étudiant</th><th>Status</th><th>Filière</th><th>Date de création</th><th>Action</th></tr></thead>";
@@ -24,7 +22,7 @@ if ($result->num_rows > 0) {
         $output .= "<td>" . $row['status'] . "</td>";
         $output .= "<td>" . $row['filliere'] . "</td>";
         $output .= "<td>" . $row['created_at'] . "</td>";
-        // Action button to validate the request
+    
         $output .= "<td><a class='validateDecharge' href='../admin/departement_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Validate</a></td>";
         $output .= "</tr>";
     }

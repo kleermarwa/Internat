@@ -80,10 +80,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         <div class="left">
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
-                <div class="notification-count" id="count"><?php echo $count ?></div>
-                <!-- Notification dropdown content -->
-                <div class="notification-dropdown">
-                    <!-- Notifications will be dynamically added here via JavaScript -->
+                <div class="notification-count" id="count"><?php echo $count ?></div>                
+                <div class="notification-dropdown">                    
                 </div>
             </div>
         </div>
@@ -99,11 +97,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="internat_demandes.php" class="nav_link">
-                        <i class="fa fa-copy"></i> <span class="nav_name">Demandes Internat</span>
-                    </a>
                     <a href="internat_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
+                    </a>
+                    <a href="internat_demandes.php" class="nav_link">
+                        <i class="fa fa-bed"></i> <span class="nav_name">Demandes Internat</span>
                     </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
@@ -120,8 +118,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
 
     <hr>
 
-    <div id="searchResults">
-        <!-- Search results will be displayed here -->
+    <div id="searchResults">        
     </div>
 
 </body>
