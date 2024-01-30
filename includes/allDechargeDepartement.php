@@ -22,8 +22,8 @@ if ($result->num_rows > 0) {
         $output .= "<td>" . $row['status'] . "</td>";
         $output .= "<td>" . $row['filliere'] . "</td>";
         $output .= "<td>" . $row['created_at'] . "</td>";
-    
-        $output .= "<td><a class='validateDecharge' href='../admin/departement_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Validate</a></td>";
+
+        $output .= "<td><a class='validateDecharge' href='../admin/departement_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Valider</a></td>";
         $output .= "</tr>";
     }
 

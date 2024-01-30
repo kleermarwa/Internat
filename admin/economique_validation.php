@@ -10,14 +10,14 @@ if (isset($_GET['request_id'])) {
 
     if ($conn->query($updateSql) === TRUE) {
         $_SESSION['success'] = "La demande N° " . $request_id . " de l'étudiant: " . $name . " a été validé";
-        header("Location: economique_decharge.php");
+        header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
     } else {
         $_SESSION['error'] = "La demande N° " . $request_id . " de l'étudiant: " . $name . " n'a pas été validé";
-        header("Location: economique_decharge.php?error=validation_error");
+        header("Location: {$_SERVER['HTTP_REFERER']}");
         exit();
     }
 } else {
-    header("Location: economique_decharge.php?error=invalid_request");
+    header("Location: {$_SERVER['HTTP_REFERER']}");
     exit();
 }

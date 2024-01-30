@@ -1,6 +1,6 @@
 <?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/dechargeDepartementSearch.js"></script>
+    <script src="../js/dechargeValideSearch.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
 </head>
@@ -34,7 +34,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Validation de décharge - Département</h5>
+            <h5>Historique de décharge - Administration </h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -76,6 +76,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                 }
             }
         </script>
+
         <div class="left">
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
@@ -96,19 +97,22 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                     <a href="roomList.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
-                    <a href="departement_decharge.php" class="nav_link">
+                    <a href="administration_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
+                    </a>
+                    <a href="decharge_valide.php" class="nav_link">
+                        <i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge</h2>
+    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge validées</h2>
     <div class="dechargeSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou Numéro de requete	)" onkeyup="search()">
+            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou Numéro de requete)" onkeyup="search()">
         </div>
     </div>
 
@@ -116,8 +120,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
 
     <div id="searchResults">
     </div>
-
-
 </body>
 
 </html>

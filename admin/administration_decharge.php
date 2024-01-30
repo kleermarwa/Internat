@@ -80,8 +80,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
         <div class="left">
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
-                <div class="notification-count" id="count"><?php echo $count ?></div>            
-                <div class="notification-dropdown">                
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <div class="notification-dropdown">
                 </div>
             </div>
         </div>
@@ -100,6 +100,9 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
                     <a href="administration_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
+                    <a href="decharge_valide.php" class="nav_link">
+                        <i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>
+                    </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
@@ -109,13 +112,13 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
     <div class="dechargeSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="search()">
+            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou Numéro de requete	)" onkeyup="search()">
         </div>
     </div>
 
     <hr>
 
-    <div id="searchResults">    
+    <div id="searchResults">
     </div>
 </body>
 

@@ -6,8 +6,8 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
     $sql = "SELECT decharge.*, students.*
                 FROM decharge
                 JOIN students ON decharge.student_id = students.id
-                WHERE (decharge.status = 'pending' AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 0) AND
-                    (students.name LIKE '%$searchInput%')";
+                WHERE (decharge.status = 'pending' AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 0) AND(
+                  (students.name LIKE '%$searchInput%') OR (decharge.id_demande LIKE '%$searchInput%'))";
 
     $result = $conn->query($sql);
 
@@ -24,7 +24,7 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
             $output .= "<td>" . $row['status'] . "</td>";
             $output .= "<td>" . $row['filliere'] . "</td>";
             $output .= "<td>" . $row['created_at'] . "</td>";
-            $output .= "<td><a class='validateDecharge' href='internat_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Validate</a></td>";
+            $output .= "<td><a class='validateDecharge' href='internat_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Valider</a></td>";
             $output .= "</tr>";
         }
 
