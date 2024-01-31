@@ -8,7 +8,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internat</title>
+    <title>Demandes de décharge</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

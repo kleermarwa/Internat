@@ -92,8 +92,7 @@ $html = <<<EOD
 <h2 style="text-align: center;font-style: italic;"> ATTESTATION</h2>
 <h2 style="text-align: center;"> ********</h2>
 <div>
-<p style="text-align: center;"> Les signataires suivants attestent avoir reçu et vérifié le matériel remis par $designation : $name , inscrit en $année année.
-Département : $departement , année universitaire : $yearRange, $chambre. <br><br> En conséquance $designation est libre de tout engagement auprès des services concernés.  </p>
+<p style="text-align: center;"> Les signataires suivants attestent avoir reçu et vérifié le matériel remis par $designation $name , $chambre et inscrit en $année année du Département de $departement pour l'année universitaire $yearRange. <br><br> En conséquance $designation est libre de tout engagement auprès des services concernés.  </p>
 <div style="text-align: center;">
 <table border="1" cellspacing="0" cellpadding="5" style="border-collapse: collapse;width: 100%;">
     <tbody><tr style="background-color: #ecf0f1; font-weight: bold;">

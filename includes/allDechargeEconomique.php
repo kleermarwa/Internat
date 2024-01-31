@@ -1,5 +1,6 @@
 <?php
 include 'db_connect.php';
+
 $sql = "SELECT decharge.*, students.*
         FROM decharge
         JOIN students ON decharge.student_id = students.id

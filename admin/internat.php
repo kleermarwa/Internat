@@ -13,6 +13,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -80,11 +81,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             <div class="search-container">
                 <label for="search" class="fa fa-search"></label>
                 <input type="search" placeholder="Search Students" id="search">
-            </div>            
+            </div>
             <div class="notification-icon" onclick="fetchNotifications()">
                 <i class="fa fa-bell"></i>
-                <div class="notification-count" id="count"><?php echo $count ?></div>                
-                <div class="notification-dropdown">                    
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <div class="notification-dropdown">
                 </div>
             </div>
 
@@ -135,17 +136,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         echo '<a href="internat_demandes.php" class="nav_link">';
                         echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
                         echo '</a>';
-                    }
-
-                    if ($_SESSION['role'] === 'super_admin') {
-                        echo '<a href="internat_decharge.php" class="nav_link">';
-                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Internat decharge</span>';
+                        echo '<a href="internat_demandes_valide.php" class="nav_link">';
+                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Gestion demandes logement</span>';
                         echo '</a>';
-                        echo '<a href="economique_decharge.php" class="nav_link">';
-                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Economique decharge</span>';
-                        echo '</a>';
-                        echo '<a href="administration_decharge.php" class="nav_link">';
-                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Administration decharge</span>';
+                        echo '<a href="internat_demandes_refuse.php" class="nav_link">';
+                        echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Gestion demandes logement</span>';
                         echo '</a>';
                     }
                     ?>
@@ -153,11 +148,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-    
+
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
         <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
-    </div>    
+    </div>
     <form id="app-cover">
         <div id="select-box">
             <input type="checkbox" id="options-view-button">
@@ -210,7 +205,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             </div>
         </div>
     </form>
-    
+
     <div id="roomMap">
 
         <div class="popup" id="popup">
@@ -225,7 +220,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             <p>Ajouter étudiant</p>
             <form id="editForm">
                 <label for="studentName">Nom de l'étudiant:</label>
-                <input type="text" id="studentName" required>                
+                <input type="text" id="studentName" required>
                 <button class="submit" type="submit">Chercher l'étudiant</button>
                 <div id="studentList"></div>
                 <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>

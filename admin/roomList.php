@@ -9,11 +9,12 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internat</title>
+    <title>Tableau de bord</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -94,7 +95,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     </header>
 
     <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
+    <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
                     <a href="internat.php" class="nav_link">
@@ -104,10 +105,13 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
                     </a>
                     <?php
+
+                    // Check if the user is logged in
                     if (isset($_SESSION['role'])) {
+                        // Determine the appropriate href based on the user's role
                         switch ($_SESSION['role']) {
                             case 'Student':
-                                $href = 'decharge.php';
+                                $href = 'decharge.php'; // Adjust the link for students
                                 break;
                             case 'departement':
                                 $href = 'departement_decharge.php';
@@ -128,6 +132,18 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     echo '<a href="' . $href . '" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
                     echo '</a>';
+
+                    if ($_SESSION['role'] === 'internat') {
+                        echo '<a href="internat_demandes.php" class="nav_link">';
+                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '</a>';
+                        echo '<a href="internat_demandes_valide.php" class="nav_link">';
+                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '</a>';
+                        echo '<a href="internat_demandes_refuse.php" class="nav_link">';
+                        echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '</a>';
+                    }
                     ?>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
