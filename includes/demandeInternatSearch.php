@@ -22,8 +22,8 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
             $output .= "<td>" . $row['status'] . "</td>";
             $output .= "<td>" . $row['genre'] . "</td>";
             $output .= "<td>" . $row['created_at'] . "</td>";
-            $output .= "<td><a class='validate' href='demande_internat_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Valider</a></td>";
-            $output .= "<td><a class='reject' href='demande_internat_rejection.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Rejeter</a></td>";
+            $output .= "<td><a class='validate' href='internat_demandes_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Valider</a></td>";
+            $output .= "<td><a class='reject' href='internat_demandes_rejection.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Rejeter</a></td>";
             $output .= "</tr>";
         }
 

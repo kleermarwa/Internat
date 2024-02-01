@@ -21,7 +21,6 @@ $sqlcount = "SELECT decharge.*, students.*
 
 $updateSql = "UPDATE decharge ";
 
-
 if (isset($_SESSION['role'])) {
   switch ($_SESSION['role']) {
     case 'departement':

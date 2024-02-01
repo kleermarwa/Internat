@@ -6,7 +6,7 @@ if (isset($_GET['request_id'])) {
     $request_id = $_GET['request_id'];
     $name = $_GET['name'];
 
-    $updateSql = "UPDATE internat SET status = 'refusé' WHERE id_demande = $request_id";
+    $updateSql = "UPDATE internat SET status = 'Refusé' WHERE id_demande = $request_id";
 
     if ($conn->query($updateSql) === TRUE) {
         $_SESSION['success'] = "La demande N° " . $request_id . " de l'étudiant: " . $name . " a été rejetée";
