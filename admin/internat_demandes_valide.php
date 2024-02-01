@@ -17,12 +17,13 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/demandeInternatSearch.js"></script>
+    <script src="../js/historiqueInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
 </head>
 
 <body id="body-pd">
+    <div id="notification" class="hidden"></div>
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="error-message" onclick="this.remove()"><?php echo $_SESSION['error'];
                                                             unset($_SESSION['error']); ?></div>
@@ -115,17 +116,16 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demandes de l'internat</h2>
-    <div class="dechargeSearch">
+    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Externes</h2>
+    <div class="internatSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou Numéro de requete)" onkeyup="search()">
+            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="searchAll()">
         </div>
     </div>
-
-    <hr>
-
     <div id="searchResults">
+    </div>
+    <hr>
     </div>
 
 </body>

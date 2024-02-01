@@ -1,7 +1,7 @@
 <?php
 include 'db_connect.php';
 
-$sql = "SELECT * FROM internat WHERE ville != 'Casablanca' AND status = 'pending'";
+$sql = "SELECT * FROM internat WHERE ville != 'Casablanca' AND status = 'En attente'";
 
 $result = $conn->query($sql);
 

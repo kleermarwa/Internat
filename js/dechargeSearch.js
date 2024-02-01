@@ -13,6 +13,12 @@ function loadAllResults() {
 
 $(document).ready(function () {
   loadAllResults();
+
+  var pollingInterval = 5000;
+
+  setInterval(function () {
+    loadAllResults();
+  }, pollingInterval);
 });
 
 function search() {

@@ -1,9 +1,19 @@
 <?php
 include 'db_connect.php';
 
+$previous_page = $_SERVER['HTTP_REFERER'];
+
 if (isset($_GET['input']) && !empty($_GET['input'])) {
     $searchInput = $conn->real_escape_string($_GET['input']);
-    $sql = "SELECT * FROM internat WHERE ville != 'Casablanca' AND name LIKE '%$searchInput%' AND status = 'En attente'";
+    $sql = "SELECT * FROM internat ";
+
+    if (strpos($previous_page, 'internat_demandes_valide.php') !== false) {
+        $sql .= "WHERE internat.status = 'Accepté'";
+    } elseif (strpos($previous_page, 'internat_demandes_refuse.php') !== false) {
+        $sql .= "WHERE internat.status = 'Refusé'";
+    }
+
+    $sql .= " AND name LIKE '%$searchInput%'";
 
     $result = $conn->query($sql);
 

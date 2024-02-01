@@ -10,16 +10,16 @@ $sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
         FROM internat
         JOIN students ON internat.student_id = students.id
         WHERE internat.student_id = '$user_id'
-        AND internat.status = 'accepted'";
+        AND internat.status = 'Accepté'";
 
 
 $result = $conn->query($sql);
 $data = array();
 
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
+  while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
+  }
 }
 $nameArray = explode(' ', $data[0]['name']);
 $firstName = $nameArray[0];

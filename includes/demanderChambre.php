@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode($response);
     } elseif ($status_result->num_rows > 0) {
         $insert_sql = "INSERT INTO internat (student_id, name, room_number, status, genre, ville,valide) 
-                VALUES (?, ?, ?, 'pending', ?, ?,0)";
+                VALUES (?, ?, ?, 'En attente', ?, ?,0)";
 
         $insert_stmt = $conn->prepare($insert_sql);
         $insert_stmt->bind_param('isiss', $id, $name, $roomNumber, $gender, $ville);
