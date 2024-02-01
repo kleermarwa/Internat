@@ -110,8 +110,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </nav>
     </div>
 
-
-
     <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Externes</h2>
     <div class="internatSearch">
         <div class="box">

@@ -16,6 +16,13 @@ if (isset($_GET['request_id'])) {
         header("Location: internat.php?error=validation_error");
         exit();
     }
+} else if (isset($_POST['id'])) {
+
+    $idDemande = $_POST['id'];
+
+    $updateSql = "UPDATE internat SET status = 'En attente' WHERE id_demande = $idDemande";
+    $conn->query($updateSql);
+
 } else {
     header("Location: internat.php?error=invalid_request");
     exit();

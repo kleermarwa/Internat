@@ -3,7 +3,7 @@ include 'db_connect.php';
 
 if (isset($_GET['input']) && !empty($_GET['input'])) {
     $searchInput = $conn->real_escape_string($_GET['input']);
-    $sql = "SELECT * FROM internat WHERE ville = 'Casablanca' AND name LIKE '%$searchInput%' AND status = 'pending'";
+    $sql = "SELECT * FROM internat WHERE ville = 'Casablanca' AND name LIKE '%$searchInput%' AND status = 'En attente'";
 
     $result = $conn->query($sql);
 

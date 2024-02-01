@@ -13,16 +13,16 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
     if (isset($_SESSION['role'])) {
         switch ($_SESSION['role']) {
             case 'departement':
-                $sql .= " WHERE decharge.status = 'pending' AND decharge.valide_departement = 0";
+                $sql .= " WHERE decharge.status = 'En attente' AND decharge.valide_departement = 0";
                 break;
             case 'internat':
-                $sql .= " WHERE decharge.status = 'pending' AND decharge.valide_departement = 1 AND decharge.valide_internat = 0";
+                $sql .= " WHERE decharge.status = 'En attente' AND decharge.valide_departement = 1 AND decharge.valide_internat = 0";
                 break;
             case 'economique':
-                $sql .= " WHERE decharge.status = 'pending' AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 0";
+                $sql .= " WHERE decharge.status = 'En attente' AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 0";
                 break;
             case 'administration':
-                $sql .= " WHERE decharge.status = 'pending'";
+                $sql .= " WHERE decharge.status = 'En attente'";
                 break;
         }
     }
