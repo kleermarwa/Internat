@@ -1,7 +1,7 @@
 function loadAllResults() {
   $.ajax({
     type: "GET",
-    url: "../includes/allDechargeDepartement.php",
+    url: "../admin/decharge_display.php",
     success: function (response) {
       $("#searchResults").html(response);
     },
@@ -10,6 +10,7 @@ function loadAllResults() {
     },
   });
 }
+
 $(document).ready(function () {
   loadAllResults();
 });
@@ -21,7 +22,7 @@ function search() {
   } else {
     $.ajax({
       type: "GET",
-      url: "../includes/dechargeDepartementSearch.php",
+      url: "../admin/decharge_search.php",
       data: {
         input: input,
       },

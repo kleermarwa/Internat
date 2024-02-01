@@ -17,7 +17,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/dechargeInternatSearch.js"></script>
+    <script src="../js/dechargeSearch.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
 </head>
