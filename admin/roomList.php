@@ -31,6 +31,34 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     <script src="../js/displayRooms.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
+    <style>
+        .row {
+            margin-top: 7rem;
+            display: flex;
+        }
+
+        .column {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        .column:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .column h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .column p {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body id="body-pd">
@@ -95,7 +123,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     </header>
 
     <div class="l-navbar" id="nav-bar">
-    <nav class="nav">
+        <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
                     <a href="internat.php" class="nav_link">
@@ -132,7 +160,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     echo '<a href="' . $href . '" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
                     echo '</a>';
-
+                    if ($_SESSION['role'] === 'administration') {
+                        echo '<a href="decharge_valide.php" class="nav_link">';
+                        echo '<i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>';
+                        echo '</a>';
+                    }
                     if ($_SESSION['role'] === 'internat') {
                         echo '<a href="internat_demandes.php" class="nav_link">';
                         echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
@@ -149,6 +181,112 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
+
+    <?php
+    $totalRooms = 110;
+
+    $queryBoys = "SELECT room_number, COUNT(*) AS count FROM students WHERE genre = 'boy' GROUP BY room_number";
+    $resultBoys = mysqli_query($conn, $queryBoys);
+
+    $emptyRoomsBoys = $totalRooms;
+    $roomsWithOneBoy = 0;
+    $roomsWithTwoBoys = 0;
+    $roomsWithThreeBoys = 0;
+    $roomFullBoys = 0;
+
+    while ($row = mysqli_fetch_assoc($resultBoys)) {
+        $numberOfStudents = $row['count'];
+
+        switch ($numberOfStudents) {
+            case 0:
+                $emptyRoomsBoys--;
+                break;
+            case 1:
+                $roomsWithOneBoy++;
+                $emptyRoomsBoys--;
+                break;
+            case 2:
+                $roomsWithTwoBoys++;
+                $emptyRoomsBoys--;
+                break;
+            case 3:
+                $roomsWithThreeBoys++;
+                $emptyRoomsBoys--;
+                break;
+            case 4:
+                $roomFullBoys++;
+                $emptyRoomsBoys--;
+                break;
+            default:
+                break;
+        }
+    }
+
+    $queryGirls = "SELECT room_number, COUNT(*) AS count FROM students WHERE genre = 'girl' GROUP BY room_number";
+    $resultGirls = mysqli_query($conn, $queryGirls);
+
+    $emptyRoomsGirls = $totalRooms;
+    $roomsWithOneGirl = 0;
+    $roomsWithTwoGirls = 0;
+    $roomsWithThreeGirls = 0;
+    $roomFullGirls = 0;
+
+    while ($row = mysqli_fetch_assoc($resultGirls)) {
+        $numberOfStudents = $row['count'];
+
+        switch ($numberOfStudents) {
+            case 0:
+                $emptyRoomsGirls--;
+                break;
+            case 1:
+                $roomsWithOneGirl++;
+                $emptyRoomsGirls--;
+                break;
+            case 2:
+                $roomsWithTwoGirls++;
+                $emptyRoomsGirls--;
+                break;
+            case 3:
+                $roomsWithThreeGirls++;
+                $emptyRoomsGirls--;
+                break;
+            case 4:
+                $roomFullGirls++;
+                $emptyRoomsGirls--;
+                break;
+            default:
+                break;
+        }
+    }
+    echo '<div class="row">';
+    // Garcons
+    echo '<div class="column">';
+    echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT GARCONS</h1>";
+    echo "<p style='color:green;'>Chambres vides pour garçons: " . $emptyRoomsBoys . "</p>";
+    echo "<p style='color:#66ccff;'>Chambres avec 1 garçon: " . $roomsWithOneBoy . "</p>";
+    echo "<p style='color:#d6cf09;'>Chambres avec 2 garçons: " . $roomsWithTwoBoys . "</p>";
+    echo "<p style='color:orange;'>Chambres avec 3 garçons: " . $roomsWithThreeBoys . "</p>";
+    echo "<p style='color:red;'>Chambres pleines pour garçons: " . $roomFullBoys . "</p>";
+    echo "<p>Total de chambres pour garçons: " . $totalRooms . "</p>";
+    echo '</div>';
+
+    // Filles
+
+    echo '<div class="column">';
+    echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT FILLES</h1>";
+    echo "<p style='color:green;'>Chambres vides pour filles: " . $emptyRoomsGirls . "</p>";
+    echo "<p style='color:#66ccff;'>Chambres avec 1 fille: " . $roomsWithOneGirl . "</p>";
+    echo "<p style='color:#d6cf09;'>Chambres avec 2 filles: " . $roomsWithTwoGirls . "</p>";
+    echo "<p style='color:orange;'>Chambres avec 3 filles: " . $roomsWithThreeGirls . "</p>";
+    echo "<p style='color:red;'>Chambres pleines pour filles: " . $roomFullGirls . "</p>";
+    echo "<p>Totale de chambres pour filles: " . $totalRooms . "</p>";
+    echo '</div>';
+
+    echo '</div>';
+
+
+
+    ?>
 
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>

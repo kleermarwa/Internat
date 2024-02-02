@@ -11,7 +11,7 @@ echo "<h3 style='text-align: center'>Votre demande d'internat précédente:</h3>
 if ($result->num_rows > 0) {
     echo "<div class='RoomList'>";
     echo "<table id='data-table'>";
-    echo "<tr><th>Numéro de la demande</th><th>Chambre demandée</th><th>Date de soumission</th><th>Status</th><th>Action</th></tr>";
+    echo "<tr><th>Numéro de la demande</th><th>Chambre demandée</th><th>Date de soumission</th><th>Status</th></tr>";
 
     while ($row = $result->fetch_assoc()) {
         $status = $row['status'];

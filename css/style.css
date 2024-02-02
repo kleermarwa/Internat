@@ -833,26 +833,30 @@ a {
   padding: 0;
   margin: 0;
   list-style: none;
+  margin-bottom: 3rem;
 }
 .RoomList .pagination li {
-  display: inline;
+  display: inline-flex;
   margin-right: 5px;
-}
-.RoomList .pagination li .pagination a {
-  text-decoration: none;
-  padding: 10px 14px;
-  /* Adjusted padding for better touch interaction */
-  border: 1px solid #ccc;
-  background-color: #f8f8f8;
-  color: #333;
-  border-radius: 3px;
-}
-.RoomList .pagination li .pagination a:hover {
-  background-color: #e0e0e0;
-}
-.RoomList .pagination li .pagination .active a {
   background-color: #428bca;
-  color: #fff;
+  border-radius: 50%;
+  height: 2rem;
+  justify-content: center;
+}
+.RoomList .pagination li a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 3px;
+  display: flex;
+  place-items: center;
+  background-color: #428bca;
+}
+.RoomList .pagination li a:hover {
+  background-color: #3071a9;
+}
+.RoomList .pagination li.active a {
+  background-color: #245682;
 }
 @media screen and (max-width: 768px) {
   .RoomList th,

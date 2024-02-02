@@ -105,12 +105,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     </a>
                     <?php
 
-                    // Check if the user is logged in
                     if (isset($_SESSION['role'])) {
-                        // Determine the appropriate href based on the user's role
                         switch ($_SESSION['role']) {
                             case 'Student':
-                                $href = 'decharge.php'; // Adjust the link for students
+                                $href = 'decharge.php';
                                 break;
                             case 'departement':
                                 $href = 'departement_decharge.php';
@@ -131,7 +129,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     echo '<a href="' . $href . '" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
                     echo '</a>';
-
+                    if ($_SESSION['role'] === 'administration') {
+                        echo '<a href="decharge_valide.php" class="nav_link">';
+                        echo '<i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>';
+                        echo '</a>';
+                    }
                     if ($_SESSION['role'] === 'internat') {
                         echo '<a href="internat_demandes.php" class="nav_link">';
                         echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
