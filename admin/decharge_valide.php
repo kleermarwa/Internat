@@ -91,7 +91,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
                 <div class="nav_list">
-                    <a href="internat.php" class="nav_link active">
+                    <a href="internat.php" class="nav_link">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
                     <a href="roomList.php" class="nav_link">
@@ -100,7 +100,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
                     <a href="administration_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
-                    <a href="decharge_valide.php" class="nav_link">
+                    <a href="decharge_valide.php" class="nav_link active">
                         <i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
                 </div>

@@ -952,31 +952,38 @@ a {
         padding: 0;
         margin: 0;
         list-style: none;
-    }
-
-    .pagination li {
-        display: inline;
-        margin-right: 5px;
-
-        .pagination a {
-            text-decoration: none;
-            padding: 10px 14px;
-            /* Adjusted padding for better touch interaction */
-            border: 1px solid #ccc;
-            background-color: #f8f8f8;
-            color: #333;
-            border-radius: 3px;
-
-            &:hover {
-                background-color: #e0e0e0;
+        margin-bottom: 3rem;
+        li {
+            display: inline-flex; // Ensure li elements are blocks
+            margin-right: 5px;
+            background-color: #428bca;
+            border-radius: 50%;
+            height:2rem;
+            justify-content: center;
+            a {
+                text-decoration: none;
+                color: #ffffff;
+                padding: 10px;
+                border-radius: 3px;
+                display: flex;
+                place-items: center;
+                background-color: #428bca; // Blue color for normal state
+    
+                &:hover {
+                    background-color: darken(#428bca, 10%); // Darker blue on hover
+                }
+            }
+    
+            &.active {
+                a {
+                    background-color: darken(#428bca, 20%); // Darker blue for active state
+                }
             }
         }
-
-        .pagination .active a {
-            background-color: #428bca;
-            color: #fff;
-        }
     }
+    
+    
+    
 
     /* Responsive Styles */
     @media screen and (max-width: 768px) {

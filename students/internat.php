@@ -93,7 +93,7 @@ $_SESSION['student_id'] = $user_id;
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Créer une demande de décharge</h5>
+            <h5>Votre demande d'internat</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
