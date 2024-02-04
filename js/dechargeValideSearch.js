@@ -14,11 +14,11 @@ function loadAllResults() {
 $(document).ready(function () {
   loadAllResults();
 
-  var pollingInterval = 2000;
+  // var pollingInterval = 2000;
 
-  setInterval(function () {
-    loadAllResults();
-  }, pollingInterval);
+  // setInterval(function () {
+  //   loadAllResults();
+  // }, pollingInterval);
 });
 
 function search() {

@@ -22,14 +22,22 @@ $_SESSION['student_id'] = $user_id;
 
 <body id="body-pd">
     <?php if (isset($_SESSION['error'])) : ?>
-        <div class="error-message" onclick="this.remove()"><?php echo $_SESSION['error'];
-                                                            unset($_SESSION['error']); ?></div>
+        <div style="margin: 6rem auto 0 auto;" class="error-message"><?php echo $_SESSION['error'];
+                        unset($_SESSION['error']); ?></div>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['success'])) : ?>
-        <div class="success-message" onclick="this.remove()"><?php echo $_SESSION['success'];
-                                                                unset($_SESSION['success']); ?></div>
+        <div style="margin: 6rem auto 0 auto;" class="success-message"><?php echo $_SESSION['success'];
+                            unset($_SESSION['success']); ?></div>
     <?php endif; ?>
+
+    <script>
+        // Add fade-in, fade-out, and timeout for error and success messages
+        $(document).ready(function() {
+            $(".error-message, .success-message").fadeIn().delay(3000).fadeOut();
+        });
+    </script>
+
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
@@ -102,15 +110,7 @@ $_SESSION['student_id'] = $user_id;
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-
-    <h2 style="text-align: center; margin-top:6rem">Demande de décharge</h2>
-
-    <form class="discharge-container" action="submit_request.php" method="post">
-        <button class="discharge-button" type="submit" name="create_request">Créer une demande</button>
-    </form>
-
-    <hr>
-
+    <br>
     <div> <?php
             include 'display_requests.php';
             ?></div>

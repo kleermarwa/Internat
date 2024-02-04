@@ -94,5 +94,5 @@ if ($result->num_rows > 0) {
         echo $output;
     }
 } else {
-    echo "No results found.";
+    echo "Il n'y a aucune demande ";
 }

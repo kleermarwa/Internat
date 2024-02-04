@@ -21,7 +21,7 @@ if ($result->num_rows > 0) {
         $output .= "<td>" . $row['name'] . "</td>";
         $output .= "<td>" . $row['status'] . "</td>";
         $output .= "<td>" . $row['filliere'] . "</td>";
-        $output .= "<td>" . $date = date('d-m-Y à H:i', strtotime($row['created_at'])) . "</td>";
+        $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
         $output .= "<td>" . $date = date('d-m-Y à H:i', strtotime($row['updated_at'])) . "</td>";
         $output .= "</tr>";
     }
@@ -32,5 +32,5 @@ if ($result->num_rows > 0) {
 
     echo $output;
 } else {
-    echo "No results found.";
+    echo "Il n'y a aucune demande ";
 }

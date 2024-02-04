@@ -263,9 +263,11 @@ a {
 
 /******************************************************************************* Search CSS *******************************************************************************/
 
-.dechargeSearch {
+.dechargeSearch,
+.internatSearch {
     display: flex;
     justify-content: center;
+    justify-content: space-around;
 }
 
 .box {
@@ -953,13 +955,15 @@ a {
         margin: 0;
         list-style: none;
         margin-bottom: 3rem;
+
         li {
             display: inline-flex; // Ensure li elements are blocks
             margin-right: 5px;
             background-color: #428bca;
             border-radius: 50%;
-            height:2rem;
+            height: 2rem;
             justify-content: center;
+
             a {
                 text-decoration: none;
                 color: #ffffff;
@@ -968,12 +972,12 @@ a {
                 display: flex;
                 place-items: center;
                 background-color: #428bca; // Blue color for normal state
-    
+
                 &:hover {
                     background-color: darken(#428bca, 10%); // Darker blue on hover
                 }
             }
-    
+
             &.active {
                 a {
                     background-color: darken(#428bca, 20%); // Darker blue for active state
@@ -981,9 +985,9 @@ a {
             }
         }
     }
-    
-    
-    
+
+
+
 
     /* Responsive Styles */
     @media screen and (max-width: 768px) {
