@@ -18,16 +18,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/select.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/color.js"></script>
-    <script src="../js/search.js"></script>
-    <script src="../js/showPopup.js"></script>
-    <script src="../js/editRoom.js"></script>
-    <script src="../js/showPopupStudent.js"></script>
-    <script src="../js/showStudentInfo.js"></script>
-    <script src="../js/deleteStudent.js"></script>
-    <script src="../js/moveStudent.js"></script>
     <script src="../js/displayRooms.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
@@ -134,12 +125,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     </a>
                     <?php
 
-                    // Check if the user is logged in
                     if (isset($_SESSION['role'])) {
-                        // Determine the appropriate href based on the user's role
                         switch ($_SESSION['role']) {
                             case 'Student':
-                                $href = 'decharge.php'; // Adjust the link for students
+                                $href = 'decharge.php';
                                 break;
                             case 'departement':
                                 $href = 'departement_decharge.php';
@@ -182,110 +171,14 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
         </nav>
     </div>
 
-    <?php
-    $totalRooms = 110;
-
-    $queryBoys = "SELECT room_number, COUNT(*) AS count FROM students WHERE genre = 'boy' GROUP BY room_number";
-    $resultBoys = mysqli_query($conn, $queryBoys);
-
-    $emptyRoomsBoys = $totalRooms;
-    $roomsWithOneBoy = 0;
-    $roomsWithTwoBoys = 0;
-    $roomsWithThreeBoys = 0;
-    $roomFullBoys = 0;
-
-    while ($row = mysqli_fetch_assoc($resultBoys)) {
-        $numberOfStudents = $row['count'];
-
-        switch ($numberOfStudents) {
-            case 0:
-                $emptyRoomsBoys--;
-                break;
-            case 1:
-                $roomsWithOneBoy++;
-                $emptyRoomsBoys--;
-                break;
-            case 2:
-                $roomsWithTwoBoys++;
-                $emptyRoomsBoys--;
-                break;
-            case 3:
-                $roomsWithThreeBoys++;
-                $emptyRoomsBoys--;
-                break;
-            case 4:
-                $roomFullBoys++;
-                $emptyRoomsBoys--;
-                break;
-            default:
-                break;
-        }
-    }
-
-    $queryGirls = "SELECT room_number, COUNT(*) AS count FROM students WHERE genre = 'girl' GROUP BY room_number";
-    $resultGirls = mysqli_query($conn, $queryGirls);
-
-    $emptyRoomsGirls = $totalRooms;
-    $roomsWithOneGirl = 0;
-    $roomsWithTwoGirls = 0;
-    $roomsWithThreeGirls = 0;
-    $roomFullGirls = 0;
-
-    while ($row = mysqli_fetch_assoc($resultGirls)) {
-        $numberOfStudents = $row['count'];
-
-        switch ($numberOfStudents) {
-            case 0:
-                $emptyRoomsGirls--;
-                break;
-            case 1:
-                $roomsWithOneGirl++;
-                $emptyRoomsGirls--;
-                break;
-            case 2:
-                $roomsWithTwoGirls++;
-                $emptyRoomsGirls--;
-                break;
-            case 3:
-                $roomsWithThreeGirls++;
-                $emptyRoomsGirls--;
-                break;
-            case 4:
-                $roomFullGirls++;
-                $emptyRoomsGirls--;
-                break;
-            default:
-                break;
-        }
-    }
-    ?>
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <div class="row">
-        <div class="column">
-            <?php
-            echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT GARCONS</h1>";
-            echo "<p style='color:green;'>Chambres vides pour garçons: " . $emptyRoomsBoys . " (" . round(($emptyRoomsBoys / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:#66ccff;'>Chambres avec 1 garçon: " . $roomsWithOneBoy . " (" . round(($roomsWithOneBoy / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:#d6cf09;'>Chambres avec 2 garçons: " . $roomsWithTwoBoys . " (" . round(($roomsWithTwoBoys / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:orange;'>Chambres avec 3 garçons: " . $roomsWithThreeBoys . " (" . round(($roomsWithThreeBoys / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:red;'>Chambres pleines pour garçons: " . $roomFullBoys . " (" . round(($roomFullBoys / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p>Total de chambres pour garçons: " . $totalRooms . "</p>";
-            ?>
+        <div class="column" id="boysData">
             <div id="chart-container">
                 <svg id="boyschart"></svg>
             </div>
         </div>
-        <div class="column">
-            <?php
-            echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT FILLES</h1>";
-            echo "<p style='color:green;'>Chambres vides pour filles: " . $emptyRoomsGirls . " (" . round(($emptyRoomsGirls / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:#66ccff;'>Chambres avec 1 fille: " . $roomsWithOneGirl . " (" . round(($roomsWithOneGirl / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:#d6cf09;'>Chambres avec 2 filles: " . $roomsWithTwoGirls . " (" . round(($roomsWithTwoGirls / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:orange;'>Chambres avec 3 filles: " . $roomsWithThreeGirls . " (" . round(($roomsWithThreeGirls / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p style='color:red;'>Chambres pleines pour filles: " . $roomFullGirls . " (" . round(($roomFullGirls / $totalRooms) * 100, 2) . "%)</p>";
-            echo "<p>Totale de chambres pour filles: " . $totalRooms . "</p>";
-            ?>
+        <div class="column" id="girlsData">
             <div id="piechart-container">
                 <svg id="girlschart"></svg>
             </div>
@@ -297,6 +190,33 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             <svg id="chart"></svg>
         </div>
     </div>
+
+    <script>
+        fetch('roomData.php')
+            .then(response => response.json())
+            .then(data => {
+                let boysDataDiv = document.getElementById('boysData');
+                boysDataDiv.innerHTML += `
+                    <p style='color:green;'>Chambres vides pour garçons: ${data.boys.emptyRooms}</p>
+                    <p style='color:#66ccff;'>Chambres avec 1 garçon: ${data.boys.roomsWithOne}</p>
+                    <p style='color:#d6cf09;'>Chambres avec 2 garçons: ${data.boys.roomsWithTwo}</p>
+                    <p style='color:orange;'>Chambres avec 3 garçons: ${data.boys.roomsWithThree}</p>
+                    <p style='color:red;'>Chambres pleines pour garçons: ${data.boys.roomFull}</p>
+                    <p>Total de chambres pour garçons: 110</p>
+                `;
+
+                let girlsDataDiv = document.getElementById('girlsData');
+                girlsDataDiv.innerHTML += `
+                    <p style='color:green;'>Chambres vides pour filles: ${data.girls.emptyRooms}</p>
+                    <p style='color:#66ccff;'>Chambres avec 1 fille: ${data.girls.roomsWithOne}</p>
+                    <p style='color:#d6cf09;'>Chambres avec 2 filles: ${data.girls.roomsWithTwo}</p>
+                    <p style='color:orange;'>Chambres avec 3 filles: ${data.girls.roomsWithThree}</p>
+                    <p style='color:red;'>Chambres pleines pour filles: ${data.girls.roomFull}</p>
+                    <p>Totale de chambres pour filles: 110</p>
+                `;
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 
     <script>
         fetch('roomData.php')
