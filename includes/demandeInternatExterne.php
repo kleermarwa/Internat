@@ -1,25 +1,33 @@
 <?php
 include 'db_connect.php';
+include 'count.php';
 
-$sql = "SELECT * FROM internat WHERE ville != 'Casablanca' AND status = 'En attente'";
-
+$sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
+        FROM internat
+        JOIN students ON internat.student_id = students.id
+        WHERE internat.ville != 'Casablanca'
+        AND internat.status = 'En attente'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     $output = "<div class='RoomList'>";
     $output .= "<table id='data-table'>";
-    $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Ville</th><th>Numéro de chambre</th><th>Status</th><th>Genre</th><th>Date de création</th><th colspan=2>Action</th></tr></thead>";
+    $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Sexe</th><th>Ville</th><th>Date de création</th><th>Numéro de chambre</th><th>Nombre d'étudiants dans la chambre</th><th>Nombre de demandes pour la chambre</th><th colspan=2>Action</th></tr></thead>";
     $output .= "<tbody>";
 
     while ($row = $result->fetch_assoc()) {
+        $numStudentsInRoom = getNumberOfStudentsInRoom($conn, $row['room_alias'], $row['genre']);
+        $numRequestsInRoom = getNumberOfRequestsInRoom($conn, $row['room_alias'], $row['genre']);
         $output .= "<tr>";
         $output .= "<td>" . $row['id_demande'] . "</td>";
         $output .= "<td>" . $row['name'] . "</td>";
+        $output .= "<td>" . ($row['genre'] == 'boy' ? 'Garçon' : 'Fille') . "</td>";
+
         $output .= "<td>" . $row['ville'] . "</td>";
-        $output .= "<td>" . $row['room_number'] . "</td>";
-        $output .= "<td>" . $row['status'] . "</td>";
-        $output .= "<td>" . $row['genre'] . "</td>";
-        $output .= "<td>" . $row['created_at'] . "</td>";
+        $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
+        $output .= "<td>" . $row['room_alias'] . "</td>";
+        $output .= "<td>" . $numStudentsInRoom . "</td>";
+        $output .= "<td>" . $numRequestsInRoom . "</td>";
         $output .= "<td style='border-right: none;'><a class='validate' href='internat_demandes_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Valider</a></td>";
         $output .= "<td style='border-left: none;'><a class='reject' href='internat_demandes_rejection.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Rejeter</a></td>";
         $output .= "</tr>";
@@ -31,5 +39,5 @@ if ($result->num_rows > 0) {
 
     echo $output;
 } else {
-    echo "No results found.";
+    echo "Il n'y a aucune demande ";
 }

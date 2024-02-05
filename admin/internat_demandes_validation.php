@@ -23,16 +23,5 @@ if (isset($_GET['request_id'])) {
 
     $updateSql = "UPDATE internat SET valide = 1, status = 'Accepté' WHERE id_demande = $idDemande";
 
-    if ($conn->query($updateSql) === TRUE) {
-        $_SESSION['success'] = "La demande N° " . $idDemande . " a été annulée";
-        header("Location: internat.php");
-        exit();
-    } else {
-        $_SESSION['error'] = "La demande N° " . $idDemande . " n'a pas été annulée";
-        header("Location: internat.php?error=validation_error");
-        exit();
-    }
-} else {
-    header("Location: internat.php?error=invalid_request");
-    exit();
+    $conn->query($updateSql);
 }

@@ -20,23 +20,31 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <script src="../js/historiqueInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
+
 </head>
 
 <body id="body-pd">
     <div id="notification" class="hidden"></div>
     <?php if (isset($_SESSION['error'])) : ?>
-        <div class="error-message" onclick="this.remove()"><?php echo $_SESSION['error'];
-                                                            unset($_SESSION['error']); ?></div>
+        <div class="error-message"><?php echo $_SESSION['error'];
+                                    unset($_SESSION['error']); ?></div>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['success'])) : ?>
-        <div class="success-message" onclick="this.remove()"><?php echo $_SESSION['success'];
-                                                                unset($_SESSION['success']); ?></div>
+        <div class="success-message"><?php echo $_SESSION['success'];
+                                        unset($_SESSION['success']); ?></div>
     <?php endif; ?>
+
+    <script>
+        // Add fade-in, fade-out, and timeout for error and success messages
+        $(document).ready(function() {
+            $(".error-message, .success-message").fadeIn().delay(3000).fadeOut();
+        });
+    </script>
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Historique des demandes de l'internat Validé </h5>
+            <h5>Historique des demandes de l'internat Validées </h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -116,11 +124,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Externes</h2>
+    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Validées</h2>
     <div class="internatSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="searchAll()">
+            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (Par Nom ou N° Demande)" onkeyup="searchAll()">
         </div>
     </div>
     <div id="searchResults">

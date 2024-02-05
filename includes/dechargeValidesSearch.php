@@ -22,7 +22,7 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
             $output .= "<td>" . $row['name'] . "</td>";
             $output .= "<td>" . $row['status'] . "</td>";
             $output .= "<td>" . $row['filliere'] . "</td>";
-            $output .= "<td>" . $row['created_at'] . "</td>";
+            $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
             $output .= "</tr>";
         }
 
@@ -32,7 +32,7 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
 
         echo $output;
     } else {
-        echo "No results found.";
+        echo "Il n'y a aucune demande ";
     }
 } else {
     echo "Invalid input.";

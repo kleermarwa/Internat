@@ -29,7 +29,6 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
 
     $sql .= " AND ((students.name LIKE '%$searchInput%') OR (decharge.id_demande LIKE '%$searchInput%'))";
 
-
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -101,6 +100,6 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
             echo $output;
         }
     } else {
-        echo "No results found.";
+        echo "Il n'y a aucune demande ";
     }
 }
