@@ -30,7 +30,8 @@ if ($result->num_rows > 0) {
         $output .= "<tr>";
         $output .= "<td>" . $row['id_demande'] . "</td>";
         $output .= "<td>" . $row['name'] . "</td>";
-        $output .= "<td>" . $row['genre'] . "</td>";
+        $output .= "<td>" . ($row['genre'] == 'boy' ? 'Garçon' : 'Fille') . "</td>";
+
         $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
         $output .= "<td>" . $row['room_alias'] . "</td>";
         $output .= "<td>" . $numStudentsInRoom . "</td>";

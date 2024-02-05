@@ -20,6 +20,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <script src="../js/historiqueInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
+
 </head>
 
 <body id="body-pd">
@@ -127,7 +128,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <div class="internatSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="searchAll()">
+            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (Par Nom ou N° Demande)" onkeyup="searchAll()">
         </div>
     </div>
     <div id="searchResults">

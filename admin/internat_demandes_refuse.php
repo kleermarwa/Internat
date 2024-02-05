@@ -127,7 +127,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <div class="internatSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (par Nom)" onkeyup="searchAll()">
+            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (Par Nom ou N° Demande)" onkeyup="searchAll()">
         </div>
     </div>
     <div id="searchResults">
