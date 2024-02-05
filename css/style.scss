@@ -1580,3 +1580,35 @@ a {
     left: -100px;
     opacity: 0.6;
 }
+
+.bar {
+    fill: steelblue;
+}
+
+.bar:hover {
+    fill: orange;
+}
+
+.axis-x text {
+    font-size: 12px;
+}
+
+.axis-y text {
+    font-size: 12px;
+}
+
+.arc {
+    stroke: #fff;
+}
+
+#boyschart,
+#girlschart {
+    display: flex;
+    margin: auto;
+}
+
+#piechart-container,
+#chart-container {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}

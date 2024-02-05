@@ -258,35 +258,189 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 break;
         }
     }
-    echo '<div class="row">';
-    // Garcons
-    echo '<div class="column">';
-    echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT GARCONS</h1>";
-    echo "<p style='color:green;'>Chambres vides pour garçons: " . $emptyRoomsBoys . "</p>";
-    echo "<p style='color:#66ccff;'>Chambres avec 1 garçon: " . $roomsWithOneBoy . "</p>";
-    echo "<p style='color:#d6cf09;'>Chambres avec 2 garçons: " . $roomsWithTwoBoys . "</p>";
-    echo "<p style='color:orange;'>Chambres avec 3 garçons: " . $roomsWithThreeBoys . "</p>";
-    echo "<p style='color:red;'>Chambres pleines pour garçons: " . $roomFullBoys . "</p>";
-    echo "<p>Total de chambres pour garçons: " . $totalRooms . "</p>";
-    echo '</div>';
-
-    // Filles
-
-    echo '<div class="column">';
-    echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT FILLES</h1>";
-    echo "<p style='color:green;'>Chambres vides pour filles: " . $emptyRoomsGirls . "</p>";
-    echo "<p style='color:#66ccff;'>Chambres avec 1 fille: " . $roomsWithOneGirl . "</p>";
-    echo "<p style='color:#d6cf09;'>Chambres avec 2 filles: " . $roomsWithTwoGirls . "</p>";
-    echo "<p style='color:orange;'>Chambres avec 3 filles: " . $roomsWithThreeGirls . "</p>";
-    echo "<p style='color:red;'>Chambres pleines pour filles: " . $roomFullGirls . "</p>";
-    echo "<p>Totale de chambres pour filles: " . $totalRooms . "</p>";
-    echo '</div>';
-
-    echo '</div>';
-
-
-
     ?>
+
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <div class="row">
+        <div class="column">
+            <?php
+            echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT GARCONS</h1>";
+            echo "<p style='color:green;'>Chambres vides pour garçons: " . $emptyRoomsBoys . " (" . round(($emptyRoomsBoys / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:#66ccff;'>Chambres avec 1 garçon: " . $roomsWithOneBoy . " (" . round(($roomsWithOneBoy / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:#d6cf09;'>Chambres avec 2 garçons: " . $roomsWithTwoBoys . " (" . round(($roomsWithTwoBoys / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:orange;'>Chambres avec 3 garçons: " . $roomsWithThreeBoys . " (" . round(($roomsWithThreeBoys / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:red;'>Chambres pleines pour garçons: " . $roomFullBoys . " (" . round(($roomFullBoys / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p>Total de chambres pour garçons: " . $totalRooms . "</p>";
+            ?>
+            <div id="chart-container">
+                <svg id="boyschart"></svg>
+            </div>
+        </div>
+        <div class="column">
+            <?php
+            echo "<h1 style='text-align:center;margin-bottom:3rem;'>INTERNAT FILLES</h1>";
+            echo "<p style='color:green;'>Chambres vides pour filles: " . $emptyRoomsGirls . " (" . round(($emptyRoomsGirls / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:#66ccff;'>Chambres avec 1 fille: " . $roomsWithOneGirl . " (" . round(($roomsWithOneGirl / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:#d6cf09;'>Chambres avec 2 filles: " . $roomsWithTwoGirls . " (" . round(($roomsWithTwoGirls / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:orange;'>Chambres avec 3 filles: " . $roomsWithThreeGirls . " (" . round(($roomsWithThreeGirls / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p style='color:red;'>Chambres pleines pour filles: " . $roomFullGirls . " (" . round(($roomFullGirls / $totalRooms) * 100, 2) . "%)</p>";
+            echo "<p>Totale de chambres pour filles: " . $totalRooms . "</p>";
+            ?>
+            <div id="piechart-container">
+                <svg id="girlschart"></svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="chart-container">
+            <svg id="chart"></svg>
+        </div>
+    </div>
+
+    <script>
+        fetch('roomData.php')
+            .then(response => response.json())
+            .then(data => {
+                const boysData = data.boys;
+                const girlsData = data.girls;
+
+                const boysValues = Object.values(boysData);
+                const girlsValues = Object.values(girlsData);
+                const categories = ['Chambres Vides', '1 Etudiant', '2 Etudiants', '3 Etudiants', 'Chambre pleine'];
+
+                const width = 600;
+                const height = 400;
+                const margin = {
+                    top: 20,
+                    right: 20,
+                    bottom: 50,
+                    left: 50
+                };
+
+                const svg = d3.select('#chart')
+                    .attr('width', width + margin.left + margin.right)
+                    .attr('height', height + margin.top + margin.bottom)
+                    .append('g')
+                    .attr('transform', `translate(${margin.left},${margin.top})`);
+
+                const xScale = d3.scaleBand()
+                    .domain(categories)
+                    .range([0, width])
+                    .padding(0.1);
+
+                const yScale = d3.scaleLinear()
+                    .domain([0, d3.max([...boysValues, ...girlsValues])])
+                    .nice()
+                    .range([height, 0]);
+
+                svg.selectAll('.boys-bar')
+                    .data(boysValues)
+                    .enter()
+                    .append('rect')
+                    .attr('class', 'boys-bar')
+                    .attr('x', (d, i) => xScale(categories[i]))
+                    .attr('y', d => yScale(d))
+                    .attr('width', xScale.bandwidth() / 2)
+                    .attr('height', d => height - yScale(d))
+                    .attr('fill', '#195ac2');
+
+                svg.selectAll('.girls-bar')
+                    .data(girlsValues)
+                    .enter()
+                    .append('rect')
+                    .attr('class', 'girls-bar')
+                    .attr('x', (d, i) => xScale(categories[i]) + xScale.bandwidth() / 2)
+                    .attr('y', d => yScale(d))
+                    .attr('width', xScale.bandwidth() / 2)
+                    .attr('height', d => height - yScale(d))
+                    .attr('fill', 'pink');
+
+                svg.append('g')
+                    .attr('class', 'axis-x')
+                    .attr('transform', `translate(0, ${height})`)
+                    .call(d3.axisBottom(xScale));
+
+                svg.append('g')
+                    .attr('class', 'axis-y')
+                    .call(d3.axisLeft(yScale));
+
+                svg.append('text')
+                    .attr('class', 'x-label')
+                    .attr('x', width / 2)
+                    .attr('y', height + margin.bottom - 10)
+                    .style('text-anchor', 'middle')
+                    .text('Rooms');
+
+                svg.append('text')
+                    .attr('class', 'y-label')
+                    .attr('transform', 'rotate(-90)')
+                    .attr('x', -height / 2)
+                    .attr('y', -margin.left + 20)
+                    .style('text-anchor', 'middle')
+                    .text('Nombre de chambres');
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+
+    <script>
+        fetch('roomData.php')
+            .then(response => response.json())
+            .then(data => {
+                const boysData = data.boys;
+                const girlsData = data.girls;
+                const categories = ['Chambres Vides', '1 Etudiant', '2 Etudiants', '3 Etudiants', 'Chambre pleine'];
+
+                const createPieChart = (containerId, data) => {
+                    const pieWidth = 300;
+                    const pieHeight = 300;
+                    const radius = Math.min(pieWidth, pieHeight) / 2;
+                    const pieSvg = d3.select(`#${containerId}`)
+                        .attr('width', pieWidth)
+                        .attr('height', pieHeight)
+                        .append('g')
+                        .attr('transform', `translate(${pieWidth / 2},${pieHeight / 2})`);
+
+                    const pie = d3.pie()(data);
+                    const arc = d3.arc()
+                        .innerRadius(0)
+                        .outerRadius(radius);
+
+                    const color = d3.scaleOrdinal()
+                        .domain(categories)
+                        .range(['#006f3d', '#195ac2', 'yellow', 'orange', 'red']);
+
+                    pieSvg.selectAll('path')
+                        .data(pie)
+                        .enter()
+                        .append('path')
+                        .attr('d', arc)
+                        .attr('fill', (d, i) => color(categories[i]))
+                        .attr('class', 'arc');
+
+                    // Add percentage text labels
+                    pieSvg.selectAll('text')
+                        .data(pie)
+                        .enter()
+                        .append('text')
+                        .filter(d => (d.endAngle - d.startAngle) > 5) // filter small slices
+                        .attr('transform', d => `translate(${arc.centroid(d)})`)
+                        .attr('dy', '0.35em')
+                        .attr('text-anchor', 'middle')
+                        .text(d => {
+                            const percentage = (d.endAngle - d.startAngle) / (2 * Math.PI) * 100;
+                            return percentage.toFixed(1) + '%';
+                        })
+                        .style('fill', 'white')
+                        .style('font-size', '10px');
+                };
+
+                createPieChart('boyschart', Object.values(boysData));
+                createPieChart('girlschart', Object.values(girlsData));
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+
 
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
