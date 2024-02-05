@@ -83,14 +83,14 @@ $data = array(
         "roomsWithOne" => $roomsWithOneBoy,
         "roomsWithTwo" => $roomsWithTwoBoys,
         "roomsWithThree" => $roomsWithThreeBoys,
-        "roomFull" => $roomFullBoys
+        "roomFull" => $roomFullBoys,
     ),
     "girls" => array(
         "emptyRooms" => $emptyRoomsGirls,
         "roomsWithOne" => $roomsWithOneGirl,
         "roomsWithTwo" => $roomsWithTwoGirls,
         "roomsWithThree" => $roomsWithThreeGirls,
-        "roomFull" => $roomFullGirls
+        "roomFull" => $roomFullGirls,
     )
 );
 
