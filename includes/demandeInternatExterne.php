@@ -5,7 +5,7 @@ include 'count.php';
 $sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
         FROM internat
         JOIN students ON internat.student_id = students.id
-        WHERE internat.ville != 'Casablanca'
+        WHERE students.ville != 'Casablanca'
         AND internat.status = 'En attente'";
 $result = $conn->query($sql);
 
