@@ -1,7 +1,7 @@
 <?php
 include '../includes/user_info.php';
 $user_id = $_SESSION['user_id'];
-
+echo $password;
 if (isset($_POST['update_profile'])) {
     $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
     $update_email = mysqli_real_escape_string($conn, $_POST['update_email']);
@@ -27,12 +27,12 @@ if (isset($_POST['update_profile'])) {
 
     if (!empty($update_pass) || !empty($new_pass) || !empty($confirm_pass)) {
         if ($old_pass != $password) {
-            $_SESSION['error'] = 'Old password not matched!';
+            $_SESSION['error'] = 'Ancien mot de passe incorrect';
         } elseif ($new_pass != $confirm_pass) {
-            $_SESSION['error'] = 'Confirm password not matched!';
+            $_SESSION['error'] = 'Confirmation de nouveau mot de passe incorrecte';
         } else {
             mysqli_query($conn, "UPDATE `students` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
-            $_SESSION['success'] = 'Password updated successfully!';
+            $_SESSION['success'] = 'Mot de passe mis à jour avec succès!';
         }
     }
 
@@ -43,10 +43,10 @@ if (isset($_POST['update_profile'])) {
 
     if (!empty($update_image)) {
         if ($update_image_size > 2000000) {
-            $_SESSION['error'] = 'Image is too large';
+            $_SESSION['error'] = 'La taille de l\'image est trop grande';
         } else {
             $image_update_query = mysqli_query($conn, "UPDATE `students` SET image = '../images/$update_image' WHERE id = '$user_id'") or die('query failed');
-            $_SESSION['success'] = 'Image updated succssfully!';
+            $_SESSION['success'] = 'Image mise à jour avec succès!';
         }
     }
     header("Location: updateProfile.php");

@@ -98,13 +98,16 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
                     <a href="internat.php" class="nav_link">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
+                    <a href="dashboard.php" class="nav_link">
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
+                    </a>
                     <a href="roomList.php" class="nav_link">
-                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
                     </a>
                     <a href="internat_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>

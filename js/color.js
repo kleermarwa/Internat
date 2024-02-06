@@ -13,7 +13,7 @@ function getRoomColor(roomId, buildingData, currentFloor) {
         case 1:
             return '#66ccff';
         case 2:
-            return '#d6cf09';
+            return '#d4ce24';
         case 3:
             return 'orange';
         case 4:

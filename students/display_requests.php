@@ -56,8 +56,6 @@ if ($result->num_rows > 0) {
         } elseif ($student_status == 'externe') {
             echo '<p style="text-align:center; font-weight:800 ;color:red"> Il est impératif de régler ce montant pour les étudiants externe lors du retour de ce document pour compléter intégralement la décharge</p>';
         }
-        echo "<p>Logement: $accommodationFee dh</p>";
-        echo "<p>Restauration: $restaurationFee dh</p>";
         echo "<h5>Total : $totalFee dh</h5>";
         echo '<div class="discharge-container">';
         echo '<button class="discharge-button" onclick="redirect()">Télécharger Attestation';
@@ -65,7 +63,6 @@ if ($result->num_rows > 0) {
         echo '</button>';
         echo '</div>';
         echo '</div>';
-
     }
     echo "</div>";
 } else {

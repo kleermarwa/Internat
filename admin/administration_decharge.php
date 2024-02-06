@@ -13,6 +13,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -96,13 +97,16 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
                     <a href="internat.php" class="nav_link">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
+                    <a href="dashboard.php" class="nav_link">
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
+                    </a>
                     <a href="roomList.php" class="nav_link">
-                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
                     </a>
                     <a href="administration_decharge.php" class="nav_link active">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>

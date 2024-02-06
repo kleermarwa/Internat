@@ -41,10 +41,10 @@
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
                     <a href="" class="nav_link active">
-                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
                     </a>
                     <a href="" class="nav_link">
                         <i class="fas fa-tasks"></i> <span class="nav_name">Product Management</span>
@@ -59,11 +59,11 @@
             </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-    
+
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
         <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
-    </div>    
+    </div>
     <form id="app-cover">
         <div id="select-box">
             <input type="checkbox" id="options-view-button">
@@ -116,7 +116,7 @@
             </div>
         </div>
     </form>
-    
+
     <div id="roomMap">
 
         <div class="popup" id="popup">
@@ -131,7 +131,7 @@
             <p>Ajouter étudiant</p>
             <form id="editForm">
                 <label for="studentName">Nom de l'étudiant:</label>
-                <input type="text" id="studentName" required>                
+                <input type="text" id="studentName" required>
                 <button class="submit" type="submit">Chercher l'étudiant</button>
                 <div id="studentList"></div>
                 <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>
@@ -139,7 +139,7 @@
             </form>
         </div>
     </div>
-    <script>        
+    <script>
         const boysBuilding = {
             1: Array.from({
                 length: 22
@@ -205,35 +205,35 @@
             })),
         };
 
-    let currentBuilding = 'boys'; 
-    let currentFloor = 1; 
-        
+        let currentBuilding = 'boys';
+        let currentFloor = 1;
+
         const roomWidth = 70;
         const roomHeight = 70;
         const spacing = 10;
         const numRows = 2;
         const numCols = 11;
-        
+
         const totalWidth = (numCols * roomWidth) + ((numCols - 1) * spacing) + 160;
         const totalHeight = (numRows * roomHeight) + ((numRows - 1) * spacing);
-        
+
         const svg = d3.select("#roomMap")
             .append("svg")
             .attr("width", totalWidth)
             .attr("height", totalHeight);
-        
+
         svg.append("rect")
             .attr("class", "building")
             .attr("width", totalWidth)
             .attr("height", totalHeight);
 
         const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
-        
+
         function updateRoomLayout() {
             const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
-            
+
             svg.selectAll("g").remove();
-            
+
             const roomGroups = svg.selectAll("g")
                 .data(selectedBuilding[currentFloor])
                 .enter()
@@ -245,15 +245,15 @@
                     const y = row * (roomHeight + spacing);
                     return `translate(${x}, ${y})`;
                 });
-            
+
             roomGroups.append("rect")
                 .attr("class", 'room')
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-            .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) 
+                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor))
                 .on("click", showPopup);
-            
+
             roomGroups.append("text")
                 .attr("class", "roomNumber")
                 .text(d => d.id)
@@ -261,19 +261,19 @@
                 .attr("y", roomHeight / 2)
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle");
-            
+
             svg.append("rect")
                 .attr("class", "bathroom")
                 .attr("width", 80)
                 .attr("height", totalHeight)
-            .attr("x", 0); 
-            
+                .attr("x", 0);
+
             svg.append("rect")
                 .attr("class", "stairs")
                 .attr("width", 50)
                 .attr("height", totalHeight)
-            .attr("x", totalWidth - 50); 
-            
+                .attr("x", totalWidth - 50);
+
             svg.append("line")
                 .attr("class", "divider")
                 .attr("x1", roomWidth + 20)
@@ -281,34 +281,34 @@
                 .attr("x2", roomWidth + 20)
                 .attr("y2", totalHeight);
         }
-        
+
         updateRoomLayout();
         document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
             radio.addEventListener('change', changeFloor);
         });
-        
+
         function changeBuilding(building) {
             currentBuilding = building;
-        currentFloor = 1; 
+            currentFloor = 1;
             updateRoomLayout();
         }
-        
-        function changeFloor() {            
+
+        function changeFloor() {
             currentFloor = parseInt(document.querySelector('#options input[type="radio"]:checked').value);
             updateRoomLayout();
-        }        
+        }
         document.addEventListener("click", function(event) {
             var dropdown = document.getElementById("options-view-button");
             var dropdownContainer = document.getElementById("options");
-            
-            if (!dropdownContainer.contains(event.target) && event.target !== dropdown) {                
+
+            if (!dropdownContainer.contains(event.target) && event.target !== dropdown) {
                 dropdown.checked = false;
             }
         });
-        
+
         var radioInputs = document.querySelectorAll('#options input[type="radio"]');
         radioInputs.forEach(function(radioInput) {
-            radioInput.addEventListener("change", function() {                
+            radioInput.addEventListener("change", function() {
                 document.getElementById("options-view-button").checked = false;
             });
         });

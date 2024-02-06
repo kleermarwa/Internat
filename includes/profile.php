@@ -7,7 +7,7 @@ include 'user_info.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internat</title>
+    <title>Mon Profile</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -93,7 +93,7 @@ include 'user_info.php';
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <?php
                 if ($_SESSION['role'] == 'student') {
                     echo '<div class="nav_list">';
@@ -115,9 +115,9 @@ include 'user_info.php';
                     echo '<i class="fas fa-hotel"></i> <span class="nav_name">Map</span>';
                     echo '</a>';
                     echo '<a href="../admin/roomList.php" class="nav_link">';
-                    echo '<i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Dashboard</span>';
+                    echo '<i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Tableau de bord</span>';
                     echo '</a>';
-                    
+
                     if (isset($_SESSION['user_id'])) {
                         switch ($_SESSION['role']) {
                             case 'student':

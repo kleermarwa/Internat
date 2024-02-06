@@ -9,7 +9,7 @@ $_SESSION['student_id'] = $user_id;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internat</title>
+    <title>Internat Demandes</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -98,7 +98,7 @@ $_SESSION['student_id'] = $user_id;
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
                     <a href="../includes/profile.php" class="nav_link">
                         <i class="fas fa-home" style="width: 15px;"></i> <span class="nav_name">Home</span>
@@ -367,6 +367,37 @@ $_SESSION['student_id'] = $user_id;
             });
         });
     </script>
+    <div id="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: green;"></div>
+            <div class="legend-label">Chambres vides</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #66ccff;"></div>
+            <div class="legend-label">Chambres avec 1 étudiant(e)</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #d4ce24;"></div>
+            <div class="legend-label">Chambres avec 2 étudiant(e)s</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: orange;"></div>
+            <div class="legend-label">Chambres avec 3 étudiant(e)s</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: red;"></div>
+            <div class="legend-label">Chambres pleines</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: blue;"></div>
+            <div class="legend-label">Toillettes</div>
+        </div>
+    </div>
 
 </body>
 

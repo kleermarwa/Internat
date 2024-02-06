@@ -9,17 +9,16 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT decharge.*, students.*
         FROM decharge
         JOIN students ON decharge.student_id = students.id
-        WHERE decharge.student_id = '$user_id'
-        AND decharge.status = 'Validé'";
+        WHERE decharge.student_id = '$user_id'";
 
 
 $result = $conn->query($sql);
 $data = array();
 
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
+  while ($row = $result->fetch_assoc()) {
+    $data[] = $row;
+  }
 }
 $departement = $data[0]['filliere'];
 

@@ -4,21 +4,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
         const toggle = document.getElementById(toggleId),
             nav = document.getElementById(navId),
             bodypd = document.getElementById(bodyId),
-            headerpd = document.getElementById(headerId)
-        
+            headerpd = document.getElementById(headerId);
+
         if (toggle && nav && bodypd && headerpd) {
-            toggle.addEventListener('click', () => {                
-                nav.classList.toggle('show');                
-                toggle.classList.toggle('bx-x');                
-                bodypd.classList.toggle('body-pd');                
+            toggle.addEventListener('click', () => {
+                nav.classList.toggle('show');
+                toggle.classList.toggle('bx-x');
+                bodypd.classList.toggle('body-pd');
                 headerpd.classList.toggle('body-pd');
             });
-            
+
             document.addEventListener('click', (e) => {
                 const isClickInsideNavbar = nav.contains(e.target) || toggle.contains(e.target);
-                if (!isClickInsideNavbar) {                    
-                    nav.classList.remove('show');                    
-                    toggle.classList.remove('bx-x');                    
+                if (!isClickInsideNavbar) {
+                    nav.classList.remove('show');
+                    toggle.classList.remove('bx-x');
                     bodypd.classList.remove('body-pd');
                     headerpd.classList.remove('body-pd');
                 }
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
     linkColor.forEach(l => l.addEventListener('click', colorLink))
-    
+
 });
 
 function test() {

@@ -95,13 +95,16 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
                     <a href="internat.php" class="nav_link active">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
+                    <a href="dashboard.php" class="nav_link">
+                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
+                    </a>
                     <a href="roomList.php" class="nav_link">
-                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span>
+                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
                     </a>
                     <?php
 
@@ -139,10 +142,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
                         echo '</a>';
                         echo '<a href="internat_demandes_valide.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
                         echo '</a>';
                         echo '<a href="internat_demandes_refuse.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
                         echo '</a>';
                     }
                     ?>
@@ -345,14 +348,20 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     return `translate(${x}, ${y})`;
                 });
 
-            // Draw rooms
             roomGroups.append("rect")
                 .attr("class", 'room')
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) // Assign color dynamically
+                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) // Initial color assignment
                 .on("click", showPopup);
+
+            // Set up a timer to update the color every 2 seconds
+            setInterval(function() {
+                roomGroups.select('.room')
+                    .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor));
+            }, 3000);
+
 
             // Draw room numbers
             roomGroups.append("text")
@@ -426,6 +435,39 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             });
         });
     </script>
+    <div id="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: green;"></div>
+            <div class="legend-label">Chambres vides</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #66ccff;"></div>
+            <div class="legend-label">Chambres avec 1 étudiant(e)</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #d4ce24;"></div>
+            <div class="legend-label">Chambres avec 2 étudiant(e)s</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: orange;"></div>
+            <div class="legend-label">Chambres avec 3 étudiant(e)s</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: red;"></div>
+            <div class="legend-label">Chambres pleines</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: blue;"></div>
+            <div class="legend-label">Toillettes</div>
+        </div>
+    </div>
 </body>
+
+
 
 </html>

@@ -8,7 +8,7 @@ $user_id = $_SESSION['user_id'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internat</title>
+    <title>Modifier Mon Profil</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -84,7 +84,7 @@ $user_id = $_SESSION['user_id'];
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">Salam</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <?php
                 if ($_SESSION['role'] == 'student') {
                     echo '<div class="nav_list">';
@@ -106,13 +106,13 @@ $user_id = $_SESSION['user_id'];
                     echo '<i class="fas fa-hotel"></i> <span class="nav_name">Map</span>';
                     echo '</a>';
                     echo '<a href="../admin/roomList.php" class="nav_link">';
-                    echo '<i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Dashboard</span>';
+                    echo '<i class="bx bx-grid-alt nav_icon"></i> <span class="nav_name">Tableau de bord</span>';
                     echo '</a>';
-                    
-                    if (isset($_SESSION['user_id'])) {                        
+
+                    if (isset($_SESSION['user_id'])) {
                         switch ($_SESSION['role']) {
                             case 'student':
-                            $href = 'decharge.php'; 
+                                $href = 'decharge.php';
                                 break;
                             case 'departement':
                                 $href = 'departement_decharge.php';
@@ -182,11 +182,11 @@ $user_id = $_SESSION['user_id'];
                 </div>
                 <div class="inputBox" id="pass">
                     <h3>Modifier votre Mot de Passe</h3>
-                    <input type="hidden" name="old_pass" value="<?php echo $password; ?>">
+                    <input type="hidden" value="<?php echo $password; ?>">
                     <span>Ancien mot de passe :</span>
                     <div class="field">
                         <i class="ua fa fa-lock" aria-hidden="true"></i>
-                        <input type="password" name="update_pass" placeholder="Enter previous password" class="box">
+                        <input type="password" name="old_pass" placeholder="Enter previous password" class="box">
                     </div>
                     <span>Nouveau mot de passe :</span>
                     <div class="field">
@@ -200,8 +200,8 @@ $user_id = $_SESSION['user_id'];
                     </div>
                 </div>
             </div>
-            <input type="submit" value="Update Profile" name="update_profile" class="btn">
-            <a href="../includes/profile.php" class="delete-btn">Go back</a>
+            <input type="submit" value="Confirmer Modifications" name="update_profile" class="btn">
+            <a href="../includes/profile.php" class="delete-btn">Retourner</a>
         </form>
 
     </div>

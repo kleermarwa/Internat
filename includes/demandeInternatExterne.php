@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
         $output .= "<td>" . $row['ville'] . "</td>";
         $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
         $output .= "<td>" . $row['room_alias'] . "</td>";
-        $output .= "<td>" . $numStudentsInRoom . "</td>";
+        $output .= "<td style='font-weight:bold;" . ($numStudentsInRoom == 4 ? 'color:red;' : 'color:green;') . "'>" . $numStudentsInRoom . "</td>";
         $output .= "<td>" . $numRequestsInRoom . "</td>";
         $output .= "<td style='border-right: none;'><a class='validate' href='internat_demandes_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Valider</a></td>";
         $output .= "<td style='border-left: none;'><a class='reject' href='internat_demandes_rejection.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Rejeter</a></td>";
