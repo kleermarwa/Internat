@@ -4,10 +4,10 @@ include '../includes/count.php';
 
 // $sql = "SELECT * FROM internat WHERE ville = 'Casablanca' AND status = 'En attente'";
 
-$sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
+$sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
         FROM internat
-        JOIN students ON internat.student_id = students.id
-        WHERE students.ville = 'Casablanca'
+        JOIN users ON internat.student_id = users.id
+        WHERE users.ville = 'Casablanca'
         AND internat.status = 'En attente'";
 
 $result = $conn->query($sql);

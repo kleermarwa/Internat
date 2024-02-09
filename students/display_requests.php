@@ -1,9 +1,9 @@
 <?php
 $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 
-$selectQuery = "SELECT decharge.*, students.*, students.status AS student_status , decharge.status AS decharge_status
+$selectQuery = "SELECT decharge.*, users.*, users.status AS student_status , decharge.status AS decharge_status
                 FROM decharge 
-                JOIN students ON decharge.student_id = students.id 
+                JOIN users ON decharge.student_id = users.id 
                 WHERE decharge.student_id = ?";
 $selectStmt = $conn->prepare($selectQuery);
 $selectStmt->bind_param('i', $user_id);

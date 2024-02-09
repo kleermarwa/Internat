@@ -2,11 +2,11 @@
 include 'db_connect.php';
 if (isset($_GET['input']) && !empty($_GET['input'])) {
     $searchInput = $conn->real_escape_string($_GET['input']);
-    $sql = "SELECT decharge.*, students.*
+    $sql = "SELECT decharge.*, users.*
             FROM decharge
-            JOIN students ON decharge.student_id = students.id
+            JOIN users ON decharge.student_id = users.id
             WHERE (decharge.status = 'Validé' AND decharge.valide_departement = 1 AND decharge.valide_internat = 1 AND decharge.valide_economique = 1 AND decharge.valide_administration = 1) AND(
-                  (students.name LIKE '%$searchInput%') OR (decharge.id_demande LIKE '%$searchInput%'))";
+                  (users.name LIKE '%$searchInput%') OR (decharge.id_demande LIKE '%$searchInput%'))";
 
     $result = $conn->query($sql);
 

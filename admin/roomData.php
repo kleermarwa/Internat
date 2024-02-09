@@ -3,7 +3,7 @@ include '../includes/db_connect.php';
 
 $totalRooms = 110;
 
-$queryBoys = "SELECT room_number, COUNT(*) AS count FROM students WHERE genre = 'boy' GROUP BY room_number";
+$queryBoys = "SELECT room_number, COUNT(*) AS count FROM users WHERE genre = 'boy' GROUP BY room_number";
 $resultBoys = mysqli_query($conn, $queryBoys);
 
 $emptyRoomsBoys = $totalRooms;
@@ -40,7 +40,7 @@ while ($row = mysqli_fetch_assoc($resultBoys)) {
     }
 }
 
-$queryGirls = "SELECT room_number, COUNT(*) AS count FROM students WHERE genre = 'girl' GROUP BY room_number";
+$queryGirls = "SELECT room_number, COUNT(*) AS count FROM users WHERE genre = 'girl' GROUP BY room_number";
 $resultGirls = mysqli_query($conn, $queryGirls);
 
 $emptyRoomsGirls = $totalRooms;

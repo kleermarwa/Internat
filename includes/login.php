@@ -4,51 +4,52 @@ session_start();
 include 'db_connect.php';
 
 if (isset($_POST['login'])) {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $email_or_cin = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $select = mysqli_query($conn, "SELECT * FROM `students` WHERE email = '$email' AND password = '$pass'") or die('query failed');
+    $select = mysqli_query($conn, "SELECT * FROM `users` WHERE (email = '$email_or_cin' OR cin = '$email_or_cin')") or die('query failed');
 
     if (mysqli_num_rows($select) > 0) {
         $row = mysqli_fetch_assoc($select);
-        $_SESSION['user_id'] = $row['id'];
-        $_SESSION['role'] = $row['role'];
-        $_SESSION['status'] = $row['status'];
-        $href = "";
-        switch ($_SESSION['role']) {
-            case 'student':
-                $href = 'profile.php';
-                break;
-            case 'departement':
-                $href = '../admin/internat.php';
-                break;
-            case 'internat':
-                $href = '../admin/internat.php';
-                break;
-            case 'economique':
-                $href = '../admin/internat.php';
-                break;
-            case 'administration':
-                $href = '../admin/internat.php';
-                break;
-            case 'super_admin':
-                $href = '../admin/internat.php';
-                break;
-        }
-        header("Location:" . $href);
-        exit;
-    } else {
-        $emailCheck = mysqli_query($conn, "SELECT * FROM `students` WHERE email = '$email'");
-
-        if (mysqli_num_rows($emailCheck) > 0) {
-            $messages[] = 'Mot de passe incorrect pour ' . $email . ' !';
+        // Check if the password is empty in the database
+        if ($row['password'] === NULL || $row['password'] === '') {
+            // If the password is empty, use the 'cin' as the password
+            if ($pass === $row['cin']) {
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['role'] = $row['role'];
+                header("Location: first_login.php");
+                exit;
+            } else {
+                $messages[] = 'Mot de passe incorrect pour ' . $email_or_cin . ' !';
+            }
         } else {
-            $messages[] = 'Email Incorrect';
+            // If the password is not empty, check it normally
+            if ($pass === $row['password']) {
+                $_SESSION['user_id'] = $row['id'];
+                $_SESSION['role'] = $row['role'];
+                // $_SESSION['status'] = $row['status'];
+                $href = "";
+                switch ($_SESSION['role']) {
+                    case 'student':
+                        $href = 'profile.php';
+                        break;
+                    case 'departement':
+                        $href = '../admin/internat.php';
+                        break;
+                        // Add other cases for different roles
+                }
+                header("Location:" . $href);
+                exit;
+            } else {
+                $messages[] = 'Mot de passe incorrect pour ' . $email_or_cin . ' !';
+            }
         }
+    } else {
+        $messages[] = 'Email ou Cin Incorrect';
     }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -93,7 +94,7 @@ if (isset($_POST['login'])) {
 
             <form method="post" action="">
                 <div style="margin-bottom: 15px;">
-                    <input type="email" name="email" class="form-control  " placeholder="Email" required maxlength="30" id="id_username" />
+                    <input type="text" name="email" class="form-control  " placeholder="Email" required maxlength="30" id="id_username" />
                 </div>
                 <div class="password-cont" style="margin-bottom: 15px;">
                     <input type="password" name="password" class="form-control" placeholder="Mot de passe" required id="id_password" />

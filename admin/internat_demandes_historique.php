@@ -6,9 +6,9 @@ include '../includes/count.php';
 // Get the URL of the previous page
 $previous_page = $_SERVER['HTTP_REFERER'];
 
-$sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
+$sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
         FROM internat
-        JOIN students ON internat.student_id = students.id ";
+        JOIN users ON internat.student_id = users.id ";
 
 if (strpos($previous_page, 'internat_demandes_valide.php') !== false) {
     $sql .= "WHERE internat.status = 'Accepté'";

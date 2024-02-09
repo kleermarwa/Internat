@@ -7,9 +7,9 @@ function getNumStudentsInRoom($roomId, $building)
     global $conn;
 
     if ($building == 'boys') {
-        $query = "SELECT COUNT(*) as num_students FROM students WHERE room_number = ? AND status='interne' AND genre = 'boy'";
+        $query = "SELECT COUNT(*) as num_students FROM users WHERE room_number = ? AND status='interne' AND genre = 'boy'";
     } else {
-        $query = "SELECT COUNT(*) as num_students FROM students WHERE room_number = ? AND status='interne' AND genre = 'girl'";
+        $query = "SELECT COUNT(*) as num_students FROM users WHERE room_number = ? AND status='interne' AND genre = 'girl'";
     }
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $roomId);

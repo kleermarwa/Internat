@@ -35,7 +35,7 @@ if (isset($_SESSION['user_id'])) {
 
     if (isset($_SESSION['role'])) {
         $user_id = $_SESSION['user_id'];
-        $result = $conn->query("SELECT * FROM students WHERE id='$user_id'");
+        $result = $conn->query("SELECT * FROM users WHERE id='$user_id'");
 
         // $count_query = "SELECT COUNT(*) as count FROM cart WHERE user_id = '$user_id'";
         // $count_result = mysqli_query($mysqli, $count_query);
@@ -67,9 +67,9 @@ if (isset($_SESSION['user_id'])) {
         header('Location: ../includes/login.php');
     }
 }
-$sqlcount = "SELECT decharge.*, students.*
+$sqlcount = "SELECT decharge.*, users.*
     FROM decharge
-    JOIN students ON decharge.student_id = students.id";
+    JOIN users ON decharge.student_id = users.id";
 
 if (isset($_SESSION['role'])) {
     switch ($_SESSION['role']) {
