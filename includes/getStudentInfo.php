@@ -2,7 +2,7 @@
 include 'db_connect.php';
 
 $studentId = $_GET['studentId'];
-$sql = "SELECT * FROM students WHERE id = $studentId";
+$sql = "SELECT * FROM users WHERE id = $studentId";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {

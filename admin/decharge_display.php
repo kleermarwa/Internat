@@ -2,9 +2,9 @@
 session_start();
 include '../includes/db_connect.php';
 
-$sql = "SELECT decharge.*, students.*
+$sql = "SELECT decharge.*, users.*
         FROM decharge
-        JOIN students ON decharge.student_id = students.id ";
+        JOIN users ON decharge.student_id = users.id ";
 
 if (isset($_SESSION['role'])) {
     switch ($_SESSION['role']) {

@@ -15,9 +15,9 @@ if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || strtolower($_SERVER['HTTP_X_REQ
 }
 
 include '../includes/db_connect.php';
-$sqlcount = "SELECT decharge.*, students.*
+$sqlcount = "SELECT decharge.*, users.*
     FROM decharge
-    JOIN students ON decharge.student_id = students.id";
+    JOIN users ON decharge.student_id = users.id";
 
 $updateSql = "UPDATE decharge ";
 

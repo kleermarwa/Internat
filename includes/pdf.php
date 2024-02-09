@@ -6,9 +6,9 @@ include 'db_connect.php';
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
+$sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
         FROM internat
-        JOIN students ON internat.student_id = students.id
+        JOIN users ON internat.student_id = users.id
         WHERE internat.student_id = '$user_id'
         AND internat.status = 'Accepté'";
 

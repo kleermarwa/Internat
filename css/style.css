@@ -1286,12 +1286,10 @@ a {
   margin: 1rem 0 2rem 0;
   font-weight: 600;
 }
-.update-profile form .flex span {
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 17px;
-  text-align: center;
+.update-profile form .flex .required {
+  display: flex;
+  margin: 1rem auto 1rem auto;
+  justify-content: center;
 }
 .update-profile form .flex .box {
   width: 100%;
@@ -1332,10 +1330,6 @@ a {
   font-size: 1.5rem;
   margin-right: 10px;
   margin-bottom: 17px;
-}
-.update-profile form .flex .field .country-list,
-.update-profile form .flex .field .iti__country-list {
-  background-color: #333;
 }
 .update-profile form .flex .field input[type=text]#country_selector,
 .update-profile form .flex .field input[type=tel]#phone {

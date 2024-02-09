@@ -2,15 +2,15 @@
 include 'db_connect.php';
 include '../includes/count.php';
 
-$sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
+$sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
         FROM internat
-        JOIN students ON internat.student_id = students.id
+        JOIN users ON internat.student_id = users.id
         WHERE internat.ville != 'Casablanca'
         AND internat.status = 'En attente'";
 
 if (isset($_GET['input']) && !empty($_GET['input'])) {
     $searchInput = $conn->real_escape_string($_GET['input']);
-    $sql .= "AND ((students.name LIKE '%$searchInput%') OR (internat.id_demande LIKE '%$searchInput%'))";
+    $sql .= "AND ((users.name LIKE '%$searchInput%') OR (internat.id_demande LIKE '%$searchInput%'))";
 } elseif (isset($_GET['inputRoom']) && !empty($_GET['inputRoom'])) {
     $searchInput = $conn->real_escape_string($_GET['inputRoom']);
     $sql .= "AND internat.room_number LIKE '%$searchInput%'";

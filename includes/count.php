@@ -2,7 +2,7 @@
 // Function to get the number of students in a room
 function getNumberOfStudentsInRoom($conn, $roomId, $gender)
 {
-    $sql = "SELECT COUNT(*) AS num_students FROM students WHERE room_number = ? AND genre = ?";
+    $sql = "SELECT COUNT(*) AS num_students FROM users WHERE room_number = ? AND genre = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('is', $roomId, $gender);
     $stmt->execute();

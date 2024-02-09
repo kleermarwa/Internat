@@ -6,9 +6,9 @@ global $conn;
 $search_term = $_GET['term'];
 $building = $_GET['building'];
 if ($building == 'boys') {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'boy' AND status != 'admin'");
+    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM users WHERE name LIKE ? AND genre = 'boy' AND status != 'admin'");
 } else {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM students WHERE name LIKE ? AND genre = 'girl' AND status != 'admin'");
+    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM users WHERE name LIKE ? AND genre = 'girl' AND status != 'admin'");
 }
 
 $search_term = "%$search_term%";

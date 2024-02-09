@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $countQuery = "SELECT COUNT(*) FROM students WHERE room_number = ? AND genre = ?";
+    $countQuery = "SELECT COUNT(*) FROM users WHERE room_number = ? AND genre = ?";
     $countStmt = $conn->prepare($countQuery);
     $countStmt->bind_param('is', $newRoomNumber, $currentBuilding);
     $countStmt->execute();
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['success' => false, 'error' => 'La chambre est déjà pleine']);
         exit;
     } else {
-        $query = "UPDATE students SET room_number = ? , status = 'interne' WHERE id = ?";
+        $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('ii', $newRoomNumber, $studentId);
 

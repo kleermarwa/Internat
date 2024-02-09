@@ -8,9 +8,9 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
     $searchInput = $conn->real_escape_string($_GET['input']);
     $sql = "SELECT * FROM internat ";
 
-    $sql = "SELECT internat.*, students.*, internat.room_number AS room_alias
+    $sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
         FROM internat
-        JOIN students ON internat.student_id = students.id ";
+        JOIN users ON internat.student_id = users.id ";
 
     if (strpos($previous_page, 'internat_demandes_valide.php') !== false) {
         $sql .= "WHERE internat.status = 'Accepté'";
@@ -18,7 +18,7 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
         $sql .= "WHERE internat.status = 'Refusé'";
     }
 
-    $sql .= " AND ((students.name LIKE '%$searchInput%') OR (internat.id_demande LIKE '%$searchInput%'))";
+    $sql .= " AND ((users.name LIKE '%$searchInput%') OR (internat.id_demande LIKE '%$searchInput%'))";
 
     $result = $conn->query($sql);
 

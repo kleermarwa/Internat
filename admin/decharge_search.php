@@ -6,9 +6,9 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
 
     $searchInput = $conn->real_escape_string($_GET['input']);
 
-    $sql = "SELECT decharge.*, students.*
+    $sql = "SELECT decharge.*, users.*
         FROM decharge
-        JOIN students ON decharge.student_id = students.id";
+        JOIN users ON decharge.student_id = users.id";
 
     if (isset($_SESSION['role'])) {
         switch ($_SESSION['role']) {
@@ -27,7 +27,7 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
         }
     }
 
-    $sql .= " AND ((students.name LIKE '%$searchInput%') OR (decharge.id_demande LIKE '%$searchInput%'))";
+    $sql .= " AND ((users.name LIKE '%$searchInput%') OR (decharge.id_demande LIKE '%$searchInput%'))";
 
     $result = $conn->query($sql);
 

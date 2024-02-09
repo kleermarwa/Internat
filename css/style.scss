@@ -1450,12 +1450,10 @@ a {
                 font-weight: 600;
             }
 
-            span {
-                display: block;
-                margin-top: 10px;
-                margin-bottom: 10px;
-                font-size: 17px;
-                text-align: center;
+            .required {
+                display: flex;
+                margin: 1rem auto 1rem auto;
+                justify-content: center;
             }
 
             .box {
@@ -1505,11 +1503,6 @@ a {
                     margin-right: 10px;
                     margin-bottom: 17px;
 
-                }
-
-                .country-list,
-                .iti__country-list {
-                    background-color: $black;
                 }
 
                 input[type="text"]#country_selector,

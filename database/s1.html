@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator s1</title>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        form {
+            background-color: #fff;
+            padding: 20px;
+            margin: auto;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 700px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Grade Calculator S1</h1>
+    <form action="calculates1.php" method="post">
+        <label for="studentName">Nom de l'étuiant:</label>
+        <input type="text" id="studentName" name="studentName" required><br>
+        <h3>Entrer les notes</h3>
+
+        <label for="m01c">M01C - Anglais (30.00%):</label>
+        <input type="number" step="0.01" id="m01c" name="m01c" required><br>
+        <label for="m01b">M01B - Francais (30.00%):</label>
+        <input type="number" step="0.01" id="m01b" name="m01b" required><br>
+        <label for="m01a">M01A - tec (40.00%):</label>
+        <input type="number" step="0.01" id="m01a" name="m01a" required><br>
+
+        <label for="m2b">M02B - Algebre (50.00%):</label>
+        <input type="number" step="0.01" id="m2b" name="m2b" required><br>
+        <label for="m2a">M02A - Analyse  (50.00%):</label>
+        <input type="number" step="0.01" id="m2a" name="m2a" required><br>
+
+        <label for="m03b">M03B - Algorithmique Programmation C  (73.00%):</label>
+        <input type="number" step="0.01" id="m03b" name="m03b" required><br>
+        <label for="m03a">M03A - Développement Web Client (27.00%):</label>
+        <input type="number" step="0.01" id="m03a" name="m03a" required><br>
+
+        <label for="m04b">M04B - Architecture des ordinateurs/assembler (60.00%):</label>
+        <input type="number" step="0.01" id="m04b" name="m04b" required><br>
+        <label for="m04a">M04A - Circuit Logiques (40.00%):</label>
+        <input type="number" step="0.01" id="m04a" name="m04a" required><br>
+
+        <button type="submit">Calculer Moyennes</button>
+    </form>
+</body>
+
+</html>

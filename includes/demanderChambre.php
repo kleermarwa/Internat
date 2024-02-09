@@ -17,14 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $demand_result = $check_demand_stmt->get_result();
 
     // Check if a student with the same name exists in the same room
-    $check_student_sql = "SELECT * FROM students WHERE name = ? AND room_number = ?";
+    $check_student_sql = "SELECT * FROM users WHERE name = ? AND room_number = ?";
     $check_student_stmt = $conn->prepare($check_student_sql);
     $check_student_stmt->bind_param('si', $name, $roomNumber);
     $check_student_stmt->execute();
     $student_result = $check_student_stmt->get_result();
 
     // Check if a student is external 
-    $check_status_sql = "SELECT * FROM students WHERE name = ? AND status = 'externe' ";
+    $check_status_sql = "SELECT * FROM users WHERE name = ? AND status = 'externe' ";
     $check_status_stmt = $conn->prepare($check_status_sql);
     $check_status_stmt->bind_param('s', $name);
     $check_status_stmt->execute();
