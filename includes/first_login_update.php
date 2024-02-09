@@ -49,7 +49,17 @@ if (isset($_POST['update_profile'])) {
     // Remove the trailing comma and space from the query string
     $query = rtrim($query, ', ');
     $query .= " WHERE id = '$user_id'";
-    mysqli_query($conn, $query) or die('query failed');
+
+    // Execute the query
+    $result = mysqli_query($conn, $query);
+
+    if ($result) {
+        // Query was successful
+        $_SESSION['success'] = 'Informations mises à jour avec succès!';
+    } else {
+        // Query failed
+        die('Query failed: ' . mysqli_error($conn));
+    }
 
     $update_image = $_FILES['update_image']['name'];
     $update_image_size = $_FILES['update_image']['size'];
@@ -61,7 +71,6 @@ if (isset($_POST['update_profile'])) {
             $_SESSION['error'] = 'La taille de l\'image est trop grande';
         } else {
             $image_update_query = mysqli_query($conn, "UPDATE `users` SET image = '../images/$update_image' WHERE id = '$user_id'") or die('query failed');
-            $_SESSION['success'] = 'Image mise à jour avec succès!';
         }
     }
 

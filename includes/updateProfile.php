@@ -19,6 +19,7 @@ $user_id = $_SESSION['user_id'];
     <script src="../js/navbar.js"></script>
     <script src="../js/countrySelect.js"></script>
     <script src="../js/intlTelInput.js"></script>
+    <script src="../js/utils.js"></script>
 </head>
 
 <body id="body-pd">

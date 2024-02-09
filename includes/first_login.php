@@ -22,8 +22,7 @@ $user_id = $_SESSION['user_id'];
     <!-- inserting javascript -->
     <script src="../js/navbar.js"></script>
     <script src="../js/countrySelect.js"></script>
-    <script src="../js/intlTelInput.js"></script>
-    <script src="../js/utils.js"></script>
+
     <style>
         .required {
             display: flex;
@@ -120,11 +119,10 @@ $user_id = $_SESSION['user_id'];
             </div>
             <div class="flex">
                 <div class="inputBox" id="info">
-
                     <span class="required">Votre Email : <span style="color: red;">*</span></span>
                     <div class="field">
                         <i class="ua fas fa-at" aria-hidden="true"></i>
-                        <input type="email" name="update_email" value="<?php echo $email; ?>" class="box" required>
+                        <input type="email" name="update_email" value="<?php echo $email; ?>" placeholder="Entrer votre Email" class="box" required>
                     </div>
                     <span class="required">Inserer votre photo : <span style="color: red;">*</span> </span>
                     <div class="field">
@@ -149,16 +147,14 @@ $user_id = $_SESSION['user_id'];
                             </select>
                         </div>
                     </div>
-
-
                     <span class="required">Votre Date de Naissance : <span style="color: red;">*</span></span>
                     <div class="field">
                         <i class="ua fas fa-birthday-cake" aria-hidden="true"></i>
                         <input type="date" name="birthday" value="<?php echo $date_naissance; ?>" class="box" required>
                     </div>
                 </div>
-                <div class="inputBox" id="pass">
 
+                <div class="inputBox" id="pass">
                     <span class="required">Numéro de téléphone : <span style="color: red;">*</span></span>
                     <div class="field" style="padding-bottom: 1rem;">
                         <i class="ua fas fa-phone" aria-hidden="true" style="margin-bottom: 0px;"></i>
@@ -173,8 +169,8 @@ $user_id = $_SESSION['user_id'];
                         <script>
                             $(document).ready(function() {
                                 $("#country_selector").countrySelect({
-                                    defaultCountry: "ma",
-                                    responsiveDropdown: true
+                                    responsiveDropdown: true,
+                                    preferredCountries: ['ma', 'mr', 'sn'],
                                 });
 
                                 var input = document.querySelector("#phone");
@@ -192,6 +188,9 @@ $user_id = $_SESSION['user_id'];
                                 var countryData = $("#country_selector").countrySelect("getSelectedCountryData");
                                 var VilleContainer = document.getElementById('VilleContainer');
                                 var villeSelect = document.getElementById('villeSelect');
+                                var updateAddressSelect = document.getElementById('villeSelect');
+                                var updateCityInput = document.getElementById('CityInput');
+                                var updateArrondissementSelect = document.getElementById('arrondissementSelect');
 
                                 // Hide/show Ville based on selected country
                                 if (countryData.name !== 'Morocco (‫المغرب‬‎)') {
@@ -199,10 +198,13 @@ $user_id = $_SESSION['user_id'];
                                     streetContainer.style.display = 'none';
                                     CityContainer.style.display = 'none';
                                     villeSelect.value = '';
+                                    updateAddressSelect.removeAttribute('required');
+                                    updateArrondissementSelect.removeAttribute('required');
+                                    updateCityInput.removeAttribute('required');
 
                                 } else if (countryData.name === 'Morocco (‫المغرب‬‎)') {
                                     VilleContainer.style.display = 'block';
-
+                                    updateAddressSelect.setAttribute('required', 'required');
                                 }
                                 console.log(countryData)
 
@@ -274,13 +276,21 @@ $user_id = $_SESSION['user_id'];
                         // Hide/show input containers based on selected option
                         var cityContainer = document.getElementById('CityContainer');
                         var streetContainer = document.getElementById('streetContainer');
+                        var updateCityInput = document.getElementById('CityInput');
+                        var updateArrondissementSelect = document.getElementById('arrondissementSelect');
+
 
                         if (selectedValue === 'Autres') {
                             cityContainer.style.display = 'block';
                             streetContainer.style.display = 'none';
+                            updateCityInput.setAttribute('required', 'required');
+                            updateArrondissementSelect.removeAttribute('required');
+
                         } else if (selectedValue === 'Casablanca') {
                             cityContainer.style.display = 'none';
                             streetContainer.style.display = 'block';
+                            updateCityInput.removeAttribute('required');
+                            updateArrondissementSelect.setAttribute('required', 'required');
                         }
                     });
                 </script>
