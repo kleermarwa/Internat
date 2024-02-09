@@ -45,13 +45,16 @@ if (isset($_SESSION['user_id'])) {
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             $name = $row['name'];
+            $cin = $row['cin'];
             $email = $row['email'];
             $image = $row['image'];
             $room = $row['room_number'];
             $filiere = $row['filliere'];
             $password = $row['password'];
             $date_naissance = $row['date_naissance'];
+            $pays = $row['pays'];
             $ville = $row['ville'];
+            $arrondissement = $row['arrondissement'];
             $tel = $row['tel'];
             $gender = $row['genre'];
             $status = $row['status'];
