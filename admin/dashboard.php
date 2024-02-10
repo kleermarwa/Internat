@@ -233,7 +233,13 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 const girlsValues = Object.values(girlsData);
                 const categories = ['Chambres Vides', '1 Etudiant', '2 Etudiants', '3 Etudiants', 'Chambre pleine'];
 
-                const width = 600;
+                // Set initial width
+                let width = 500;
+
+                // Check if the screen width is less than or equal to 600 pixels
+                if (window.innerWidth <= 600) {
+                    width = 300; // Change width for small screens
+                }
                 const height = 400;
                 const margin = {
                     top: 20,
