@@ -962,11 +962,9 @@ a {
         th,
         td {
             padding: 12px;
-            /* Adjusted padding for better spacing */
             text-align: left;
             border: 1px solid #ddd;
             width: 120px;
-            /* Set fixed width for each cell */
         }
 
         th {
@@ -975,12 +973,10 @@ a {
         }
     }
 
-
     tbody tr:nth-child(even) {
         background-color: #f9f9f9;
     }
 
-    /* Pagination Links */
     .pagination {
         display: inline-block;
         padding: 0;
@@ -989,7 +985,7 @@ a {
         margin-bottom: 3rem;
 
         li {
-            display: inline-flex; // Ensure li elements are blocks
+            display: inline-flex;
             margin-right: 5px;
             background-color: #428bca;
             border-radius: 50%;
@@ -1003,16 +999,16 @@ a {
                 border-radius: 3px;
                 display: flex;
                 place-items: center;
-                background-color: #428bca; // Blue color for normal state
+                background-color: #428bca;
 
                 &:hover {
-                    background-color: darken(#428bca, 10%); // Darker blue on hover
+                    background-color: darken(#428bca, 10%);
                 }
             }
 
             &.active {
                 a {
-                    background-color: darken(#428bca, 20%); // Darker blue for active state
+                    background-color: darken(#428bca, 20%);
                 }
             }
         }
@@ -1031,6 +1027,8 @@ a {
 .row {
     margin-top: 2rem;
     display: flex;
+    flex-wrap: wrap;
+    /* Allow columns to wrap to the next line on smaller screens */
 }
 
 .column {
@@ -1038,22 +1036,21 @@ a {
     padding: 20px;
     border: 1px solid #ddd;
     background-color: #f9f9f9;
+    margin-bottom: 20px;
+    /* Add margin between columns on smaller screens */
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    p {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
 }
 
-.column:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.column h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.column p {
-    font-size: 20px;
-    margin-bottom: 5px;
-}
 
 /**************************************************************************************************************************************************************************/
 /***************************************************************************** Decharge CSS *******************************************************************************/
@@ -1542,6 +1539,103 @@ a {
 
             &:hover {
                 background-color: $light-red;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .update-profile {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 0 2rem 0;
+
+        form {
+            padding: 20px;
+            background-color: rgba(255, 255, 255);
+            border: $border;
+            box-shadow: $box-shadow;
+            text-align: center;
+            width: 70%;
+            text-align: center;
+            border-radius: 5px;
+
+            img {
+                height: 200px;
+                width: 200px;
+                border-radius: 50%;
+                margin-bottom: 5px;
+            }
+
+            .flex {
+                display: flex;
+                flex-direction: column;
+                /* Change to column on small screens */
+                gap: 15px;
+
+                .inputBox {
+                    width: 100%;
+                    /* Full width on small screens */
+                }
+
+                #info,
+                #pass {
+                    padding: 0;
+                    /* Remove padding on small screens */
+                    border: none;
+                    /* Remove border on small screens */
+                    text-align: center;
+                }
+
+                h3 {
+                    margin: 1rem 0 2rem 0;
+                    font-weight: 600;
+                }
+
+                .required {
+                    display: flex;
+                    margin: 1rem auto 1rem auto;
+                    justify-content: center;
+                }
+
+                .box {
+                    width: 100%;
+                }
+
+                .field {
+                    display: flex;
+                    flex-direction: column;
+                    /* Change to column on small screens */
+                    align-items: center;
+                    /* Center align on small screens */
+                    border-bottom: $border;
+                    margin-bottom: 25px;
+
+                    .ua {
+                        margin-bottom: 5px;
+                        /* Adjust margin on small screens */
+                    }
+
+                    input[type="text"]#country_selector,
+                    input[type="tel"]#phone {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .btn,
+            .delete-btn {
+                margin: 10px auto 0 auto;
+                /* Adjust margin on small screens */
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            form {
+                width: 100%;
+                /* Adjust width for smaller screens */
             }
         }
     }

@@ -830,7 +830,6 @@ a {
 /**************************************************************************************************************************************************************************/
 .RoomList {
   margin-top: 1rem;
-  /* Pagination Links */
   /* Responsive Styles */
 }
 .RoomList .filters {
@@ -849,11 +848,9 @@ a {
 .RoomList #data-table th,
 .RoomList #data-table td {
   padding: 12px;
-  /* Adjusted padding for better spacing */
   text-align: left;
   border: 1px solid #ddd;
   width: 120px;
-  /* Set fixed width for each cell */
 }
 .RoomList #data-table th {
   background-color: #f2f2f2;
@@ -902,6 +899,8 @@ a {
 .row {
   margin-top: 2rem;
   display: flex;
+  flex-wrap: wrap;
+  /* Allow columns to wrap to the next line on smaller screens */
 }
 
 .column {
@@ -909,18 +908,14 @@ a {
   padding: 20px;
   border: 1px solid #ddd;
   background-color: #f9f9f9;
+  margin-bottom: 20px;
+  /* Add margin between columns on smaller screens */
 }
-
-.column:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
 .column h2 {
   font-size: 20px;
   margin-bottom: 10px;
   color: #333;
 }
-
 .column p {
   font-size: 20px;
   margin-bottom: 5px;
@@ -1365,6 +1360,89 @@ a {
   background-color: #f55858;
 }
 
+@media screen and (max-width: 768px) {
+  .update-profile {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 0 2rem 0;
+  }
+  .update-profile form {
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #c3c6ce;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 70%;
+    text-align: center;
+    border-radius: 5px;
+  }
+  .update-profile form img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+  }
+  .update-profile form .flex {
+    display: flex;
+    flex-direction: column;
+    /* Change to column on small screens */
+    gap: 15px;
+  }
+  .update-profile form .flex .inputBox {
+    width: 100%;
+    /* Full width on small screens */
+  }
+  .update-profile form .flex #info,
+  .update-profile form .flex #pass {
+    padding: 0;
+    /* Remove padding on small screens */
+    border: none;
+    /* Remove border on small screens */
+    text-align: center;
+  }
+  .update-profile form .flex h3 {
+    margin: 1rem 0 2rem 0;
+    font-weight: 600;
+  }
+  .update-profile form .flex .required {
+    display: flex;
+    margin: 1rem auto 1rem auto;
+    justify-content: center;
+  }
+  .update-profile form .flex .box {
+    width: 100%;
+  }
+  .update-profile form .flex .field {
+    display: flex;
+    flex-direction: column;
+    /* Change to column on small screens */
+    align-items: center;
+    /* Center align on small screens */
+    border-bottom: 2px solid #c3c6ce;
+    margin-bottom: 25px;
+  }
+  .update-profile form .flex .field .ua {
+    margin-bottom: 5px;
+    /* Adjust margin on small screens */
+  }
+  .update-profile form .flex .field input[type=text]#country_selector,
+  .update-profile form .flex .field input[type=tel]#phone {
+    width: 100%;
+  }
+  .update-profile form .btn,
+  .update-profile form .delete-btn {
+    margin: 10px auto 0 auto;
+    /* Adjust margin on small screens */
+  }
+}
+@media screen and (max-width: 768px) and (max-width: 600px) {
+  .update-profile form {
+    width: 100%;
+    /* Adjust width for smaller screens */
+  }
+}
 /**************************************************************************************************************************************************************************/
 /******************************************************************************* Demande CSS *******************************************************************************/
 /**************************************************************************************************************************************************************************/

@@ -1,11 +1,16 @@
+<?php
+include '../includes/user_info.php';
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['student_id'] = $user_id;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internat</title>
-    <link rel="shortcut icon" href="images/ESTC.png" type="image/x-icon">
+    <title>Internat Demandes</title>
+    <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -13,57 +18,110 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/select.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/color.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/showPopup.js"></script>
-    <script src="js/editRoom.js"></script>
-    <script src="js/showPopupStudent.js"></script>
-    <script src="js/showStudentInfo.js"></script>
-    <script src="js/deleteStudent.js"></script>
-    <script src="js/moveStudent.js"></script>
-    <script src="js/navbar.js"></script>
-
+    <script src="../js/navbar.js"></script>
+    <script src="../js/color.js"></script>
+    <script src="../js/StudentShowPopup.js"></script>
+    <script src="../js/demanderChambre.js"></script>
+    <script src="../js/notifications.js"></script>
+    <script src="../js/fetchUserData.js"></script>
+    <script src="../js/setBuilding.js"></script>
 </head>
 
 <body id="body-pd">
+    <?php if (isset($_SESSION['error'])) : ?>
+        <div class="error-message"><?php echo $_SESSION['error'];
+                                    unset($_SESSION['error']); ?></div>
+    <?php endif; ?>
 
-    <header id="header" class="header fixed-top" style="background: none;">
+    <?php if (isset($_SESSION['success'])) : ?>
+        <div class="success-message"><?php echo $_SESSION['success'];
+                                        unset($_SESSION['success']); ?></div>
+    <?php endif; ?>
+
+    <script>
+        // Add fade-in, fade-out, and timeout for error and success messages
+        $(document).ready(function() {
+            $(".error-message, .success-message").fadeIn().delay(3000).fadeOut();
+        });
+    </script>
+    <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <div class="left">
-            <div class="search-container">
-                <label for="search" class="fa fa-search"></label>
-                <input type="search" placeholder="Search Students" id="search">
+        <div class="header_txt">
+            <h5>Choix de la chambre</h5>
+        </div>
+        <div class="action">
+            <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
+                <img src="<?php echo $image ?>" />
             </div>
-            <div id="search-results"></div>
+            <div class="menu" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
+                <h3><?php echo $name ?></h3>
+                <ul>
+                    <li>
+                        <img src="../images/user.png" /><a href="../includes/profile.php">Mon Profile</a>
+                    </li>
+                    <li>
+                        <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
+                    </li>
+                    <li>
+                        <img src="../images/envelope.png" /><a href="../students/internat.php">Inbox</a>
+                    </li>
+                    <li>
+                        <img src="../images/question.png" /><a href="#">Aide</a>
+                    </li>
+                    <li>
+                        <img src="../images/log-out.png" />
+                        <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');" class="logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            function menuToggle(isHovered) {
+                const toggleMenu = document.querySelector(".menu");
+                const toggleProfile = document.querySelector(".profile");
+
+                if (isHovered) {
+                    toggleMenu.classList.add("active");
+                    toggleProfile.classList.add("active");
+                } else {
+                    toggleMenu.classList.remove("active");
+                    toggleProfile.classList.remove("active");
+                }
+            }
+        </script>
+
+        <div class="left">
+
         </div>
     </header>
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
+            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
-                    <a href="" class="nav_link active">
-                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
+                    <a href="../includes/profile.php" class="nav_link">
+                        <i class="fas fa-home" style="width: 15px;"></i> <span class="nav_name">Home</span>
                     </a>
-                    <a href="" class="nav_link">
-                        <i class="fas fa-tasks"></i> <span class="nav_name">Product Management</span>
+                    <a href="index.php" class="nav_link active">
+                        <i class="fas fa-hotel" style="width: 15px;"></i> <span class="nav_name">Demander chambre</span>
                     </a>
-                    <a href="" class="nav_link">
-                        <i class="fas fa-plus-circle"></i> <span class="nav_name">Add New Product</span>
+                    <a href="decharge.php" class="nav_link">
+                        <i class="fa fa-copy" style="width: 15px;"></i> <span class="nav_name">Demander décharge</span>
                     </a>
-                    <a href="" class="nav_link">
-                        <i class="fas fa-users"></i> <span class="nav_name">Customer Management</span>
+                    <a href="internat.php" class="nav_link">
+                        <i class="fas fa-envelope" style="width: 15px;"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                 </div>
-            </div> <a href=""> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+            </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
-    <div class="building">
-        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
-        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
-    </div>
+    <h1 style="font-weight:500; padding-top:2rem ; text-align:center;" class="w-100 my-3">
+        Bienvenue dans votre Espace Gestion Internat
+    </h1>
+    <h3 style="font-weight:400; padding-top:1rem ; text-align:center;">Choisissez votre chambre</h3>
+
+
     <form id="app-cover">
         <div id="select-box">
             <input type="checkbox" id="options-view-button">
@@ -132,6 +190,7 @@
             <form id="editForm">
                 <label for="studentName">Nom de l'étudiant:</label>
                 <input type="text" id="studentName" required>
+
                 <button class="submit" type="submit">Chercher l'étudiant</button>
                 <div id="studentList"></div>
                 <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>
@@ -205,14 +264,12 @@
             })),
         };
 
-        let currentBuilding = 'boys';
         let currentFloor = 1;
 
         const roomWidth = 70;
         const roomHeight = 70;
         const spacing = 10;
-        const numRows = 2;
-        const numCols = 11;
+
 
         const totalWidth = (numCols * roomWidth) + ((numCols - 1) * spacing) + 160;
         const totalHeight = (numRows * roomHeight) + ((numRows - 1) * spacing);
@@ -224,12 +281,22 @@
 
         svg.append("rect")
             .attr("class", "building")
-            .attr("width", totalWidth)
-            .attr("height", totalHeight);
+            .attr("width", totalWidth - 160)
+            .attr("height", totalHeight)
+            .attr("x", 100);
+
 
         const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
 
+        // Function to update room layout based on screen width
         function updateRoomLayout() {
+            if (window.innerWidth < 500) {
+                numCols = 2;
+                numRows = 11;
+            } else {
+                numCols = 11;
+                numRows = 2;
+            }
             const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
 
             svg.selectAll("g").remove();
@@ -262,36 +329,33 @@
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle");
 
-            svg.append("rect")
-                .attr("class", "bathroom")
-                .attr("width", 80)
-                .attr("height", totalHeight)
-                .attr("x", 0);
+            // svg.append("rect")
+            //     .attr("class", "bathroom")
+            //     .attr("width", 80)
+            //     .attr("height", totalHeight)
+            //     .attr("x", 0)
 
-            svg.append("rect")
-                .attr("class", "stairs")
-                .attr("width", 50)
-                .attr("height", totalHeight)
-                .attr("x", totalWidth - 50);
+            // svg.append("rect")
+            //     .attr("class", "stairs")
+            //     .attr("width", 50)
+            //     .attr("height", totalHeight)
+            //     .attr("x", totalWidth - 50);
 
-            svg.append("line")
-                .attr("class", "divider")
-                .attr("x1", roomWidth + 20)
-                .attr("y1", 0)
-                .attr("x2", roomWidth + 20)
-                .attr("y2", totalHeight);
+            // svg.append("line")
+            //     .attr("class", "divider")
+            //     .attr("x1", roomWidth + 20)
+            //     .attr("y1", 0)
+            //     .attr("x2", roomWidth + 20)
+            //     .attr("y2", totalHeight);
         }
+        // Add event listener for window resize to update layout on smaller screens
+        window.addEventListener('resize', updateRoomLayout);
 
         updateRoomLayout();
         document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
             radio.addEventListener('change', changeFloor);
         });
 
-        function changeBuilding(building) {
-            currentBuilding = building;
-            currentFloor = 1;
-            updateRoomLayout();
-        }
 
         function changeFloor() {
             currentFloor = parseInt(document.querySelector('#options input[type="radio"]:checked').value);
@@ -313,6 +377,38 @@
             });
         });
     </script>
+    <!-- <div id="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: green;"></div>
+            <div class="legend-label">Chambres vides</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #66ccff;"></div>
+            <div class="legend-label">Chambres avec 1 étudiant(e)</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #d4ce24;"></div>
+            <div class="legend-label">Chambres avec 2 étudiant(e)s</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: orange;"></div>
+            <div class="legend-label">Chambres avec 3 étudiant(e)s</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: red;"></div>
+            <div class="legend-label">Chambres pleines</div>
+        </div>
+
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: blue;"></div>
+            <div class="legend-label">Toillettes</div>
+        </div>
+    </div> -->
+
 </body>
 
 </html>
