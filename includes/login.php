@@ -11,10 +11,16 @@ if (isset($_POST['login'])) {
 
     if (mysqli_num_rows($select) > 0) {
         $row = mysqli_fetch_assoc($select);
+<<<<<<< HEAD
+=======
+        $_SESSION['user_id'] = $row['id'];
+        $_SESSION['role'] = $row['role'];
+        $_SESSION['status'] = $row['status'];
+        // Check if the password is empty in the database
+>>>>>>> 96c6ef73034ff43a2e307361f9df7d959dd24c84
         if ($row['password'] === NULL || $row['password'] === '') {
             if ($pass === $row['cin']) {
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['role'] = $row['role'];
+
                 header("Location: first_login.php");
                 exit;
             } else {
@@ -22,9 +28,13 @@ if (isset($_POST['login'])) {
             }
         } else {
             if ($pass === $row['password']) {
+<<<<<<< HEAD
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['role'] = $row['role'];
                 $_SESSION['status'] = $row['status'];
+=======
+
+>>>>>>> 96c6ef73034ff43a2e307361f9df7d959dd24c84
                 $href = "";
                 switch ($_SESSION['role']) {
                     case 'student':

@@ -48,7 +48,7 @@ function showPopup() {
           } else if (studentCount < 4 && studentInfo.status == 'interne') {
             popupImages.innerHTML += `
                     <div class="edit-room-container">
-                        <button class="edit-room-button" onclick="demanderChambre(${roomNumber}, ${id}, '${name}', '${gender}','${ville}')">Demander changement de Chambre
+                        <button class="edit-room-button" onclick="">Demander changement de Chambre
                         <i class="fa fa-plus icon"></i>
                         </button>
                     </div> `;

@@ -159,7 +159,7 @@ include 'user_info.php';
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row d-flex align-items-stretch justify-content-between px-0 px-sm-5">
-                    <div style="min-width: 160px; padding: 15px;" class="col-md-3 col-sm-4 mb-3 col-12 d-flex flex-column justify-content-start align-items-center profile-section">
+                    <div style="min-width: 160px;padding: 15px;height: fit-content;align-self: center;" class="col-md-3 col-sm-4 mb-3 col-12 d-flex flex-column justify-content-start align-items-center profile-section">
                         <img style="width: 100%; min-width: 150px; max-width: 250px;" src="<?php echo $image ?>" alt="<?php echo $name ?>">
                     </div>
                     <div class="col-md-8 col-sm-7 mb-3 col-12 profile-section" style="min-width: 290px;">
@@ -173,6 +173,11 @@ include 'user_info.php';
                                 <tr>
                                     <td class="label">Fillière</td>
                                     <td><?php echo $filiere ?></td>
+                                    <td class="rtl" style="font-size: 16px;"></td>
+                                </tr>
+                                <tr>
+                                    <td class="label">Année Universitaire</td>
+                                    <td><?php echo ($annee_scolaire == 1) ? "1<sup>er</sup>" : (($annee_scolaire == 2) ? "2<sup>ème</sup>" : "Unknown"); ?></td>
                                     <td class="rtl" style="font-size: 16px;"></td>
                                 </tr>
                                 <tr>
@@ -190,14 +195,35 @@ include 'user_info.php';
                                 </tr>
                                 <tr>
                                     <td class="label">Lieu de naissance</td>
-                                    <td><?php echo $ville ?></td>
+                                    <td><?php echo $pays ?></td>
                                     <td class="rtl" style="font-size: 16px;"></td>
                                 </tr>
+                                <?php if (!empty($ville)) : ?>
+                                    <tr>
+                                        <td class="label">Ville</td>
+                                        <td><?php echo $ville ?></td>
+                                        <td class="rtl" style="font-size: 16px;"></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php if (!empty($arrondissement)) : ?>
+                                    <tr>
+                                        <td class="label">Arrondissement</td>
+                                        <td><?php echo $arrondissement ?></td>
+                                        <td class="rtl" style="font-size: 16px;"></td>
+                                    </tr>
+                                <?php endif; ?>
                                 <tr>
                                     <td class="label">Status</td>
                                     <td><?php echo $status ?></td>
                                     <td class="rtl" style="font-size: 16px;"></td>
                                 </tr>
+                                <?php if (!empty($room)) : ?>
+                                    <tr>
+                                        <td class="label">Chambre</td>
+                                        <td><?php echo $room ?></td>
+                                        <td class="rtl" style="font-size: 16px;"></td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                         <div class="col-12 d-flex justify-content-end p-0 my-3">
