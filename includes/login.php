@@ -7,7 +7,7 @@ if (isset($_POST['login'])) {
     $email_or_cin = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $select = mysqli_query($conn, "SELECT * FROM `users` WHERE (email = '$email_or_cin' OR cin = '$email_or_cin')") or die('query failed');
+    $select = mysqli_query($conn, "SELECT * FROM users WHERE (email = '$email_or_cin' OR cin = '$email_or_cin')") or die('query failed');
 
     if (mysqli_num_rows($select) > 0) {
         $row = mysqli_fetch_assoc($select);
