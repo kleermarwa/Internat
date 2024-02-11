@@ -11,9 +11,7 @@ if (isset($_POST['login'])) {
 
     if (mysqli_num_rows($select) > 0) {
         $row = mysqli_fetch_assoc($select);
-        // Check if the password is empty in the database
         if ($row['password'] === NULL || $row['password'] === '') {
-            // If the password is empty, use the 'cin' as the password
             if ($pass === $row['cin']) {
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['role'] = $row['role'];
@@ -23,11 +21,10 @@ if (isset($_POST['login'])) {
                 $messages[] = 'Mot de passe incorrect pour ' . $email_or_cin . ' !';
             }
         } else {
-            // If the password is not empty, check it normally
             if ($pass === $row['password']) {
                 $_SESSION['user_id'] = $row['id'];
                 $_SESSION['role'] = $row['role'];
-                // $_SESSION['status'] = $row['status'];
+                $_SESSION['status'] = $row['status'];
                 $href = "";
                 switch ($_SESSION['role']) {
                     case 'student':
@@ -36,7 +33,18 @@ if (isset($_POST['login'])) {
                     case 'departement':
                         $href = '../admin/internat.php';
                         break;
-                        // Add other cases for different roles
+                    case 'internat':
+                        $href = '../admin/internat.php';
+                        break;
+                    case 'economique':
+                        $href = '../admin/internat.php';
+                        break;
+                    case 'administration':
+                        $href = '../admin/internat.php';
+                        break;
+                    case 'super_admin':
+                        $href = '../admin/internat.php';
+                        break;
                 }
                 header("Location:" . $href);
                 exit;
