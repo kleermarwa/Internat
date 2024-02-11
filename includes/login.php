@@ -7,18 +7,16 @@ if (isset($_POST['login'])) {
     $email_or_cin = mysqli_real_escape_string($conn, $_POST['email']);
     $pass = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $select = mysqli_query($conn, "SELECT * FROM `users` WHERE (email = '$email_or_cin' OR cin = '$email_or_cin')") or die('query failed');
+    $select = mysqli_query($conn, "SELECT * FROM users WHERE (email = '$email_or_cin' OR cin = '$email_or_cin')") or die('query failed');
 
     if (mysqli_num_rows($select) > 0) {
         $row = mysqli_fetch_assoc($select);
-<<<<<<< HEAD
-=======
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['role'] = $row['role'];
         $_SESSION['status'] = $row['status'];
         // Check if the password is empty in the database
->>>>>>> 96c6ef73034ff43a2e307361f9df7d959dd24c84
         if ($row['password'] === NULL || $row['password'] === '') {
+            // If the password is empty, use the 'cin' as the password
             if ($pass === $row['cin']) {
 
                 header("Location: first_login.php");
@@ -27,14 +25,9 @@ if (isset($_POST['login'])) {
                 $messages[] = 'Mot de passe incorrect pour ' . $email_or_cin . ' !';
             }
         } else {
+            // If the password is not empty, check it normally
             if ($pass === $row['password']) {
-<<<<<<< HEAD
-                $_SESSION['user_id'] = $row['id'];
-                $_SESSION['role'] = $row['role'];
-                $_SESSION['status'] = $row['status'];
-=======
 
->>>>>>> 96c6ef73034ff43a2e307361f9df7d959dd24c84
                 $href = "";
                 switch ($_SESSION['role']) {
                     case 'student':

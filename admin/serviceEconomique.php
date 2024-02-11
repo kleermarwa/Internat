@@ -17,7 +17,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/dechargeSearch.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
 </head>
@@ -107,10 +106,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
                     <a href="roomList.php" class="nav_link">
                         <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
                     </a>
-                    <a href="economique_decharge.php" class="nav_link active">
+                    <a href="economique_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
-                    <a href="serviceEconomique.php" class="nav_link ">
+                    <a href="serviceEconomique.php" class="nav_link active">
                         <i class="fa-solid fa-sack-dollar"></i> <span class="nav_name">Payement internat</span>
                     </a>
                 </div>
@@ -118,19 +117,39 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge</h2>
+    <h2 style="text-align: center; margin-top:6rem">Paiement Internat</h2>
     <div class="dechargeSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou N° Demande)" onkeyup="search()">
+            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou N° Reçu)" onkeyup="search()">
         </div>
     </div>
-
     <hr>
 
-    <div id="searchResults">
-    </div>
+    <div id="searchResults"> </div>
 
+    <script>
+        function search() {
+            var input = document.getElementById("searchBox").value;
+            if (input.trim() === "") {
+                searchResults = document.getElementById("searchResults").innerHTML = "";
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: "../admin/serviceEconomiquesearch.php",
+                    data: {
+                        input: input,
+                    },
+                    success: function(response) {
+                        $("#searchResults").html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("AJAX request failed: " + error);
+                    },
+                });
+            }
+        }
+    </script>
 </body>
 
 </html>
