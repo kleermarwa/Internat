@@ -130,6 +130,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         echo '<i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>';
                         echo '</a>';
                     }
+                    if ($_SESSION['role'] === 'economique') {
+                        echo '<a href="serviceEconomique.php" class="nav_link">';
+                        echo '<i class="fa-solid fa-sack-dollar"></i> <span class="nav_name">Payement internat</span>';
+                        echo '</a>';
+                    }
                     if ($_SESSION['role'] === 'internat') {
                         echo '<a href="internat_demandes.php" class="nav_link">';
                         echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';

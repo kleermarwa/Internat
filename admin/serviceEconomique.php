@@ -19,6 +19,72 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #searchResults {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: -webkit-center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .image {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 2rem;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .input1,
+        .input2 {
+            font-weight: 500;
+            color: #000;
+            box-shadow: 0 0 .4vw rgba(0, 0, 0, 0.5), 0 0 0 .15vw transparent;
+            border-radius: 0.4vw;
+            border: none;
+            outline: none;
+            padding: 0.4vw;
+            margin-bottom: 1rem;
+            transition: .4s;
+        }
+
+        .input1:hover {
+            box-shadow: 0 0 0 .15vw rgba(135, 207, 235, 0.186);
+        }
+
+        .input1:focus {
+            box-shadow: 0 0 0 .15vw rgb(92, 184, 92);
+        }
+
+        .input2:hover {
+            box-shadow: 0 0 0 .15vw rgba(135, 207, 235, 0.186);
+        }
+
+        .input2:focus {
+            box-shadow: 0 0 0 .15vw rgb(0, 107, 179);
+        }
+    </style>
 </head>
 
 <body id="body-pd">
@@ -41,7 +107,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Validation de décharge - Service économique </h5>
+            <h5>Paiement Internat - Service économique </h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -120,34 +186,66 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
     <h2 style="text-align: center; margin-top:6rem">Paiement Internat</h2>
     <div class="dechargeSearch">
         <div class="box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou N° Reçu)" onkeyup="search()">
+            <label for="search" class="fa fa-search"></label>
+            <input type="search" placeholder="Rechercher un élève (Par Nom ou Cin)" id="search">
         </div>
     </div>
+    <div id="search-results" style="display: flex;justify-content: center;"></div>
     <hr>
 
     <div id="searchResults"> </div>
 
     <script>
-        function search() {
-            var input = document.getElementById("searchBox").value;
-            if (input.trim() === "") {
-                searchResults = document.getElementById("searchResults").innerHTML = "";
-            } else {
-                $.ajax({
-                    type: "GET",
-                    url: "../admin/serviceEconomiquesearch.php",
-                    data: {
-                        input: input,
-                    },
-                    success: function(response) {
-                        $("#searchResults").html(response);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("AJAX request failed: " + error);
-                    },
-                });
-            }
+        $(document).ready(function() {
+            $('#search').on('keyup', function() {
+                var searchText = $(this).val();
+                if (searchText != '') {
+                    $.ajax({
+                        url: '../includes/searchFull.php',
+                        method: 'POST',
+                        data: {
+                            query: searchText
+                        },
+                        success: function(data) {
+                            $('#search-results').html(data);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '../includes/searchFull.php',
+                        method: 'POST',
+                        data: {
+                            query: ''
+                        },
+                        success: function(data) {
+                            $('#search-results').html(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        function loadPayment(id) {
+            var searchText = '';
+
+            $('#search').val('');
+
+            $('#search-results').html('');
+
+            $.ajax({
+                type: "GET",
+                url: "../admin/serviceEconomiquesearch.php",
+                data: {
+                    id: id,
+                },
+                success: function(response) {
+                    $("#searchResults").html(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX request failed: " + error);
+                },
+            });
         }
     </script>
 </body>
