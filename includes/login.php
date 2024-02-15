@@ -14,6 +14,7 @@ if (isset($_POST['login'])) {
         $_SESSION['user_id'] = $row['id'];
         $_SESSION['role'] = $row['role'];
         $_SESSION['status'] = $row['status'];
+        $_SESSION['filliere'] = $row['filliere'];
         // Check if the password is empty in the database
         if ($row['password'] === NULL || $row['password'] === '') {
             // If the password is empty, use the 'cin' as the password
