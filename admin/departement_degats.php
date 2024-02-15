@@ -8,17 +8,24 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demandes de décharge</title>
+    <title>Gestion Incidents </title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/degatsSearch.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
+    <style>
+        a,
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body id="body-pd">
@@ -41,7 +48,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Validation de décharge - Département</h5>
+            <h5>Registre des Équipements Tp - Fillière <?php echo $_SESSION['filliere'] ?></h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -97,7 +104,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
-                    <a href="internat.php" class="nav_link active">
+                    <a href="internat.php" class="nav_link">
                         <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
                     </a>
                     <a href="dashboard.php" class="nav_link">
@@ -109,16 +116,19 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'departement' ?  null
                     <a href="departement_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
+                    <a href="departement_degats.php" class="nav_link active">
+                        <i class="fa-solid fa-flask-vial"></i> <span class="nav_name">Gestion Incidents </span>
+                    </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge</h2>
-    <div class="dechargeSearch">
+    <h2 style="text-align: center; margin-top:6rem">Gestion des Dommages Matériels et Emprunts</h2>
+    <div style="margin-top:2rem" class="dechargeSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou N° Demande)" onkeyup="search()">
+            <input style="text-align: center;" type="text" id="searchBox" name="searchBox" placeholder="Rechercher un étudiant (Par Nom)" onkeyup="search()">
         </div>
     </div>
 

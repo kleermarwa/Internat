@@ -150,6 +150,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                             echo '<i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>';
                             echo '</a>';
                         }
+                        if ($_SESSION['role'] === 'departement') {
+                            echo '<a href="departement_degats.php" class="nav_link">';
+                            echo '<i class="fa-solid fa-flask-vial"></i> <span class="nav_name">Gestion Incidents </span>';
+                            echo '</a>';
+                        }
 
                         if ($_SESSION['role'] === 'economique') {
                             echo '<a href="serviceEconomique.php" class="nav_link">';

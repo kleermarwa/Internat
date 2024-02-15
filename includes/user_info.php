@@ -19,7 +19,7 @@ if (isset($_SESSION['user_id'])) {
             $href = '../includes/student.php';
             break;
         case 'departement':
-            $href = '../admin/internat.php';
+            $href = '../admin/departement_degats.php';
             break;
         case 'internat':
             $href = '../admin/internat.php';
