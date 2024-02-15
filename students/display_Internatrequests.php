@@ -7,6 +7,13 @@ $selectStmt->bind_param('i', $user_id);
 $selectStmt->execute();
 $result = $selectStmt->get_result();
 
+$userQuery = "SELECT * FROM users WHERE id = ?";
+$userStmt = $conn->prepare($userQuery);
+$userStmt->bind_param('i', $user_id);
+$userStmt->execute();
+$data = $userStmt->get_result();
+
+
 echo "<h3 style='text-align: center'>Votre demande d'internat précédente:</h3>";
 if ($result->num_rows > 0) {
     echo "<div class='RoomList'>";
@@ -25,14 +32,17 @@ if ($result->num_rows > 0) {
     }
 
     echo "</table>";
-    if ($status == 'Accepté') {
-        echo '<div class="discharge-container">';
-        echo '<button class="discharge-button" onclick="redirect()">Télécharger Attestation';
-        echo '<i class=" icon fa fa-file-pdf"></i>';
-        echo '</button>';
-        echo '</div>';
+    while ($row = $data->fetch_assoc()) {
+        $ville = $row['ville'];
+        if ($ville !== 'Casablanca') {
+            echo '<div class="discharge-container">';
+            echo '<button class="discharge-button" onclick="redirect()">Télécharger Attestation';
+            echo '<i class=" icon fa fa-file-pdf"></i>';
+            echo '</button>';
+            echo '</div>';
+        }
+        echo "</div>";
     }
-    echo "</div>";
 } else {
     echo "Vous n'avez pas soumis de demandes de d'internat.";
 }

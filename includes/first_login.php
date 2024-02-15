@@ -13,6 +13,7 @@ $user_id = $_SESSION['user_id'];
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
@@ -21,8 +22,9 @@ $user_id = $_SESSION['user_id'];
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <!-- inserting javascript -->
     <script src="../js/navbar.js"></script>
+    <script src="../js/intlTelInput.js"></script>
+    <script src="../js/utils.js.js"></script>
     <script src="../js/countrySelect.js"></script>
-
     <style>
         .required {
             display: flex;
@@ -115,6 +117,11 @@ $user_id = $_SESSION['user_id'];
                 <div class="fields">
                     <i class="ua fas fa-id-card"></i>
                     <input type="text" cin="update_cin" value="<?php echo $cin; ?>" class="box" readonly>
+                </div>
+                <span>Fillère :</span>
+                <div class="fields">
+                    <i class="ua fa-solid fa-graduation-cap"></i>
+                    <input type="text" cin="update_filliere" value="<?php echo $filiere . " " .  $annee_scolaire; ?>" class="box" readonly>
                 </div>
             </div>
             <div class="flex">

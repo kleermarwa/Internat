@@ -21,19 +21,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
-    <style>
-        .event-title {
-            line-height: 1.2;
-            margin-top: 4rem;
-            margin-left: 10px;
-            color: red;
-        }
-
-        .fc-daygrid-day-number,
-        .fc-col-header-cell-cushion {
-            color: black;
-        }
-    </style>
 </head>
 
 <body id="body-pd">
@@ -112,11 +99,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
-                    <a href="restaurant.php" class="nav_link active">
+                    <a href="test.php" class="nav_link active">
                         <i class="fa-solid fa-utensils"></i> <span class="nav_name">Gestion Tickets</span>
-                    </a>
-                    <a href="annuler_ticket.php" class="nav_link">
-                        <i class="fa-regular fa-rectangle-xmark"></i></i> <span class="nav_name">Anuller Tickets</span>
                     </a>
                     <a href="roomList.php" class="nav_link">
                         <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
@@ -143,7 +127,9 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
     <script>
         function loadCalendar(studentId, studentName) {
             var searchText = '';
+
             $('#search').val('');
+
             $('#search-results').html('');
             $.ajax({
                 url: 'load_calendar.php',
@@ -154,87 +140,43 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
                 success: function(data) {
                     var calendarEl = document.getElementById('calendar');
                     var calendar = new FullCalendar.Calendar(calendarEl, {
-                        // initialView: 'dayGridWeek',
-                        initialView: 'dayGridMonth',
-                        weekNumbers: true,
-                        weekText: 'Semaine ',
-                        locale: 'fr',
-                        height: 550,
+                        initialView: 'dayGridWeek',
                         firstDay: 1,
                         selectable: true,
                         events: JSON.parse(data),
-                        eventContent: function(arg) {
-                            return {
-                                html: `<div class="event-title">${arg.event.title}</div>`,
-                            };
-                        },
                         eventDisplay: 'background',
+                        height: 550,
+                        select: function(start, end, allDays) {
+                            let startDayWeek = calendar.view.activeStart;
+                            let endDayWeek = calendar.view.activeEnd;
 
-                        headerToolbar: {
-                            left: 'prev,next today',
-                            center: 'title',
+                            var firstDay = new Date(startDayWeek);
+                            firstDay.setDate(firstDay.getDate() + 1);
+
+                            var lastDay = new Date(endDayWeek);
+
+                            dayStartWeek = firstDay.toISOString().substring(0, 10);
+                            dayEndWeek = lastDay.toISOString().substring(0, 10);
+
+                            console.log(dayStartWeek, dayEndWeek)
+                            insertTicketHistory(dayStartWeek, dayEndWeek, studentId, studentName);
                         },
-
-                        dateClick: function(info) {
-                            var selectedDate = new Date(info.dateStr);
-
-                            var select = selectedDate.getDay();
-
-                            // Calculate the start and end dates of the week (Saturday to next Friday)
-
-                            if (select == 5) {
-                                var weekStartDate = new Date(selectedDate);
-                                weekStartDate.setDate(selectedDate.getDate() + 1); // Adjust for Saturday as the first day                                weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
-                                weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
-
-                                var weekEndDate = new Date(weekStartDate);
-                                weekEndDate.setDate(weekEndDate.getDate() + 6); // Friday is the last day
-                                weekEndDate.setHours(23, 59, 59, 999); // Set hours to end of the day for accurate comparison
-                            } else {
-                                var weekStartDate = new Date(selectedDate);
-                                weekStartDate.setDate(selectedDate.getDate() - (select + 1) % 7); // Adjust for Saturday as the first day
-                                weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
-
-                                var weekEndDate = new Date(weekStartDate);
-                                weekEndDate.setDate(weekEndDate.getDate() + 6); // Friday is the last day
-                                weekEndDate.setHours(23, 59, 59, 999); // Set hours to end of the day for accurate comparison
-                            }
-
-
-                            console.log(selectedDate);
-                            console.log(weekStartDate);
-                            console.log(weekEndDate);
-
-                            $.ajax({
-                                url: 'insert_week_data.php',
-                                method: 'POST',
-                                data: {
-                                    studentId: studentId,
-                                    studentName: studentName,
-                                    dayCollected: info.dateStr,
-                                    weekStartDate: weekStartDate.toISOString().split('T')[0], // Convert to MySQL date format
-                                    weekEndDate: weekEndDate.toISOString().split('T')[0] // Convert to MySQL date format
-                                },
-                                dataType: 'json',
-                                success: function(response) {
-                                    loadCalendar(studentId, studentName);
-                                    console.log(response);
-                                    if (response.success) {
-                                        alert('Données insérées avec succès.');
-                                    } else {
-                                        console.error('Error:', response.message);
-                                        alert(response.message);
-                                    }
-                                },
-                                error: function(xhr, status, error) {
-                                    console.error('Error inserting data:', error);
-                                    alert('An error occurred while inserting data.');
-                                }
-                            });
-                        }
-
                     });
                     calendar.render();
+
+                    function insertTicketHistory(start, end, studentId, studentName) {
+                        var xhrInsert = new XMLHttpRequest();
+                        xhrInsert.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                alert("Ticket history inserted successfully.");
+                                loadCalendar(studentId, studentName)
+                            }
+                        };
+                        xhrInsert.open("POST", "mark_ticket.php", true);
+                        xhrInsert.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhrInsert.send("start=" + start + "&end=" + end + "&studentId=" + studentId + "&studentName=" + studentName);
+                    }
+
                 }
             });
         }
@@ -271,6 +213,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
             });
         });
     </script>
+
+
+
+
 
 </body>
 

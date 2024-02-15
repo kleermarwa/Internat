@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
-            $deletequery = "DELETE FROM internat WHERE id_demande = ?";
+            $deletequery = "UPDATE internat SET status = 'Accepté' WHERE id_demande = ?";
             $deletestmt = $conn->prepare($deletequery);
             $deletestmt->bind_param('i', $id);
             $deletestmt->execute();

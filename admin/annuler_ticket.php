@@ -56,7 +56,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Gestion des Tickets - Service de Restauration</h5>
+            <h5>Gestion de remise des Tickets - Service de Restauration</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -112,11 +112,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
-                    <a href="restaurant.php" class="nav_link active">
+                    <a href="restaurant.php" class="nav_link ">
                         <i class="fa-solid fa-utensils"></i> <span class="nav_name">Gestion Tickets</span>
                     </a>
-                    <a href="annuler_ticket.php" class="nav_link">
-                        <i class="fa-regular fa-rectangle-xmark"></i></i> <span class="nav_name">Anuller Tickets</span>
+                    <a href="annuler_ticket.php" class="nav_link active">
+                        <i class="fa-regular fa-rectangle-xmark"></i></i> <span class="nav_name">Remettre tickets</span>
                     </a>
                     <a href="roomList.php" class="nav_link">
                         <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
@@ -176,59 +176,75 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
                         },
 
                         dateClick: function(info) {
+
+
                             var selectedDate = new Date(info.dateStr);
-
-                            var select = selectedDate.getDay();
-
-                            // Calculate the start and end dates of the week (Saturday to next Friday)
+                            select = selectedDate.getDay();
 
                             if (select == 5) {
                                 var weekStartDate = new Date(selectedDate);
                                 weekStartDate.setDate(selectedDate.getDate() + 1); // Adjust for Saturday as the first day                                weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
                                 weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
 
-                                var weekEndDate = new Date(weekStartDate);
-                                weekEndDate.setDate(weekEndDate.getDate() + 6); // Friday is the last day
-                                weekEndDate.setHours(23, 59, 59, 999); // Set hours to end of the day for accurate comparison
                             } else {
                                 var weekStartDate = new Date(selectedDate);
                                 weekStartDate.setDate(selectedDate.getDate() - (select + 1) % 7); // Adjust for Saturday as the first day
                                 weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
 
-                                var weekEndDate = new Date(weekStartDate);
-                                weekEndDate.setDate(weekEndDate.getDate() + 6); // Friday is the last day
-                                weekEndDate.setHours(23, 59, 59, 999); // Set hours to end of the day for accurate comparison
                             }
-
-
-                            console.log(selectedDate);
-                            console.log(weekStartDate);
-                            console.log(weekEndDate);
-
                             $.ajax({
-                                url: 'insert_week_data.php',
+                                url: 'get_week_end.php',
                                 method: 'POST',
                                 data: {
                                     studentId: studentId,
-                                    studentName: studentName,
-                                    dayCollected: info.dateStr,
                                     weekStartDate: weekStartDate.toISOString().split('T')[0], // Convert to MySQL date format
-                                    weekEndDate: weekEndDate.toISOString().split('T')[0] // Convert to MySQL date format
                                 },
                                 dataType: 'json',
                                 success: function(response) {
-                                    loadCalendar(studentId, studentName);
-                                    console.log(response);
                                     if (response.success) {
-                                        alert('Données insérées avec succès.');
+                                        var weekEndDate = new Date(response.weekEndDate);
+
+                                        selectedDate.setDate(selectedDate.getDate() - 1);
+                                        var daysDifference = Math.floor((weekEndDate - selectedDate) / (24 * 60 * 60 * 1000));
+
+                                        console.log(selectedDate);
+                                        console.log(weekStartDate);
+                                        console.log(weekEndDate);
+                                        console.log(daysDifference);
+
+                                        var userConfirmation = confirm("Êtes-vous sûr de vouloir remmettre les tickets de " + daysDifference + " jours ?");
+
+                                        if (userConfirmation) {
+
+                                            $.ajax({
+                                                url: 'delete_days.php',
+                                                method: 'POST',
+                                                data: {
+                                                    studentId: studentId,
+                                                    daysDifference: daysDifference,
+                                                    weekStartDate: weekStartDate.toISOString().split('T')[0], // Convert to MySQL date format
+                                                },
+                                                dataType: 'json',
+                                                success: function(response) {
+                                                    alert('Tickets remis avec succès.');
+                                                    loadCalendar(studentId, studentName)
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error('Error subtracting days:', error);
+                                                    // Handle the error as needed
+                                                    alert('An error occurred while subtracting days.');
+                                                }
+                                            });
+
+                                        }
                                     } else {
                                         console.error('Error:', response.message);
                                         alert(response.message);
                                     }
                                 },
                                 error: function(xhr, status, error) {
-                                    console.error('Error inserting data:', error);
-                                    alert('An error occurred while inserting data.');
+                                    console.error('Error fetching week end date:', error);
+                                    alert('An error occurred while fetching week end date.');
                                 }
                             });
                         }
@@ -271,6 +287,10 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
             });
         });
     </script>
+
+
+
+
 
 </body>
 

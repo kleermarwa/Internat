@@ -16,7 +16,7 @@ if ($result->num_rows > 0) {
     echo "<p style='font-size:1.1rem ; text-align: center'>La validation se fait dans l'ordre présenté ce-dessous:</p>";
     echo "<div class='RoomList'>";
     echo "<table id='data-table'>";
-    echo "<tr><th>Numéro de la demande</th><th>Date de soumission</th><th>Validé département</th><th>Validé internat</th><th>Validé Service Economique</th><th>Validé Administration</th><th>Status</th></tr>";
+    echo "<tr><th>Numéro de la demande</th><th>Date de soumission</th><th>Validé département</th><th>Validé internat</th><th>Status</th></tr>";
 
     while ($row = $result->fetch_assoc()) {
         $status = $row['decharge_status'];
@@ -42,8 +42,6 @@ if ($result->num_rows > 0) {
         echo "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
         echo "<td style='font-weight:800 ;color: " . ($row['valide_departement'] ? 'green' : 'red') . "'>" . ($row['valide_departement'] ? '✔<br>Oui' : '❌<br>Non ') . "</td>";
         echo "<td style='font-weight:800 ;color: " . ($row['valide_internat'] ? 'green' : 'red') . "'>" . ($row['valide_internat'] ? '✔<br>Oui' : '❌<br>Non ') . "</td>";
-        echo "<td style='font-weight:800 ;color: " . ($row['valide_economique'] ? 'green' : 'red') . "'>" . ($row['valide_economique'] ? '✔<br>Oui' : '❌<br>Non ') . "</td>";
-        echo "<td style='font-weight:800 ;color: " . ($row['valide_administration'] ? 'green' : 'red') . "'>" . ($row['valide_administration'] ? '✔<br>Oui' : '❌<br>Non ') . "</td>";
         echo "<td style='font-weight:800 ;color: " . ($row['decharge_status'] == 'En attente' ? 'blue' : 'green') . "'>" . $row['decharge_status'] . "</td>";
         echo "</tr>";
     }

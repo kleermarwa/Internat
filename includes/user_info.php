@@ -3,6 +3,10 @@ session_start();
 // echo $_SESSION['status'];
 // echo $_SESSION['role'];
 // echo $_SESSION['user_id'];
+// echo "studentName : " . $_SESSION['studentName'] . "<br>";
+// echo "dayCollected : " . $_SESSION['dayCollected'] . "<br>";
+// echo "weekStartDate : " . $_SESSION['weekStartDate'] . "<br>";
+// echo "weekEndDate : " . $_SESSION['weekEndDate'] . "<br>";
 include 'db_connect.php';
 if (!isset($_SESSION['role'])) {
     header('Location: ../includes/login.php');
@@ -25,6 +29,9 @@ if (isset($_SESSION['user_id'])) {
             break;
         case 'administration':
             $href = '../admin/internat.php';
+            break;
+        case 'restaurant':
+            $href = '../admin/restaurant.php';
             break;
         case 'super_admin':
             $href = '../admin/internat.php';

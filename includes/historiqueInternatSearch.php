@@ -13,7 +13,7 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
         JOIN users ON internat.student_id = users.id ";
 
     if (strpos($previous_page, 'internat_demandes_valide.php') !== false) {
-        $sql .= "WHERE internat.status = 'Accepté'";
+        $sql .= "WHERE internat.valide = 1 AND internat.status = 'En attente'";
     } elseif (strpos($previous_page, 'internat_demandes_refuse.php') !== false) {
         $sql .= "WHERE internat.status = 'Refusé'";
     }

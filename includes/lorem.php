@@ -1,7 +1,8 @@
 <?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
-$_SESSION['student_id'] = $user_id;
+include '../includes/searchFull.php';
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,22 +10,17 @@ $_SESSION['student_id'] = $user_id;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Internat Demandes</title>
+    <title>Gestion Tickets</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/select.css">
     <script src="../js/navbar.js"></script>
-    <script src="../js/color.js"></script>
-    <script src="../js/StudentShowPopup.js"></script>
-    <script src="../js/demanderChambre.js"></script>
     <script src="../js/notifications.js"></script>
-    <script src="../js/fetchUserData.js"></script>
-    <script src="../js/setBuilding.js"></script>
 </head>
 
 <body id="body-pd">
@@ -47,7 +43,7 @@ $_SESSION['student_id'] = $user_id;
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Choix de la chambre</h5>
+            <h5>Gestion des Tickets - Service de Restauration</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -63,7 +59,7 @@ $_SESSION['student_id'] = $user_id;
                         <img src="../images/edit.png" /><a href="../includes/updateProfile.php">Modifier Profile</a>
                     </li>
                     <li>
-                        <img src="../images/envelope.png" /><a href="../students/internat.php">Inbox</a>
+                        <img src="../images/envelope.png" /><a href="#">Inbox</a>
                     </li>
                     <li>
                         <img src="../images/question.png" /><a href="#">Aide</a>
@@ -89,9 +85,13 @@ $_SESSION['student_id'] = $user_id;
                 }
             }
         </script>
-
         <div class="left">
-
+            <div class="notification-icon" onclick="fetchNotifications()">
+                <i class="fa fa-bell"></i>
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <div class="notification-dropdown">
+                </div>
+            </div>
         </div>
     </header>
 
@@ -99,315 +99,124 @@ $_SESSION['student_id'] = $user_id;
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
-                    <a href="../includes/profile.php" class="nav_link">
-                        <i class="fas fa-home" style="width: 15px;"></i> <span class="nav_name">Home</span>
+                    <a href="restaurant.php" class="nav_link active">
+                        <i class="fa-solid fa-utensils"></i> <span class="nav_name">Gestion Tickets</span>
                     </a>
-                    <a href="index.php" class="nav_link active">
-                        <i class="fas fa-hotel" style="width: 15px;"></i> <span class="nav_name">Demander chambre</span>
-                    </a>
-                    <a href="decharge.php" class="nav_link">
-                        <i class="fa fa-copy" style="width: 15px;"></i> <span class="nav_name">Demander décharge</span>
-                    </a>
-                    <a href="internat.php" class="nav_link">
-                        <i class="fas fa-envelope" style="width: 15px;"></i> <span class="nav_name">Boîte de réception </span>
+                    <a href="roomList.php" class="nav_link">
+                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
                     </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
-    <h1 style="font-weight:500; padding-top:2rem ; text-align:center;" class="w-100 my-3">
-        Bienvenue dans votre Espace Gestion Internat
-    </h1>
-    <h3 style="font-weight:400; padding-top:1rem ; text-align:center;">Choisissez votre chambre</h3>
-
-
-    <form id="app-cover">
-        <div id="select-box">
-            <input type="checkbox" id="options-view-button">
-            <div id="select-button" class="brd">
-                <div id="selected-value">
-                    <span>Naviguer étage</span>
-                </div>
-                <div id="chevrons">
-                    <i class="fas fa-chevron-up"></i>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </div>
-            <div id="options">
-                <div class="option">
-                    <input class="s-c top" type="radio" name="platform" value="1">
-                    <input class="s-c bottom" type="radio" name="platform" value="1">
-                    <i class="fas fa-solid fa-door-open"></i>
-                    <span class="label">Rez de chaussée</span>
-                    <span class="opt-val">Rez de chaussée</span>
-                </div>
-                <div class="option">
-                    <input class="s-c top" type="radio" name="platform" value="2">
-                    <input class="s-c bottom" type="radio" name="platform" value="2">
-                    <i class="fa">1</i>
-                    <span class="label">1<sup>er</sup> étage</span>
-                    <span class="opt-val">1<sup>er</sup> étage</span>
-                </div>
-                <div class="option">
-                    <input class="s-c top" type="radio" name="platform" value="3">
-                    <input class="s-c bottom" type="radio" name="platform" value="3">
-                    <i class="fa">2</i>
-                    <span class="label">2<sup>ème</sup> étage</span>
-                    <span class="opt-val">2<sup>ème</sup> étage</span>
-                </div>
-                <div class="option">
-                    <input class="s-c top" type="radio" name="platform" value="4">
-                    <input class="s-c bottom" type="radio" name="platform" value="4">
-                    <i class="fa">3</i>
-                    <span class="label">3<sup>ème</sup> étage</span>
-                    <span class="opt-val">3<sup>ème</sup> étage</span>
-                </div>
-                <div class="option">
-                    <input class="s-c top" type="radio" name="platform" value="5">
-                    <input class="s-c bottom" type="radio" name="platform" value="5">
-                    <i class="fa">4</i>
-                    <span class="label">4<sup>ème</sup> étage</span>
-                    <span class="opt-val">4<sup>ème</sup> étage</span>
-                </div>
-                <div id="option-bg"></div>
-            </div>
-        </div>
-    </form>
-
-    <div id="roomMap">
-
-        <div class="popup" id="popup">
-            <p style="margin-top: 0.5rem; font-size: 17px">Informations Chambre</p>
-            <p id="popupRoomNumber"></p>
-            <div id="popupImages"></div>
-        </div>
-
-        <div class="info-popup" id="infoPopup"></div>
-
-        <div class="popup" id="editPopup">
-            <p>Ajouter étudiant</p>
-            <form id="editForm">
-                <label for="studentName">Nom de l'étudiant:</label>
-                <input type="text" id="studentName" required>
-
-                <button class="submit" type="submit">Chercher l'étudiant</button>
-                <div id="studentList"></div>
-                <button class="submit" style="background:red;" id="editCloseButton">Fermer</button>
-
-            </form>
+    <div class="dechargeSearch" style="margin: 7rem auto 2rem auto;">
+        <div class="box">
+            <label for="search" class="fa fa-search"></label>
+            <input type="search" placeholder="Rechercher un élève (Par Nom ou Cin)" id="search">
         </div>
     </div>
+    <div id="search-results" style="display: flex;justify-content: center;"></div>
+
+    <hr>
+
+    <div id="calendar"></div>
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
+
     <script>
-        const boysBuilding = {
-            1: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 1,
-                type: 'room'
-            })),
-            2: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 23,
-                type: 'room'
-            })),
-            3: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 45,
-                type: 'room'
-            })),
-            4: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 67,
-                type: 'room'
-            })),
-            5: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 89,
-                type: 'room'
-            })),
-        };
-        const girlsBuilding = {
-            1: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 1,
-                type: 'room'
-            })),
-            2: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 23,
-                type: 'room'
-            })),
-            3: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 45,
-                type: 'room'
-            })),
-            4: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 67,
-                type: 'room'
-            })),
-            5: Array.from({
-                length: 22
-            }, (_, i) => ({
-                id: i + 89,
-                type: 'room'
-            })),
-        };
+        function loadCalendar(studentId, studentName) {
+            var searchText = '';
 
-        let currentFloor = 1;
+            $('#search').val('');
 
-        const roomWidth = 70;
-        const roomHeight = 70;
-        const spacing = 10;
+            $('#search-results').html('');
+            $.ajax({
+                url: 'load_calendar.php',
+                method: 'POST',
+                data: {
+                    studentId: studentId
+                },
+                success: function(data) {
+                    var calendarEl = document.getElementById('calendar');
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        initialView: 'dayGridWeek',
+                        firstDay: 1,
+                        selectable: true,
+                        events: JSON.parse(data),
+                        eventDisplay: 'background',
+                        height: 550,
+                        select: function(start, end, allDays) {
+                            let startDayWeek = calendar.view.activeStart;
+                            let endDayWeek = calendar.view.activeEnd;
 
+                            var firstDay = new Date(startDayWeek);
+                            firstDay.setDate(firstDay.getDate() + 1);
 
-        const totalWidth = (numCols * roomWidth) + ((numCols - 1) * spacing) + 160;
-        const totalHeight = (numRows * roomHeight) + ((numRows - 1) * spacing);
+                            var lastDay = new Date(endDayWeek);
 
-        const svg = d3.select("#roomMap")
-            .append("svg")
-            .attr("width", totalWidth)
-            .attr("height", totalHeight);
+                            dayStartWeek = firstDay.toISOString().substring(0, 10);
+                            dayEndWeek = lastDay.toISOString().substring(0, 10);
 
-        svg.append("rect")
-            .attr("class", "building")
-            .attr("width", totalWidth - 160)
-            .attr("height", totalHeight)
-            .attr("x", 100);
+                            console.log(dayStartWeek, dayEndWeek)
+                            insertTicketHistory(dayStartWeek, dayEndWeek, studentId, studentName);
+                        },
+                    });
+                    calendar.render();
 
+                    function insertTicketHistory(start, end, studentId, studentName) {
+                        var xhrInsert = new XMLHttpRequest();
+                        xhrInsert.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                alert("Ticket history inserted successfully.");
+                                loadCalendar(studentId, studentName)
+                            }
+                        };
+                        xhrInsert.open("POST", "mark_ticket.php", true);
+                        xhrInsert.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhrInsert.send("start=" + start + "&end=" + end + "&studentId=" + studentId + "&studentName=" + studentName);
+                    }
 
-        const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
-
-        // Function to update room layout based on screen width
-        function updateRoomLayout() {
-            if (window.innerWidth < 500) {
-                numCols = 2;
-                numRows = 11;
-            } else {
-                numCols = 11;
-                numRows = 2;
-            }
-            const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
-
-            svg.selectAll("g").remove();
-
-            const roomGroups = svg.selectAll("g")
-                .data(selectedBuilding[currentFloor])
-                .enter()
-                .append("g")
-                .attr("transform", (d, i) => {
-                    const col = i % numCols;
-                    const row = Math.floor(i / numCols);
-                    const x = row % 2 === 0 ? col * (roomWidth + spacing) : (numCols - 1 - col) * (roomWidth + spacing);
-                    const y = row * (roomHeight + spacing);
-                    return `translate(${x}, ${y})`;
-                });
-
-            roomGroups.append("rect")
-                .attr("class", 'room')
-                .attr("width", roomWidth)
-                .attr("height", roomHeight)
-                .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor))
-                .on("click", showPopup);
-
-            roomGroups.append("text")
-                .attr("class", "roomNumber")
-                .text(d => d.id)
-                .attr("x", roomWidth / 2 + 100)
-                .attr("y", roomHeight / 2)
-                .attr("text-anchor", "middle")
-                .attr("dominant-baseline", "middle");
-
-            // svg.append("rect")
-            //     .attr("class", "bathroom")
-            //     .attr("width", 80)
-            //     .attr("height", totalHeight)
-            //     .attr("x", 0)
-
-            // svg.append("rect")
-            //     .attr("class", "stairs")
-            //     .attr("width", 50)
-            //     .attr("height", totalHeight)
-            //     .attr("x", totalWidth - 50);
-
-            // svg.append("line")
-            //     .attr("class", "divider")
-            //     .attr("x1", roomWidth + 20)
-            //     .attr("y1", 0)
-            //     .attr("x2", roomWidth + 20)
-            //     .attr("y2", totalHeight);
+                }
+            });
         }
-        // Add event listener for window resize to update layout on smaller screens
-        window.addEventListener('resize', updateRoomLayout);
-
-        updateRoomLayout();
-        document.querySelectorAll('#options input[type="radio"]').forEach(function(radio) {
-            radio.addEventListener('change', changeFloor);
-        });
+    </script>
 
 
-        function changeFloor() {
-            currentFloor = parseInt(document.querySelector('#options input[type="radio"]:checked').value);
-            updateRoomLayout();
-        }
-        document.addEventListener("click", function(event) {
-            var dropdown = document.getElementById("options-view-button");
-            var dropdownContainer = document.getElementById("options");
-
-            if (!dropdownContainer.contains(event.target) && event.target !== dropdown) {
-                dropdown.checked = false;
-            }
-        });
-
-        var radioInputs = document.querySelectorAll('#options input[type="radio"]');
-        radioInputs.forEach(function(radioInput) {
-            radioInput.addEventListener("change", function() {
-                document.getElementById("options-view-button").checked = false;
+    <script>
+        $(document).ready(function() {
+            $('#search').on('keyup', function() {
+                var searchText = $(this).val();
+                if (searchText != '') {
+                    $.ajax({
+                        url: '../includes/searchFull.php',
+                        method: 'POST',
+                        data: {
+                            query: searchText
+                        },
+                        success: function(data) {
+                            $('#search-results').html(data);
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        url: '../includes/searchFull.php',
+                        method: 'POST',
+                        data: {
+                            query: ''
+                        },
+                        success: function(data) {
+                            $('#search-results').html(data);
+                        }
+                    });
+                }
             });
         });
     </script>
-    <!-- <div id="legend">
-        <div class="legend-item">
-            <div class="legend-color" style="background-color: green;"></div>
-            <div class="legend-label">Chambres vides</div>
-        </div>
 
-        <div class="legend-item">
-            <div class="legend-color" style="background-color: #66ccff;"></div>
-            <div class="legend-label">Chambres avec 1 étudiant(e)</div>
-        </div>
 
-        <div class="legend-item">
-            <div class="legend-color" style="background-color: #d4ce24;"></div>
-            <div class="legend-label">Chambres avec 2 étudiant(e)s</div>
-        </div>
 
-        <div class="legend-item">
-            <div class="legend-color" style="background-color: orange;"></div>
-            <div class="legend-label">Chambres avec 3 étudiant(e)s</div>
-        </div>
 
-        <div class="legend-item">
-            <div class="legend-color" style="background-color: red;"></div>
-            <div class="legend-label">Chambres pleines</div>
-        </div>
-
-        <div class="legend-item">
-            <div class="legend-color" style="background-color: blue;"></div>
-            <div class="legend-label">Toillettes</div>
-        </div>
-    </div> -->
 
 </body>
 

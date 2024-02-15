@@ -45,6 +45,9 @@ if (isset($_POST['login'])) {
                     case 'administration':
                         $href = '../admin/internat.php';
                         break;
+                    case 'restaurant':
+                        $href = '../admin/restaurant.php';
+                        break;
                     case 'super_admin':
                         $href = '../admin/internat.php';
                         break;

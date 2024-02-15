@@ -1,6 +1,6 @@
 <?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $_SESSION['role'] == 'internat' || $_SESSION['role'] == 'economique' || $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $_SESSION['role'] == 'restaurant' || $_SESSION['role'] == 'internat' || $_SESSION['role'] == 'economique' || $_SESSION['role'] == 'departement' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 
 ?>
 <!DOCTYPE html>
@@ -88,69 +88,98 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
-            <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
-                <div class="nav_list">
-                    <a href="internat.php" class="nav_link">
-                        <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
-                    </a>
-                    <a href="dashboard.php" class="nav_link">
-                        <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
-                    </a>
-                    <a href="roomList.php" class="nav_link active">
-                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
-                    </a>
-                    <?php
+            <div>
+                <a href="#" class="nav_logo">
+                    <img src="../images/ESTC.png" style="height:30px">
+                    <span class="nav_logo-name">EST Casablanca</span>
+                </a>
 
-                    if (isset($_SESSION['role'])) {
-                        switch ($_SESSION['role']) {
-                            case 'Student':
-                                $href = 'decharge.php';
-                                break;
-                            case 'departement':
-                                $href = 'departement_decharge.php';
-                                break;
-                            case 'internat':
-                                $href = 'internat_decharge.php';
-                                break;
-                            case 'economique':
-                                $href = 'economique_decharge.php';
-                                break;
-                            case 'administration':
-                                $href = 'administration_decharge.php';
-                                break;
+                <?php if ($_SESSION['role'] === 'restaurant') : ?>
+                    <div class="nav_list">
+                        <a href="restaurant.php" class="nav_link ">
+                            <i class="fa-solid fa-utensils"></i> <span class="nav_name">Gestion Tickets</span>
+                        </a>
+                        <a href="roomList.php" class="nav_link active">
+                            <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
+                        </a>
+                    </div>
+                <?php else : ?>
+                    <div class="nav_list">
+                        <a href="internat.php" class="nav_link">
+                            <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
+                        </a>
+                        <a href="dashboard.php" class="nav_link">
+                            <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
+                        </a>
+                        <a href="roomList.php" class="nav_link active">
+                            <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
+                        </a>
+
+                        <?php
+                        if (isset($_SESSION['role'])) {
+                            switch ($_SESSION['role']) {
+                                case 'Student':
+                                    $href = 'decharge.php';
+                                    break;
+                                case 'departement':
+                                    $href = 'departement_decharge.php';
+                                    break;
+                                case 'internat':
+                                    $href = 'internat_decharge.php';
+                                    break;
+                                case 'economique':
+                                    $href = 'economique_decharge.php';
+                                    break;
+                                case 'administration':
+                                    $href = 'administration_decharge.php';
+                                    break;
+                                default:
+                                    $href = 'login.php';
+                                    break;
+                            }
+                        } else {
+                            $href = 'login.php';
                         }
-                    } else {
-                        $href = 'login.php';
-                    }
-                    echo '<a href="' . $href . '" class="nav_link">';
-                    echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
-                    echo '</a>';
-                    if ($_SESSION['role'] === 'administration') {
-                        echo '<a href="decharge_valide.php" class="nav_link">';
-                        echo '<i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>';
+
+                        echo '<a href="' . $href . '" class="nav_link">';
+                        echo '<i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>';
                         echo '</a>';
-                    }
-                    if ($_SESSION['role'] === 'economique') {
-                        echo '<a href="serviceEconomique.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-sack-dollar"></i> <span class="nav_name">Payement internat</span>';
-                        echo '</a>';
-                    }
-                    if ($_SESSION['role'] === 'internat') {
-                        echo '<a href="internat_demandes.php" class="nav_link">';
-                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
-                        echo '</a>';
-                        echo '<a href="internat_demandes_valide.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
-                        echo '</a>';
-                        echo '<a href="internat_demandes_refuse.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
-                        echo '</a>';
-                    }
-                    ?>
-                </div>
-            </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
+
+                        if ($_SESSION['role'] === 'administration') {
+                            echo '<a href="decharge_valide.php" class="nav_link">';
+                            echo '<i class="fa fa-file"></i> <span class="nav_name">Gestion décharge</span>';
+                            echo '</a>';
+                        }
+
+                        if ($_SESSION['role'] === 'economique') {
+                            echo '<a href="serviceEconomique.php" class="nav_link">';
+                            echo '<i class="fa-solid fa-sack-dollar"></i> <span class="nav_name">Payement internat</span>';
+                            echo '</a>';
+                        }
+
+                        if ($_SESSION['role'] === 'internat') {
+                            echo '<a href="internat_demandes.php" class="nav_link">';
+                            echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
+                            echo '</a>';
+                            echo '<a href="internat_demandes_valide.php" class="nav_link">';
+                            echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
+                            echo '</a>';
+                            echo '<a href="internat_demandes_refuse.php" class="nav_link">';
+                            echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
+                            echo '</a>';
+                        }
+                        ?>
+                    </div>
+                <?php endif; ?>
+
+
+            </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');">
+                <i class='bx bx-log-out nav_icon'></i>
+                <span class="nav_name">SignOut</span>
+            </a>
         </nav>
     </div>
+
     <div class="building">
         <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
         <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>

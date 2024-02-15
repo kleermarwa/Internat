@@ -9,8 +9,7 @@ $user_id = $_SESSION['user_id'];
 $sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
         FROM internat
         JOIN users ON internat.student_id = users.id
-        WHERE internat.student_id = '$user_id'
-        AND internat.status = 'Accepté'";
+        WHERE internat.student_id = '$user_id'";
 
 
 $result = $conn->query($sql);
