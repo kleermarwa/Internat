@@ -37,8 +37,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     // Initialize arrays to track paid status, montant, date, and recu for each trimester
     $trimesterData = array(
         1 => ['paid' => false, 'payé' => 0, 'montant' => 1050, 'date' => '', 'recu' => ''],
-        2 => ['paid' => false, 'payé' => 0, 'montant' => 750, 'date' => '', 'recu' => ''],
-        3 => ['paid' => false, 'payé' => 0, 'montant' => 750, 'date' => '', 'recu' => '']
+        2 => ['paid' => false, 'payé' => 0, 'montant' => 850, 'date' => '', 'recu' => ''],
+        3 => ['paid' => false, 'payé' => 0, 'montant' => 850, 'date' => '', 'recu' => '']
     );
 
     // Iterate through the result set

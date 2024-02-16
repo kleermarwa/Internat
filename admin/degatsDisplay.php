@@ -163,6 +163,5 @@ if ($result->num_rows > 0) {
                 },
             });
         }
-        // If the user cancels, do nothing
     }
 </script>
