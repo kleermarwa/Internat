@@ -6,7 +6,8 @@ $sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
         FROM internat
         JOIN users ON internat.student_id = users.id
         WHERE users.ville != 'Casablanca'
-        AND internat.status = 'En attente'";
+        AND internat.status = 'En attente'
+        AND internat.valide = 0";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
