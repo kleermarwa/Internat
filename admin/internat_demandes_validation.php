@@ -6,7 +6,7 @@ if (isset($_GET['request_id'])) {
     $request_id = $_GET['request_id'];
     $name = $_GET['name'];
 
-    $updateSql = "UPDATE internat SET valide = 1 WHERE id_demande = $request_id";
+    $updateSql = "UPDATE internat SET status = 'En attente' , valide = 1 WHERE id_demande = $request_id";
 
     if ($conn->query($updateSql) === TRUE) {
         $_SESSION['success'] = "La demande N° " . $request_id . " de l'étudiant: " . $name . " a été validé";
@@ -21,7 +21,7 @@ if (isset($_GET['request_id'])) {
 
     $idDemande = $_POST['id'];
 
-    $updateSql = "UPDATE internat SET valide = 1 WHERE id_demande = $idDemande";
+    $updateSql = "UPDATE internat SET status = 'En attente' , valide = 1 WHERE id_demande = $idDemande";
 
     $conn->query($updateSql);
 }
