@@ -20,17 +20,17 @@ if (isset($_POST['query'])) {
             while ($row = $result->fetch_assoc()) {
                 if (strpos($previous_page, 'restaurant.php') !== false || strpos($previous_page, 'annuler_ticket.php') !== false) {
                     echo '<div class="search-result" onclick="loadCalendar(' . htmlspecialchars(json_encode($row['id']), ENT_QUOTES) . ', \'' . htmlspecialchars($row['name'], ENT_QUOTES) . '\')">';
-                    echo "<span><img src='" . $row['image'] . "' style='height:100px'></span><br>";
-                    echo "<span>" . $row['CIN'] . "</span><br>";
-                    echo "<span>" . $row['name'] . "</span><br>";
-                    echo "<span>" . $row['filliere'] . "</span><br>";
+                    echo "<div class='img'><img src='" . $row['image'] . "' style='height:200px;width:200px;'></div><br>";
+                    echo "<div class='text'><span><b>CIN: </b>" . $row['CIN'] . "</span><br>";
+                    echo "<span><b>Nom: </b>" . $row['name'] . "</span><br>";
+                    echo "<span><b>Filiere: </b>" . $row['filliere'] . "</span></div>";
                     echo "</div>";
                 } elseif (strpos($previous_page, 'serviceEconomique.php') !== false) {
                     echo '<div class="search-result" onclick="loadPayment(' . htmlspecialchars(json_encode($row['id']), ENT_QUOTES) . ')">';
-                    echo "<span><img src='" . $row['image'] . "' style='height:100px'></span><br>";
-                    echo "<span>" . $row['CIN'] . "</span><br>";
-                    echo "<span>" . $row['name'] . "</span><br>";
-                    echo "<span>" . $row['filliere'] . "</span><br>";
+                    echo "<div class='img'><img src='" . $row['image'] . "' style='height:200px;width: 200px;'></div><br>";
+                    echo "<div class='text'><span><b>CIN: </b>" . $row['CIN'] . "</span><br>";
+                    echo "<span><b>Nom: </b>" . $row['name'] . "</span><br>";
+                    echo "<span><b>Filiere: </b>" . $row['filliere'] . "</span></div>";
                     echo "</div>";
                 }
             }

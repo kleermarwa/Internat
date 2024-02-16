@@ -132,11 +132,24 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
             <input type="search" placeholder="Rechercher un élève (Par Nom ou Cin)" id="search">
         </div>
     </div>
-    <div id="search-results" style="display: flex;justify-content: center;"></div>
+    <div id="search-results" style="justify-content: center;"></div>
 
     <hr>
 
     <div id="calendar"></div>
+
+    <script>
+        const searchInput = document.getElementById('search');
+        const searchResults = document.getElementById('search-results');
+
+        searchInput.addEventListener('input', function() {
+            if (searchInput.value.trim() !== '') {
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
 
@@ -239,7 +252,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
             });
         }
     </script>
-
 
     <script>
         $(document).ready(function() {
