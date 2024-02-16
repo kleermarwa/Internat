@@ -136,6 +136,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
 
     <hr>
 
+    <div id="studentInfo" style="display:flex;place-content:center;margin:2rem;"></div>
     <div id="calendar"></div>
 
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js'></script>
@@ -153,6 +154,22 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
     </script>
     <script>
         function loadCalendar(studentId, studentName) {
+            $('#studentInfo').html('');
+            $.ajax({
+                url: 'displayInfo.php',
+                method: 'GET',
+                data: {
+                    id: studentId
+                },
+                success: function(data) {
+                    $('#studentInfo').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    $('#studentInfo').html('An error occurred while loading data.');
+                }
+            });
+
             var searchText = '';
             $('#search').val('');
             $('#search-results').html('');
@@ -165,7 +182,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
                 success: function(data) {
                     var calendarEl = document.getElementById('calendar');
                     var calendar = new FullCalendar.Calendar(calendarEl, {
-                        // initialView: 'dayGridWeek',
                         initialView: 'dayGridMonth',
                         weekNumbers: true,
                         weekText: 'Semaine ',
@@ -242,7 +258,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
                                                 },
                                                 error: function(xhr, status, error) {
                                                     console.error('Error subtracting days:', error);
-                                                    // Handle the error as needed
                                                     alert('An error occurred while subtracting days.');
                                                 }
                                             });
