@@ -1760,3 +1760,51 @@ a {
     margin-bottom: 3rem;
     text-align: center;
 }
+
+#search-results {
+    width: 32rem;
+    margin: 5px auto 0;
+    max-height: 50rem;
+    overflow-y: scroll;
+    background-color: rgb(255, 255, 255);
+    padding: 1rem;
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 0 2rem;
+    display: none;
+    .search-result {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        border: $border;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-0.25rem);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        }
+
+        img {
+            object-fit: cover;
+            margin-right: 1rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease-in-out;
+        }
+
+        &:hover img {
+            transform: scale(1.1);
+        }
+
+        span {
+            font-size: 16px;
+        }
+
+        p {
+            font-size: 16px;
+            display: flex;
+            margin: auto;
+        }
+    }
+}
