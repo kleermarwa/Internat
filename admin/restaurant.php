@@ -136,6 +136,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
 
     <hr>
 
+
+    <div id="studentInfo" style="display:flex;place-content:center;margin:2rem;"></div>
     <div id="calendar"></div>
 
     <script>
@@ -155,6 +157,22 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
 
     <script>
         function loadCalendar(studentId, studentName) {
+            $('#studentInfo').html('');
+            $.ajax({
+                url: 'displayInfo.php',
+                method: 'GET',
+                data: {
+                    id: studentId
+                },
+                success: function(data) {
+                    $('#studentInfo').html(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                    $('#studentInfo').html('An error occurred while loading data.');
+                }
+            });
+
             var searchText = '';
             $('#search').val('');
             $('#search-results').html('');
@@ -167,7 +185,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
                 success: function(data) {
                     var calendarEl = document.getElementById('calendar');
                     var calendar = new FullCalendar.Calendar(calendarEl, {
-                        // initialView: 'dayGridWeek',
                         initialView: 'dayGridMonth',
                         weekNumbers: true,
                         weekText: 'Semaine ',
@@ -192,8 +209,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
                             var selectedDate = new Date(info.dateStr);
 
                             var select = selectedDate.getDay();
-
-                            // Calculate the start and end dates of the week (Saturday to next Friday)
 
                             if (select == 5) {
                                 var weekStartDate = new Date(selectedDate);
