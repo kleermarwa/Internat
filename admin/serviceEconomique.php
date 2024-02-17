@@ -190,11 +190,22 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'economique' ?  null 
             <input type="search" placeholder="Rechercher un élève (Par Nom ou Cin)" id="search">
         </div>
     </div>
-    <div id="search-results" style="display: flex;justify-content: center;"></div>
+    <div id="search-results" style="justify-content: center;"></div>
     <hr>
 
     <div id="searchResults"> </div>
+    <script>
+        const searchInput = document.getElementById('search');
+        const searchResults = document.getElementById('search-results');
 
+        searchInput.addEventListener('input', function() {
+            if (searchInput.value.trim() !== '') {
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.style.display = 'none';
+            }
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#search').on('keyup', function() {

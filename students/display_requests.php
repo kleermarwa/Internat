@@ -236,6 +236,7 @@ if ($result->num_rows > 0) {
             // If there is a record in the paiement table, substitute the montant from the totalFee
             $paiementRow = $paiement2Result->fetch_assoc();
             $totalFee -= $paiementRow['montant'];
+            $montant2 = $paiementRow['montant'];
             $paye2 = 'Payé';
         }
         // Check if there are records in the paiement table for the student
@@ -250,6 +251,7 @@ if ($result->num_rows > 0) {
             $paiementRow = $paiement3Result->fetch_assoc();
             $totalFee -= $paiementRow['montant'];
             echo $paiementRow['montant'];
+            $montant3 = $paiementRow['montant'];
             $paye3 = 'Payé';
         }
 
@@ -286,8 +288,13 @@ if ($result->num_rows > 0) {
             echo "<h6> <span><b>Frais de logement : </b></span> $accommodationFee DH</h6>";
             echo "<h6> <span><b>Frais de restauration : </b></span> $restaurationFee DH</h6>";
             echo "<h6> <span><b>Frais de tirage : </b></span> $tirage DH</h6>";
-            echo "<h6> <span><b>Trimestre 2 : </b></span> $trimestre2 DH : $paye2</h6>";
-            echo "<h6> <span><b>Trimestre 3 : </b></span> $trimestre3 DH : $paye3</h6><br>";
+            if (isset($trimestre2, $paye2, $montant2)) {
+                echo "<h6> <span><b>Trimestre 2 : </b></span> $trimestre2 DH : $paye2 $montant2</h6>";
+            }
+
+            if (isset($trimestre3, $paye3, $montant3)) {
+                echo "<h6> <span><b>Trimestre 3 : </b></span> $trimestre3 DH : $paye3 $montant3 </h6><br>";
+            }
             echo '</div>';
             echo '<div style="text-align:center">';
             echo "<h5 style='color:green;font-weight:800'>Total à payer : $totalFee DH</h5>";

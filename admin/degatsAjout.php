@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $commentaire = mysqli_real_escape_string($conn, $_POST['commentaire']);
     $type = mysqli_real_escape_string($conn, $_POST['type']);
 
-    $type == 'Incident' ? $report = 'Non payé' : $report = 'Non retourné';
+    $type == 'Incident' ? $report = 'Non Payé' : $report = 'Non Retourné';
 
     if (empty($cin) || empty($materiel) || empty($montant) || empty($commentaire)) {
         echo "Veuillez remplir tous les champs.";

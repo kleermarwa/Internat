@@ -304,14 +304,13 @@ $user_id = $_SESSION['user_id'];
             </div>
             <h3>Modifier votre Mot de Passe</h3>
             <div class="flex">
-                <div class="inputBox" id="info">
+                <div class="inputBox" style="margin: auto;">
                     <span class="required">Nouveau mot de passe : <span style="color: red;">*</span> </span>
                     <div class="field">
                         <i class="ua fa fa-lock" aria-hidden="true"></i>
                         <input type="password" name="new_pass" placeholder="Enter new password" class="box" required>
                     </div>
-                </div>
-                <div class="inputBox" id="pass">
+
                     <span class="required">Confirmer le mot de passe : <span style="color: red;">*</span> </span>
                     <div class="field">
                         <i class="ua fa fa-unlock" aria-hidden="true"></i>

@@ -11,6 +11,7 @@ if (isset($_POST['studentId'])) {
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
+
             // Increment the end date by one day to ensure it is inclusive
             $endDate = date('Y-m-d', strtotime($row['week_end_date'] . ' +1 day'));
 
