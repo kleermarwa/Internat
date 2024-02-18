@@ -113,6 +113,9 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                             echo '<a href="internatFilles.php" class="nav_link">';
                             echo '<i class="fa-solid fa-venus"></i> <span class="nav_name">Internat Filles </span>';
                             echo '</a>';
+                            echo '<a href="internat_changements.php" class="nav_link">';
+                            echo '<i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>';
+                            echo '</a>';
                         } ?>
                         <a href="dashboard.php" class="nav_link">
                             <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>

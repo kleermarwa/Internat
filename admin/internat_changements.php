@@ -8,7 +8,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demandes D'internat</title>
+    <title>Demandes de décharge</title>
     <link rel="shortcut icon" href="../images/ESTC.png" type="image/x-icon">
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -17,12 +17,14 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/demandeInternatSearch.js"></script>
+    <script src="../js/internat_changementsSearch.js"></script>
     <script src="../js/navbar.js"></script>
+    <script src="../js/notifications.js"></script>
 
 </head>
 
 <body id="body-pd">
+    <div id="notification" class="hidden"></div>
     <?php if (isset($_SESSION['error'])) : ?>
         <div class="error-message"><?php echo $_SESSION['error'];
                                     unset($_SESSION['error']); ?></div>
@@ -42,7 +44,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Validation demande de chambre - Service des affaires d'internat </h5>
+            <h5>Historique des changements de chambres</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -86,7 +88,12 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </script>
 
         <div class="left">
-
+            <div class="notification-icon" onclick="fetchNotifications()">
+                <i class="fa fa-bell"></i>
+                <div class="notification-count" id="count"><?php echo $count ?></div>
+                <div class="notification-dropdown">
+                </div>
+            </div>
         </div>
     </header>
 
@@ -100,7 +107,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="internatFilles.php" class="nav_link ">
                         <i class="fa-solid fa-venus"></i> <span class="nav_name">Internat Filles </span>
                     </a>
-                    <a href="internat_changements.php" class="nav_link">
+                    <a href="internat_changements.php" class="nav_link active">
                         <i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>
                     </a>
                     <a href="dashboard.php" class="nav_link">
@@ -112,7 +119,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="internat_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
-                    <a href="internat_demandes.php" class="nav_link active">
+                    <a href="internat_demandes.php" class="nav_link">
                         <i class="fa fa-bed"></i> <span class="nav_name">Demandes Internat</span>
                     </a>
                     <a href="internat_demandes_valide.php" class="nav_link">
@@ -125,34 +132,17 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-
-    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Hors Casablanca</h2>
     <div class="internatSearch">
-        <div class="box">
+        <div class="box" style="margin-top: 2rem;">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (par Nom ou N° Demande)" onkeyup="searchExterne()">
-        </div>
-        <div class="box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchExterneRoom" name="searchBox" placeholder="Rechercher une demande (par N° de chambre)" onkeyup="searchExterneRoom()">
+            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher un étudiant (Par Nom ou N° Cin)" onkeyup="searchAll()">
         </div>
     </div>
     <div id="searchResults">
     </div>
     <hr>
-    <h2 style="text-align: center; margin-bottom:2rem">Demandes Casablanca</h2>
-    <div class="internatSearch">
-        <div class="box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchCasa" name="searchBox" placeholder="Rechercher une demande (par Nom ou N° Demande)" onkeyup="searchCasa()">
-        </div>
-        <div class="box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchCasaRoom" name="searchBox" placeholder="Rechercher une demande (par N° de chambre)" onkeyup="searchCasaRoom()">
-        </div>
     </div>
-    <div id="casaResults">
-    </div>
+
 </body>
 
 </html>

@@ -33,6 +33,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(['success' => false, 'error' => 'La chambre est déjà pleine']);
         exit;
     } else {
+
+        $historyquery = "INSERT INTO historique_internat (user_id, user_name, user_cin, old_room , new_room) ";
+        $historyquery .= "VALUES (?, (SELECT name FROM users WHERE id = ?) , (SELECT cin FROM users WHERE id = ?) , (SELECT room_number FROM users WHERE id = ?) , ?)";
+        $historystmt = $conn->prepare($historyquery);
+        $historystmt->bind_param('iiiii', $studentId, $studentId, $studentId, $studentId, $newRoomNumber);
+        $historystmt->execute();
+
         $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('ii', $newRoomNumber, $studentId);

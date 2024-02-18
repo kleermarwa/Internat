@@ -452,9 +452,6 @@ a {
 .l-navbar .nav .nav_link span {
   width: 12rem;
 }
-.l-navbar .nav .nav_logo {
-  margin-bottom: 2rem;
-}
 .l-navbar .nav .nav_logo-icon {
   font-size: 1.25rem;
   color: var(--white-color);
@@ -888,7 +885,7 @@ a {
 .RoomList #data-table th,
 .RoomList #data-table td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
   border: 1px solid #ddd;
   width: 120px;
 }

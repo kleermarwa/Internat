@@ -103,6 +103,9 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="internatFilles.php" class="nav_link">
                         <i class="fa-solid fa-venus"></i> <span class="nav_name">Internat Filles </span>
                     </a>
+                    <a href="internat_changements.php" class="nav_link ">
+                        <i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>
+                    </a>
                     <a href="dashboard.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
                     </a>
@@ -354,7 +357,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     </div>
 
     <script>
-        
         // // Function to generate room elements dynamically
         // function generateRooms(floorId, startRoomId, endRoomId) {
         //     var floorElement = document.getElementById(floorId);
