@@ -18,13 +18,12 @@ echo "<h3 style='text-align: center'>Votre demande d'internat précédente:</h3>
 if ($result->num_rows > 0) {
     echo "<div class='RoomList'>";
     echo "<table id='data-table'>";
-    echo "<tr><th>Numéro de la demande</th><th>Chambre demandée</th><th>Date de soumission</th><th>Status</th></tr>";
+    echo "<tr><th>Numéro de la demande</th><th>Date de soumission</th><th>Status</th></tr>";
 
     while ($row = $result->fetch_assoc()) {
         $status = $row['status'];
         echo "<tr>";
         echo "<td>" . $row['id_demande'] . "</td>";
-        echo "<td>" . $row['room_number'] . "</td>";
         echo "<td>" . $row['created_at'] . "</td>";
         echo "<td style='text-transform:capitalize'>" . $row['status'] . "</td>";
         echo $row['status'] == 'En attente' ? "<td><a class='reject' href='annuler_demande_internat.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Annuler demande</a>" : "</td>";
@@ -44,9 +43,11 @@ if ($result->num_rows > 0) {
         echo "</div>";
     }
 } else {
-    echo "Vous n'avez pas soumis de demandes de d'internat.";
+    echo '<h5 style="text-align: center">Vous n\'avez pas encore soumis de demandes d\'internat.</h5> <br>';
+    echo '<form class="discharge-container" action="../includes/demanderChambre.php" method="post">';
+    echo '<button class="discharge-button" type="submit" name="create_request">Créer une demande</button>';
+    echo '</form>';
 }
-
 $selectStmt->close();
 $conn->close();
 ?>
