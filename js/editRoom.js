@@ -15,7 +15,7 @@ function editRoom(roomNumber) {
         const studentName = studentNameInput.value;
         
         $.ajax({
-            url: `../includes/search.php?term=${studentName}&building=${currentBuilding}`,
+            url: `../includes/search.php?term=${studentName}&building='${currentBuilding}'`,
             type: 'GET',
             dataType: 'json',
             success: function (data) {

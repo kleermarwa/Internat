@@ -128,6 +128,63 @@ a {
     text-align: center;
 }
 
+// body {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     height: 100vh;
+//     margin: 0;
+// }
+
+.building-map,
+.building-mapS,
+.building-mapBoys {
+    display: grid;
+    grid-template-columns: repeat(16, 1fr);
+    grid-gap: 5px;
+    margin: 3rem auto;
+    max-width: 60rem;
+}
+
+.building-mapS {
+    grid-template-columns: repeat(15, 1fr);
+}
+
+.building-mapBoys {
+    grid-template-columns: repeat(11, 1fr);
+    max-width: 50rem;
+
+}
+
+.room {
+    width: 60px;
+    height: 60px;
+    color: white;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.stock {
+    background-image: url(../images/stock.png);
+    cursor: not-allowed;
+}
+
+/* Updated divider styling */
+.divider {
+    grid-column: 10;
+    border: 2px solid #333;
+    /* thicker and darker border to represent a wall */
+    height: 100%;
+    /* extend the height to fill the entire row */
+    background-color: #666;
+    /* background color for the wall */
+}
+
+
 /**************************************************************************************************************************************************************************/
 /******************************************************************************* Header CSS *******************************************************************************/
 /**************************************************************************************************************************************************************************/
@@ -594,24 +651,11 @@ a {
 /******************************************************************************* Building CSS *******************************************************************************/
 /**************************************************************************************************************************************************************************/
 #roomMap {
-    width: 1030px;
-    height: 150px;
-    margin: 4rem auto;
-
-    #map {
-        width: 100%;
-        height: 100%;
-    }
+    margin: 7rem auto;
 
     .building {
         fill: none;
         stroke: #333;
-        stroke-width: 2px;
-    }
-
-    .room {
-        fill: #b3b3b3;
-        stroke: #fff;
         stroke-width: 2px;
     }
 
@@ -674,7 +718,7 @@ a {
 /**************************************************************************************************************************************************************************/
 .popup {
     position: absolute;
-    top: 50%;
+    top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
@@ -686,7 +730,7 @@ a {
     transition: 0.5s ease-out;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 2;
+    z-index: 3;
 
     .submit {
         font-family: monospace;
@@ -895,7 +939,7 @@ a {
     border-radius: 35px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     position: absolute;
-    top: 50%;
+    top: 100%;
     left: 50%;
     transform: translate(-50%, -50%);
     border: 1px solid #ccc;
@@ -1771,6 +1815,7 @@ a {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
     border-radius: 0 0 0 2rem;
     display: none;
+
     .search-result {
         display: flex;
         align-items: center;

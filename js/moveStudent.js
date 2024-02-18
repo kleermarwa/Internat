@@ -1,8 +1,8 @@
 
-function moveStudent(studentId, currentBuilding) {    
+function moveStudent(studentId, currentBuilding) {
     const newRoomNumber = prompt('Entrez le numéro de la nouvelle chambre:');
-    
-    if (newRoomNumber !== null && !isNaN(newRoomNumber) && newRoomNumber !== '') {        
+
+    if (newRoomNumber !== null && !isNaN(newRoomNumber) && newRoomNumber !== '') {
         $.ajax({
             url: '../includes/moveStudent.php',
             type: 'POST',
@@ -10,12 +10,13 @@ function moveStudent(studentId, currentBuilding) {
             data: {
                 studentId: studentId,
                 newRoomNumber: newRoomNumber,
-                currentBuilding : currentBuilding
+                currentBuilding: currentBuilding
             },
             success: function (response) {
-                console.log(response)
+                console.log(response) ;
+                setRoomColors();
                 if (response.success) {
-                    alert('L\'étudiant a déplacé avec succès');                    
+                    alert('L\'étudiant a déplacé avec succès');
                     document.querySelector('.info-popup').style.display = 'none';
                 } else {
                     if (response.error === 'Numéro de chambre invalide') {

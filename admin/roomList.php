@@ -105,9 +105,15 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     </div>
                 <?php else : ?>
                     <div class="nav_list">
-                        <a href="internat.php" class="nav_link">
-                            <i class="fas fa-hotel"></i> <span class="nav_name">Map</span>
-                        </a>
+                        <?php
+                        if ($_SESSION['role'] === 'internat') {
+                            echo '<a href="internatGarcons.php" class="nav_link ">';
+                            echo '<i class="fa-solid fa-mars"></i> <span class="nav_name">Internat Garçons </span>';
+                            echo '</a>';
+                            echo '<a href="internatFilles.php" class="nav_link">';
+                            echo '<i class="fa-solid fa-venus"></i> <span class="nav_name">Internat Filles </span>';
+                            echo '</a>';
+                        } ?>
                         <a href="dashboard.php" class="nav_link">
                             <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
                         </a>

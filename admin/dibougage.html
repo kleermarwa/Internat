@@ -4,25 +4,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Debug Page</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Document</title>
+    <style>
+        #div1,
+        #div2 {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            min-height: 150px;
+            width: fit-content;
+            height: fit-content;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+        }
+
+        .room {
+            width: 60px;
+            background-color: darkred;
+            height: 60px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 80px;
+            cursor: move;
+        }
+    </style>
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+            ev.dataTransfer.setData("room-id", ev.target.id); // Store the room ID
+        }
+
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            var roomId = ev.dataTransfer.getData("room-id"); // Retrieve the room ID
+            var draggedElement = document.getElementById(data);
+
+            // Check if the drop target is a room container
+            if (ev.target.classList.contains("room-container")) {
+                // Clone the dragged element before appending it
+                var clone = draggedElement.cloneNode(true);
+
+                // Append the cloned element to the drop target
+                ev.target.appendChild(clone);
+
+                // Remove the original element from its previous position
+                draggedElement.parentNode.removeChild(draggedElement);
+
+                // Get the room position relative to the viewport
+                var rect = clone.getBoundingClientRect();
+                var position = {
+                    x: rect.left,
+                    y: rect.top
+                };
+
+                // Send the room position and ID to the server
+                saveRoomPosition(roomId, position);
+            }
+        }
+
+        window.onload = function () {
+            // Fetch room positions from the server
+            fetchRoomPositions();
+        };
+        
+        function fetchRoomPositions() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "save_layout.php", true);
+        
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var roomPositions = JSON.parse(xhr.responseText);
+        
+                    // Set the initial positions of rooms based on the fetched data
+                    for (var roomId in roomPositions) {
+                        if (roomPositions.hasOwnProperty(roomId)) {
+                            var room = document.getElementById(roomId);
+                            if (room) {
+                                var position = roomPositions[roomId];
+                                room.style.left = position.x + "px";
+                                room.style.top = position.y + "px";
+                            }
+                        }
+                    }
+                }
+            };
+        
+            xhr.send();
+        }
+        
+        function saveRoomPosition(roomId, position) {
+            // AJAX request to save room position
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "save_layout.php", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify([{ id: roomId, x: position.x, y: position.y }]));
+        }
+        
+
+    </script>
 </head>
 
 <body>
-    <form action="degatsAjout.php" method="post">
-        <label for="cin">CIN:</label>
-        <input type="text" id="cin" name="cin" value="AGI201">
+    <div class="building-map" id="floor1">
 
-        <label for="materiel">Matériel:</label>
-        <input type="text" id="materiel" name="materiel" value="Laptop">
+        <div id="div1" class="room-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="room" draggable="true" ondragstart="drag(event)" id="1">Room 1</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="2">Room 2</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="3">Room 3</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="4">Room 4</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="5">Room 5</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="6">Room 6</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="7">Room 7</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="8">Room 8</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="9">Room 9</div>
+        </div>
 
-        <label for="montant">Montant:</label>
-        <input type="text" id="montant" name="montant" value="100">
-
-        <label for="commentaire">Commentaire:</label>
-        <input type="text" id="commentaire" name="commentaire" value="Broken screen">
-
-        <button type="submit">Submit</button>
-    </form>
+        <div id="div2" class="room-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="room" draggable="true" ondragstart="drag(event)" id="10">Room 10</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="11">Room 11</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="12">Room 12</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="13">Room 13</div>
+            <div class="room" draggable="true" ondragstart="drag(event)" id="14">Room 14</div>
+        </div>
+    </div>
 </body>
 
 </html>
