@@ -41,10 +41,10 @@ if (isset($_POST['login'])) {
                         $href = '../admin/internatGarcons.php';
                         break;
                     case 'economique':
-                        $href = '../admin/internat.php';
+                        $href = '../admin/serviceEconomique.php';
                         break;
                     case 'administration':
-                        $href = '../admin/internat.php';
+                        $href = '../admin/internatGarcons.php';
                         break;
                     case 'restaurant':
                         $href = '../admin/restaurant.php';

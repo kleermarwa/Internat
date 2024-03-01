@@ -49,7 +49,7 @@ function getStudentColumns(data) {
     let columnsHTML = '';
 
     for (let i = 1; i <= 4; i++) {
-        const student = data[i - 1]; 
+        const student = data[i - 1];
         // Check if there is a student for the current column
         if (student) {
             // Add the student column
@@ -74,7 +74,7 @@ function updateTable() {
 
 $(document).ready(function () {
     $('#filter').change(updateTable);
-    displayData('boys');
+    displayData('boy');
 });
 
 // Function to update the pagination links

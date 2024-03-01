@@ -97,14 +97,11 @@ $_SESSION['student_id'] = $user_id;
                     <a href="../includes/profile.php" class="nav_link">
                         <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>
-                    <a href="index.php" class="nav_link">
-                        <i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>
+                    <a href="internat.php" class="nav_link">
+                        <i class="fas fa-hotel"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                     <a href="decharge.php" class="nav_link active">
                         <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>
-                    </a>
-                    <a href="internat.php" class="nav_link">
-                        <i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>

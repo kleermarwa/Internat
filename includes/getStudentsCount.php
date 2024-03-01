@@ -6,7 +6,7 @@ function getNumStudentsInRoom($roomId, $building)
 {
     global $conn;
 
-    if ($building == 'boys') {
+    if ($building == 'boy') {
         $query = "SELECT COUNT(*) as num_students FROM users WHERE room_number = ? AND status='interne' AND genre = 'boy'";
     } else {
         $query = "SELECT COUNT(*) as num_students FROM users WHERE room_number = ? AND status='interne' AND genre = 'girl'";

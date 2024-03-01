@@ -21,36 +21,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/notifications.js"></script>
-    <style>
-        .row {
-            margin-top: 7rem;
-            display: flex;
-        }
-
-        .column {
-            flex: 1;
-            padding: 20px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-        }
-
-        .column:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .column h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .column p {
-            font-size: 16px;
-            text-align: center;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body id="body-pd">
@@ -119,7 +89,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <div class="nav_list">
                     <?php
-                    if ($_SESSION['role'] === 'internat') {
+                    if ($_SESSION['role'] === 'internat' || $_SESSION['role'] == 'administration') {
                         echo '<a href="internatGarcons.php" class="nav_link ">';
                         echo '<i class="fa-solid fa-mars"></i> <span class="nav_name">Internat Garçons </span>';
                         echo '</a>';
@@ -129,13 +99,21 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         echo '<a href="internat_changements.php" class="nav_link">';
                         echo '<i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>';
                         echo '</a>';
-                    } ?>
+                    } elseif ($_SESSION['role'] === 'internat') {
+                        echo '<a href="internat_decharge_historique.php" class="nav_link">';
+                        echo '<i class="fa-solid fa-person-walking-arrow-right"></i><span class="nav_name">Historique Décharge</span>';
+                        echo '</a>';
+                    }
+                    ?>
                     <a href="dashboard.php" class="nav_link active">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
                     </a>
-                    <a href="roomList.php" class="nav_link ">
-                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
-                    </a>
+                    <?php if ($_SESSION['role'] !== 'internat') : ?>
+                        <a href="roomList.php" class="nav_link ">
+                            <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
+                        </a>
+                    <?php endif; ?>
+
                     <?php
 
                     if (isset($_SESSION['role'])) {
@@ -178,11 +156,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         echo '</a>';
                     }
                     if ($_SESSION['role'] === 'internat') {
-                        echo '<a href="internat_demandes.php" class="nav_link">';
-                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
-                        echo '</a>';
                         echo '<a href="internat_demandes_valide.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
+                        echo '<i class="fa-solid fa-bed"></i> <span class="nav_name">Demande Validées</span>';
+                        echo '</a>';
+                        echo '<a href="internat_demandes_casa.php" class="nav_link">';
+                        echo '<i class="fa-regular fa-circle-pause"></i> <span class="nav_name">Demandes Casablanca</span>';
                         echo '</a>';
                         echo '<a href="internat_demandes_refuse.php" class="nav_link">';
                         echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
@@ -194,16 +172,20 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
         </nav>
     </div>
 
+    <div class="building">
+        <button class="boy"><a href="roomList.php">Liste des chambres</a></button>
+    </div>
+
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <div class="row">
-        <div class="column" id="boysData">
+        <div class="column" id="boyData">
             <div id="chart-container">
-                <svg id="boyschart"></svg>
+                <svg id="boychart"></svg>
             </div>
         </div>
-        <div class="column" id="girlsData">
+        <div class="column" id="girlData">
             <div id="piechart-container">
-                <svg id="girlschart"></svg>
+                <svg id="girlchart"></svg>
             </div>
         </div>
     </div>
@@ -218,23 +200,23 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
         fetch('roomData.php')
             .then(response => response.json())
             .then(data => {
-                let boysDataDiv = document.getElementById('boysData');
-                boysDataDiv.innerHTML += `
-                    <p style='color:green;'>Chambres vides pour garçons: ${data.boys.emptyRooms}</p>
-                    <p style='color:#66ccff;'>Chambres avec 1 garçon: ${data.boys.roomsWithOne}</p>
-                    <p style='color:#d6cf09;'>Chambres avec 2 garçons: ${data.boys.roomsWithTwo}</p>
-                    <p style='color:orange;'>Chambres avec 3 garçons: ${data.boys.roomsWithThree}</p>
-                    <p style='color:red;'>Chambres pleines pour garçons: ${data.boys.roomFull}</p>
+                let boyDataDiv = document.getElementById('boyData');
+                boyDataDiv.innerHTML += `
+                    <p style='color:green;'>Chambres vides pour garçons: ${data.boy.emptyRooms}</p>
+                    <p style='color:#66ccff;'>Chambres avec 1 garçon: ${data.boy.roomsWithOne}</p>
+                    <p style='color:#d6cf09;'>Chambres avec 2 garçons: ${data.boy.roomsWithTwo}</p>
+                    <p style='color:orange;'>Chambres avec 3 garçons: ${data.boy.roomsWithThree}</p>
+                    <p style='color:red;'>Chambres pleines pour garçons: ${data.boy.roomFull}</p>
                     <p>Total de chambres pour garçons: 110</p>
                 `;
 
-                let girlsDataDiv = document.getElementById('girlsData');
-                girlsDataDiv.innerHTML += `
-                    <p style='color:green;'>Chambres vides pour filles: ${data.girls.emptyRooms}</p>
-                    <p style='color:#66ccff;'>Chambres avec 1 fille: ${data.girls.roomsWithOne}</p>
-                    <p style='color:#d6cf09;'>Chambres avec 2 filles: ${data.girls.roomsWithTwo}</p>
-                    <p style='color:orange;'>Chambres avec 3 filles: ${data.girls.roomsWithThree}</p>
-                    <p style='color:red;'>Chambres pleines pour filles: ${data.girls.roomFull}</p>
+                let girlDataDiv = document.getElementById('girlData');
+                girlDataDiv.innerHTML += `
+                    <p style='color:green;'>Chambres vides pour filles: ${data.girl.emptyRooms}</p>
+                    <p style='color:#66ccff;'>Chambres avec 1 fille: ${data.girl.roomsWithOne}</p>
+                    <p style='color:#d6cf09;'>Chambres avec 2 filles: ${data.girl.roomsWithTwo}</p>
+                    <p style='color:orange;'>Chambres avec 3 filles: ${data.girl.roomsWithThree}</p>
+                    <p style='color:red;'>Chambres pleines pour filles: ${data.girl.roomFull}</p>
                     <p>Totale de chambres pour filles: 110</p>
                 `;
             })
@@ -245,11 +227,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
         fetch('roomData.php')
             .then(response => response.json())
             .then(data => {
-                const boysData = data.boys;
-                const girlsData = data.girls;
+                const boyData = data.boy;
+                const girlData = data.girl;
 
-                const boysValues = Object.values(boysData);
-                const girlsValues = Object.values(girlsData);
+                const boyValues = Object.values(boyData);
+                const girlValues = Object.values(girlData);
                 const categories = ['Chambres Vides', '1 Etudiant', '2 Etudiants', '3 Etudiants', 'Chambre pleine'];
 
                 // Set initial width
@@ -279,26 +261,26 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                     .padding(0.1);
 
                 const yScale = d3.scaleLinear()
-                    .domain([0, d3.max([...boysValues, ...girlsValues])])
+                    .domain([0, d3.max([...boyValues, ...girlValues])])
                     .nice()
                     .range([height, 0]);
 
-                svg.selectAll('.boys-bar')
-                    .data(boysValues)
+                svg.selectAll('.boy-bar')
+                    .data(boyValues)
                     .enter()
                     .append('rect')
-                    .attr('class', 'boys-bar')
+                    .attr('class', 'boy-bar')
                     .attr('x', (d, i) => xScale(categories[i]))
                     .attr('y', d => yScale(d))
                     .attr('width', xScale.bandwidth() / 2)
                     .attr('height', d => height - yScale(d))
                     .attr('fill', '#195ac2');
 
-                svg.selectAll('.girls-bar')
-                    .data(girlsValues)
+                svg.selectAll('.girl-bar')
+                    .data(girlValues)
                     .enter()
                     .append('rect')
-                    .attr('class', 'girls-bar')
+                    .attr('class', 'girl-bar')
                     .attr('x', (d, i) => xScale(categories[i]) + xScale.bandwidth() / 2)
                     .attr('y', d => yScale(d))
                     .attr('width', xScale.bandwidth() / 2)
@@ -336,8 +318,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
         fetch('roomData.php')
             .then(response => response.json())
             .then(data => {
-                const boysData = data.boys;
-                const girlsData = data.girls;
+                const boyData = data.boy;
+                const girlData = data.girl;
                 const categories = ['Chambres Vides', '1 Etudiant', '2 Etudiants', '3 Etudiants', 'Chambre pleine'];
 
                 const createPieChart = (containerId, data) => {
@@ -386,8 +368,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
 
                 };
 
-                createPieChart('boyschart', Object.values(boysData));
-                createPieChart('girlschart', Object.values(girlsData));
+                createPieChart('boychart', Object.values(boyData));
+                createPieChart('girlchart', Object.values(girlData));
             })
             .catch(error => console.error('Error fetching data:', error));
     </script>

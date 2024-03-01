@@ -1,6 +1,6 @@
 <?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' || $_SESSION['role'] == 'administration' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,12 +106,19 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="internat_changements.php" class="nav_link ">
                         <i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>
                     </a>
+                    <?php if ($_SESSION['role'] === 'internat') : ?>
+                        <a href="internat_decharge_historique.php" class="nav_link">
+                            <i class="fa-solid fa-person-walking-arrow-right"></i><span class="nav_name">Historique Décharge</span>
+                        </a>
+                    <?php endif; ?>
                     <a href="dashboard.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
                     </a>
-                    <a href="roomList.php" class="nav_link">
-                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
-                    </a>
+                    <?php if ($_SESSION['role'] === 'administration') : ?>
+                        <a href="roomList.php" class="nav_link ">
+                            <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
+                        </a>
+                    <?php endif; ?>
                     <?php
 
                     if (isset($_SESSION['role'])) {
@@ -144,11 +151,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                         echo '</a>';
                     }
                     if ($_SESSION['role'] === 'internat') {
-                        echo '<a href="internat_demandes.php" class="nav_link">';
-                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
-                        echo '</a>';
                         echo '<a href="internat_demandes_valide.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
+                        echo '<i class="fa-solid fa-bed"></i> <span class="nav_name">Demande Validées</span>';
+                        echo '</a>';
+                        echo '<a href="internat_demandes_casa.php" class="nav_link">';
+                        echo '<i class="fa-regular fa-circle-pause"></i> <span class="nav_name">Demandes Casablanca</span>';
                         echo '</a>';
                         echo '<a href="internat_demandes_refuse.php" class="nav_link">';
                         echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
@@ -230,7 +237,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                 </div>
             </div>
         </form>
-        <div class="building-mapBoys" id="floor1">
+        <div class="building-mapboy" id="floor1">
             <!-- Row 1 -->
             <div class="room" id="room1" data-room-id="1" onclick="showPopup('room1')">1</div>
             <div class="room" id="room2" data-room-id="2" onclick="showPopup('room2')">2</div>
@@ -255,7 +262,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             <div class="room" id="room13" data-room-id="13" onclick="showPopup('room13')">13</div>
             <div class="room" id="room12" data-room-id="12" onclick="showPopup('room12')">12</div>
         </div>
-        <div class="building-mapBoys" id="floor2" style="display: none;">
+        <div class="building-mapboy" id="floor2" style="display: none;">
             <div class="room" id="room23" data-room-id="23" onclick="showPopup('room23')">23</div>
             <div class="room" id="room24" data-room-id="24" onclick="showPopup('room24')">24</div>
             <div class="room" id="room25" data-room-id="25" onclick="showPopup('room25')">25</div>
@@ -280,7 +287,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             <div class="room" id="room44" data-room-id="44" onclick="showPopup('room44')">44</div>
         </div>
 
-        <div class="building-mapBoys" id="floor3" style="display: none;">
+        <div class="building-mapboy" id="floor3" style="display: none;">
             <div class="room" id="room45" data-room-id="45" onclick="showPopup('room45')">45</div>
             <div class="room" id="room46" data-room-id="46" onclick="showPopup('room46')">46</div>
             <div class="room" id="room47" data-room-id="47" onclick="showPopup('room47')">47</div>
@@ -304,7 +311,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             <div class="room" id="room65" data-room-id="65" onclick="showPopup('room65')">65</div>
             <div class="room" id="room66" data-room-id="66" onclick="showPopup('room66')">66</div>
         </div>
-        <div class="building-mapBoys" id="floor4" style="display: none;">
+        <div class="building-mapboy" id="floor4" style="display: none;">
             <div class="room" id="room67" data-room-id="67" onclick="showPopup('room67')">67</div>
             <div class="room" id="room68" data-room-id="68" onclick="showPopup('room68')">68</div>
             <div class="room" id="room69" data-room-id="69" onclick="showPopup('room69')">69</div>
@@ -328,7 +335,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             <div class="room" id="room87" data-room-id="87" onclick="showPopup('room87')">87</div>
             <div class="room" id="room88" data-room-id="88" onclick="showPopup('room88')">88</div>
         </div>
-        <div class="building-mapBoys" id="floor5" style="display: none;">
+        <div class="building-mapboy" id="floor5" style="display: none;">
             <div class="room" id="room89" data-room-id="89" onclick="showPopup('room89')">89</div>
             <div class="room" id="room90" data-room-id="90" onclick="showPopup('room90')">90</div>
             <div class="room" id="room91" data-room-id="91" onclick="showPopup('room91')">91</div>
@@ -352,7 +359,37 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             <div class="room" id="room109" data-room-id="109" onclick="showPopup('room109')">109</div>
             <div class="room" id="room110" data-room-id="110" onclick="showPopup('room110')">110</div>
         </div>
+        <div id="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: green;"></div>
+                <div class="legend-label">Chambres vides</div>
+            </div>
 
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #66ccff;"></div>
+                <div class="legend-label">Chambres avec 1 étudiant(e)</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #d4ce24;"></div>
+                <div class="legend-label">Chambres avec 2 étudiant(e)s</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: orange;"></div>
+                <div class="legend-label">Chambres avec 3 étudiant(e)s</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: red;"></div>
+                <div class="legend-label">Chambres pleines</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-image: url(../images/stock.png); background-position: center"></div>
+                <div class="legend-label">Stock</div>
+            </div>
+        </div>
 
     </div>
 
@@ -377,7 +414,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         // generateRooms('floor4', 67, 88);
         // generateRooms('floor5', 89, 110);
 
-        let currentBuilding = 'boys'; // Default to Boys' Building
+        let currentBuilding = 'boy'; // Default to boy' Building
 
 
         function changeFloor(floorNumber) {
@@ -387,6 +424,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             document.getElementById("floor" + floorNumber).style.display = "grid";
 
             setRoomColors(floorNumber);
+            var currentFloor = floorNumber;
         }
 
         document.addEventListener('DOMContentLoaded', function() {

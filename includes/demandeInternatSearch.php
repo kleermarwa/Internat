@@ -2,7 +2,7 @@
 include 'db_connect.php';
 include '../includes/count.php';
 
-$sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
+$sql = "SELECT internat.*, users.*
         FROM internat
         JOIN users ON internat.student_id = users.id
         WHERE internat.ville != 'Casablanca'
@@ -22,16 +22,15 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $output = "<div class='RoomList'>";
     $output .= "<table id='data-table'>";
-    $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Sexe</th><th>Date de création</th><th>Numéro de chambre</th><th colspan=2>Action</th></tr></thead>";
+    $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Sexe</th><th>Ville</th><th>Date de création</th><th colspan=2>Action</th></tr></thead>";
     $output .= "<tbody>";
 
     while ($row = $result->fetch_assoc()) {
-        $numStudentsInRoom = getNumberOfStudentsInRoom($conn, $row['room_alias'], $row['genre']);
-        $numRequestsInRoom = getNumberOfRequestsInRoom($conn, $row['room_alias'], $row['genre']);
         $output .= "<tr>";
         $output .= "<td>" . $row['id_demande'] . "</td>";
         $output .= "<td>" . $row['name'] . "</td>";
         $output .= "<td>" . ($row['genre'] == 'boy' ? 'Garçon' : 'Fille') . "</td>";
+        $output .= "<td>" . $row['ville'] . "</td>";
 
         $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
         $output .= "<td style='border-right: none;'><a class='validate' href='internat_demandes_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Valider</a></td>";

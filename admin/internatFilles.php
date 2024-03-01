@@ -1,6 +1,6 @@
 <?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' || $_SESSION['role'] == 'administration' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,12 +106,19 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="internat_changements.php" class="nav_link ">
                         <i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>
                     </a>
+                    <?php if ($_SESSION['role'] === 'internat') : ?>
+                        <a href="internat_decharge_historique.php" class="nav_link">
+                            <i class="fa-solid fa-person-walking-arrow-right"></i><span class="nav_name">Historique Décharge</span>
+                        </a>
+                    <?php endif; ?>
                     <a href="dashboard.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
                     </a>
-                    <a href="roomList.php" class="nav_link">
-                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
-                    </a>
+                    <?php if ($_SESSION['role'] === 'administration') : ?>
+                        <a href="roomList.php" class="nav_link ">
+                            <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
+                        </a>
+                    <?php endif; ?>
                     <?php
 
                     if (isset($_SESSION['role'])) {
@@ -144,11 +151,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                         echo '</a>';
                     }
                     if ($_SESSION['role'] === 'internat') {
-                        echo '<a href="internat_demandes.php" class="nav_link">';
-                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
-                        echo '</a>';
                         echo '<a href="internat_demandes_valide.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
+                        echo '<i class="fa-solid fa-bed"></i> <span class="nav_name">Demande Validées</span>';
+                        echo '</a>';
+                        echo '<a href="internat_demandes_casa.php" class="nav_link">';
+                        echo '<i class="fa-regular fa-circle-pause"></i> <span class="nav_name">Demandes Casablanca</span>';
                         echo '</a>';
                         echo '<a href="internat_demandes_refuse.php" class="nav_link">';
                         echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
@@ -376,11 +383,43 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             <div class="room" id="room428" data-room-id="428" onclick="showPopup('room428')">428</div>
             <div class="room" id="room429" data-room-id="429" onclick="showPopup('room429')">429</div>
         </div>
+
+        <div id="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: green;"></div>
+                <div class="legend-label">Chambres vides</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #66ccff;"></div>
+                <div class="legend-label">Chambres avec 1 étudiant(e)</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #d4ce24;"></div>
+                <div class="legend-label">Chambres avec 2 étudiant(e)s</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: orange;"></div>
+                <div class="legend-label">Chambres avec 3 étudiant(e)s</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: red;"></div>
+                <div class="legend-label">Chambres pleines</div>
+            </div>
+
+            <div class="legend-item">
+                <div class="legend-color" style="background-image: url(../images/stock.png); background-position: center"></div>
+                <div class="legend-label">Stock</div>
+            </div>
+        </div>
     </div>
 
     <!-- Update the existing script tag -->
     <script>
-        let currentBuilding = 'girls'; // Default to Boys' Building
+        let currentBuilding = 'girl'; // Default to boy' Building
         function changeFloor(floorNumber) {
             // Hide all floors
             for (var i = 1; i <= 4; i++) {
@@ -392,6 +431,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
 
             // Fetch and set the color for each room on the selected floor
             setRoomColors(floorNumber);
+            var currentFloor = floorNumber;
         }
 
         // Call setRoomColors when the page loads

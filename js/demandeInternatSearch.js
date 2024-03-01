@@ -1,15 +1,15 @@
-function loadExterneResults() {
-  $.ajax({
-    type: "GET",
-    url: "../includes/demandeInternatExterne.php",
-    success: function (response) {
-      $("#searchResults").html(response);
-    },
-    error: function (xhr, status, error) {
-      console.error("AJAX request failed: " + error);
-    },
-  });
-}
+// function loadExterneResults() {
+//   $.ajax({
+//     type: "GET",
+//     url: "../includes/demandeInternatExterne.php",
+//     success: function (response) {
+//       $("#searchResults").html(response);
+//     },
+//     error: function (xhr, status, error) {
+//       console.error("AJAX request failed: " + error);
+//     },
+//   });
+// }
 
 function loadCasaResults() {
   $.ajax({
@@ -25,50 +25,50 @@ function loadCasaResults() {
 }
 
 $(document).ready(function () {
-  loadExterneResults();
+  // loadExterneResults();
   loadCasaResults();
 });
 
-function searchExterne() {
-  var input = document.getElementById("searchExterne").value;
-  if (input.trim() === "") {
-    loadExterneResults();
-  } else {
-    $.ajax({
-      type: "GET",
-      url: "../includes/demandeInternatSearch.php",
-      data: {
-        input: input,
-      },
-      success: function (response) {
-        $("#searchResults").html(response);
-      },
-      error: function (xhr, status, error) {
-        console.error("AJAX request failed: " + error);
-      },
-    });
-  }
-}
-function searchExterneRoom() {
-  var inputRoom = document.getElementById("searchExterneRoom").value;
-  if (inputRoom.trim() === "") {
-    loadExterneResults();
-  } else {
-    $.ajax({
-      type: "GET",
-      url: "../includes/demandeInternatSearch.php",
-      data: {
-        inputRoom: inputRoom,
-      },
-      success: function (response) {
-        $("#searchResults").html(response);
-      },
-      error: function (xhr, status, error) {
-        console.error("AJAX request failed: " + error);
-      },
-    });
-  }
-}
+// function searchExterne() {
+//   var input = document.getElementById("searchExterne").value;
+//   if (input.trim() === "") {
+//     loadExterneResults();
+//   } else {
+//     $.ajax({
+//       type: "GET",
+//       url: "../includes/demandeInternatSearch.php",
+//       data: {
+//         input: input,
+//       },
+//       success: function (response) {
+//         $("#searchResults").html(response);
+//       },
+//       error: function (xhr, status, error) {
+//         console.error("AJAX request failed: " + error);
+//       },
+//     });
+//   }
+// }
+// function searchExterneRoom() {
+//   var inputRoom = document.getElementById("searchExterneRoom").value;
+//   if (inputRoom.trim() === "") {
+//     loadExterneResults();
+//   } else {
+//     $.ajax({
+//       type: "GET",
+//       url: "../includes/demandeInternatSearch.php",
+//       data: {
+//         inputRoom: inputRoom,
+//       },
+//       success: function (response) {
+//         $("#searchResults").html(response);
+//       },
+//       error: function (xhr, status, error) {
+//         console.error("AJAX request failed: " + error);
+//       },
+//     });
+//   }
+// }
 
 function searchCasa() {
   var input = document.getElementById("searchCasa").value;

@@ -148,11 +148,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         echo '</a>';
                     }
                     if ($_SESSION['role'] === 'internat') {
-                        echo '<a href="internat_demandes.php" class="nav_link">';
-                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
+                        echo '<a href="internat_demandes_casa.php" class="nav_link">';
+                        echo '<i class="fa fa-bed"></i> <span class="nav_name">Demandes Casablanca</span>';
                         echo '</a>';
                         echo '<a href="internat_demandes_valide.php" class="nav_link">';
-                        echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
+                        echo '<i class="fa-regular fa-circle-pause"></i> <span class="nav_name">Demande Validées</span>';
                         echo '</a>';
                         echo '<a href="internat_demandes_refuse.php" class="nav_link">';
                         echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
@@ -165,8 +165,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     </div>
 
     <div class="building">
-        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
-        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
+        <button class="boy" onclick="changeBuilding('boy')">Internat Garçons</button>
+        <button class="girl" onclick="changeBuilding('girl')">Internat Filles</button>
     </div>
     <form id="app-cover">
         <div id="select-box">
@@ -245,7 +245,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     </div>
     <script>
         // Room data for each floor
-        const boysBuilding = {
+        const boyBuilding = {
             1: Array.from({
                 length: 22
             }, (_, i) => ({
@@ -277,7 +277,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 type: 'room'
             })),
         };
-        const girlsBuilding = {
+        const girlBuilding = {
             1: Array.from({
                 length: 22
             }, (_, i) => ({
@@ -310,7 +310,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             })),
         };
 
-        let currentBuilding = 'boys'; // Default to Boys' Building
+        let currentBuilding = 'boy'; // Default to boy' Building
         let currentFloor = 1; // Default to Ground Floor
 
         // Room dimensions and layout
@@ -336,11 +336,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
             .attr("width", totalWidth)
             .attr("height", totalHeight);
 
-        const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+        const selectedBuilding = currentBuilding === 'boy' ? boyBuilding : girlBuilding;
 
         // Function to update room layout based on the selected floor
         function updateRoomLayout() {
-            const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+            const selectedBuilding = currentBuilding === 'boy' ? boyBuilding : girlBuilding;
 
             // Clear existing room groups
             svg.selectAll("g").remove();
@@ -363,13 +363,13 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor)) // Initial color assignment
+                .style("fill", d => getRoomColor(d.id, boyBuilding, currentFloor)) // Initial color assignment
                 .on("click", showPopup);
 
             // Set up a timer to update the color every 2 seconds
             setInterval(function() {
                 roomGroups.select('.room')
-                    .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor));
+                    .style("fill", d => getRoomColor(d.id, boyBuilding, currentFloor));
             }, 3000);
 
 

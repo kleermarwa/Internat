@@ -6,7 +6,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $cin = mysqli_real_escape_string($conn, $_POST['cin']);
     $materiel = mysqli_real_escape_string($conn, $_POST['materiel']);
     $montant = mysqli_real_escape_string($conn, $_POST['montant']);
-    $commentaire = mysqli_real_escape_string($conn, $_POST['commentaire']);
+    if(isset($_POST['commentaire'])){
+        $commentaire = mysqli_real_escape_string($conn, $_POST['commentaire']);
+    }
+    else{
+        $commentaire = "";
+    }
     $type = mysqli_real_escape_string($conn, $_POST['type']);
 
     $type == 'Incident' ? $report = 'Non Payé' : $report = 'Non Retourné';

@@ -2,7 +2,7 @@
 include 'db_connect.php';
 include 'count.php';
 
-$sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
+$sql = "SELECT internat.*, users.*
         FROM internat
         JOIN users ON internat.student_id = users.id
         WHERE users.ville != 'Casablanca'
@@ -17,8 +17,7 @@ if ($result->num_rows > 0) {
     $output .= "<tbody>";
 
     while ($row = $result->fetch_assoc()) {
-        $numStudentsInRoom = getNumberOfStudentsInRoom($conn, $row['room_alias'], $row['genre']);
-        $numRequestsInRoom = getNumberOfRequestsInRoom($conn, $row['room_alias'], $row['genre']);
+
         $output .= "<tr>";
         $output .= "<td>" . $row['id_demande'] . "</td>";
         $output .= "<td>" . $row['name'] . "</td>";

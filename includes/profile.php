@@ -100,14 +100,11 @@ include 'user_info.php';
                     echo '<a href="../includes/profile.php" class="nav_link active">';
                     echo '<i class="fas fa-home"></i> <span class="nav_name">Home</span>';
                     echo '</a>';
-                    echo '<a href="../students/index.php" class="nav_link">';
-                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Demander chambre</span>';
+                    echo '<a href="../students/internat.php" class="nav_link">';
+                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Boîte de réception </span>';
                     echo '</a>';
                     echo '<a href="../students/decharge.php" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>';
-                    echo '</a>';
-                    echo '<a href="../students/internat.php" class="nav_link">';
-                    echo '<i class="fas fa-envelope"></i> <span class="nav_name">Boîte de réception </span>';
                     echo '</a>';
                     echo '</div>';
                 } else if ($_SESSION['status'] == 'admin') {

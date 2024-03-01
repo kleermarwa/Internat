@@ -110,7 +110,7 @@ $_SESSION['student_id'] = $user_id;
                         <i class="fa fa-copy" style="width: 15px;"></i> <span class="nav_name">Demander décharge</span>
                     </a>
                     <a href="internat.php" class="nav_link">
-                        <i class="fas fa-envelope" style="width: 15px;"></i> <span class="nav_name">Boîte de réception </span>
+                        <i class="fas fa-hotel" style="width: 15px;"></i> <span class="nav_name">Boîte de réception </span>
                     </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
@@ -200,7 +200,7 @@ $_SESSION['student_id'] = $user_id;
         </div>
     </div>
     <script>
-        const boysBuilding = {
+        const boyBuilding = {
             1: Array.from({
                 length: 22
             }, (_, i) => ({
@@ -232,7 +232,7 @@ $_SESSION['student_id'] = $user_id;
                 type: 'room'
             })),
         };
-        const girlsBuilding = {
+        const girlBuilding = {
             1: Array.from({
                 length: 22
             }, (_, i) => ({
@@ -286,10 +286,10 @@ $_SESSION['student_id'] = $user_id;
             .attr("width", totalWidth)
             .attr("height", totalHeight);
 
-        const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+        const selectedBuilding = currentBuilding === 'boy' ? boyBuilding : girlBuilding;
 
         function updateRoomLayout() {
-            const selectedBuilding = currentBuilding === 'boys' ? boysBuilding : girlsBuilding;
+            const selectedBuilding = currentBuilding === 'boy' ? boyBuilding : girlBuilding;
 
             svg.selectAll("g").remove();
 
@@ -310,7 +310,7 @@ $_SESSION['student_id'] = $user_id;
                 .attr("width", roomWidth)
                 .attr("height", roomHeight)
                 .attr("x", 100)
-                .style("fill", d => getRoomColor(d.id, boysBuilding, currentFloor))
+                .style("fill", d => getRoomColor(d.id, boyBuilding, currentFloor))
                 .on("click", showPopup);
 
             roomGroups.append("text")

@@ -5,7 +5,7 @@ $.ajax({
   dataType: "json",
   success: function (response) {
     if (response.gender == "boy") {
-      currentBuilding = "boys";
+      currentBuilding = "boy";
     }
     updateRoomLayout();
   },

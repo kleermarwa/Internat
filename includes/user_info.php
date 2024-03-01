@@ -16,19 +16,19 @@ if (!isset($_SESSION['role'])) {
 if (isset($_SESSION['user_id'])) {
     switch ($_SESSION['role']) {
         case 'student':
-            $href = '../includes/student.php';
+            $href = 'profile.php';
             break;
         case 'departement':
             $href = '../admin/departement_degats.php';
             break;
         case 'internat':
-            $href = '../admin/internat.php';
+            $href = '../admin/internatGarcons.php';
             break;
         case 'economique':
-            $href = '../admin/internat.php';
+            $href = '../admin/serviceEconomique.php';
             break;
         case 'administration':
-            $href = '../admin/internat.php';
+            $href = '../admin/internatGarcons.php';
             break;
         case 'restaurant':
             $href = '../admin/restaurant.php';
@@ -70,7 +70,7 @@ if (isset($_SESSION['user_id'])) {
             if (file_exists($image)) {
                 $user_image = $image;
             } else {
-                $user_image = 'images/default_user.png';
+                $user_image = '../images/default_user.png';
             }
         }
     } else {

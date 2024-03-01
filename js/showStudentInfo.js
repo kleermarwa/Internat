@@ -20,8 +20,23 @@ function showStudentInfo(studentId) {
                 <p>Date de naissance ${studentInfo.date_naissance}</p>
                 <p>Ville: ${studentInfo.ville}</p>
                 <p>Téléphone: ${studentInfo.tel}</p>
-                <p>Fillière: ${studentInfo.filliere}</p>
-                <p>Année: ${studentInfo.annee_scolaire}</p>`;
+                <p>Fillière: ${studentInfo.filliere} ${studentInfo.annee_scolaire}</p>`;
+            $.ajax({
+                url: `../includes/getHistory.php?studentId=${studentId}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (historyRecords) {
+                    if (historyRecords.length > 0) {
+                        // Display history records
+                        infoPopup.innerHTML += `<p>History Records:</p>`;
+                        for (const record of historyRecords) {
+                            infoPopup.innerHTML += `<p>${record.old_room} to ${record.new_room} on ${record.date}</p></div>`;
+                        }
+                    }
+                }, error: function (error) {
+                    console.log('Error fetching history:', error);
+                }
+            });
             if (studentInfo.status === 'interne') {
                 infoPopup.innerHTML += `
                 <div class='btn'>

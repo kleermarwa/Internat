@@ -14,7 +14,7 @@ function moveStudent(studentId, currentBuilding) {
             },
             success: function (response) {
                 console.log(response) ;
-                setRoomColors();
+                setRoomColors(1);
                 if (response.success) {
                     alert('L\'étudiant a déplacé avec succès');
                     document.querySelector('.info-popup').style.display = 'none';
@@ -23,6 +23,8 @@ function moveStudent(studentId, currentBuilding) {
                         alert('Numéro de chambre invalide');
                     } else if (response.error === 'La chambre est déjà pleine') {
                         alert('La chambre est déjà pleine');
+                    } else if (response.error === 'La chambre est de type stock') {
+                        alert('La chambre est de type stock');
                     } else {
                         alert('Échec du déplacement de l\'étudiant');
                     }

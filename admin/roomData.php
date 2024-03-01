@@ -3,74 +3,74 @@ include '../includes/db_connect.php';
 
 $totalRooms = 110;
 
-$queryBoys = "SELECT room_number, COUNT(*) AS count FROM users WHERE genre = 'boy' GROUP BY room_number";
-$resultBoys = mysqli_query($conn, $queryBoys);
+$queryboy = "SELECT room_number, COUNT(*) AS count FROM users WHERE genre = 'boy' GROUP BY room_number";
+$resultboy = mysqli_query($conn, $queryboy);
 
-$emptyRoomsBoys = $totalRooms;
+$emptyRoomsboy = $totalRooms;
 $roomsWithOneBoy = 0;
-$roomsWithTwoBoys = 0;
-$roomsWithThreeBoys = 0;
-$roomFullBoys = 0;
+$roomsWithTwoboy = 0;
+$roomsWithThreeboy = 0;
+$roomFullboy = 0;
 
-while ($row = mysqli_fetch_assoc($resultBoys)) {
+while ($row = mysqli_fetch_assoc($resultboy)) {
     $numberOfStudents = $row['count'];
 
     switch ($numberOfStudents) {
         case 0:
-            $emptyRoomsBoys--;
+            $emptyRoomsboy--;
             break;
         case 1:
             $roomsWithOneBoy++;
-            $emptyRoomsBoys--;
+            $emptyRoomsboy--;
             break;
         case 2:
-            $roomsWithTwoBoys++;
-            $emptyRoomsBoys--;
+            $roomsWithTwoboy++;
+            $emptyRoomsboy--;
             break;
         case 3:
-            $roomsWithThreeBoys++;
-            $emptyRoomsBoys--;
+            $roomsWithThreeboy++;
+            $emptyRoomsboy--;
             break;
         case 4:
-            $roomFullBoys++;
-            $emptyRoomsBoys--;
+            $roomFullboy++;
+            $emptyRoomsboy--;
             break;
         default:
             break;
     }
 }
 
-$queryGirls = "SELECT room_number, COUNT(*) AS count FROM users WHERE genre = 'girl' GROUP BY room_number";
-$resultGirls = mysqli_query($conn, $queryGirls);
+$querygirl = "SELECT room_number, COUNT(*) AS count FROM users WHERE genre = 'girl' GROUP BY room_number";
+$resultgirl = mysqli_query($conn, $querygirl);
 
-$emptyRoomsGirls = $totalRooms;
+$emptyRoomsgirl = $totalRooms;
 $roomsWithOneGirl = 0;
-$roomsWithTwoGirls = 0;
-$roomsWithThreeGirls = 0;
-$roomFullGirls = 0;
+$roomsWithTwogirl = 0;
+$roomsWithThreegirl = 0;
+$roomFullgirl = 0;
 
-while ($row = mysqli_fetch_assoc($resultGirls)) {
+while ($row = mysqli_fetch_assoc($resultgirl)) {
     $numberOfStudents = $row['count'];
 
     switch ($numberOfStudents) {
         case 0:
-            $emptyRoomsGirls--;
+            $emptyRoomsgirl--;
             break;
         case 1:
             $roomsWithOneGirl++;
-            $emptyRoomsGirls--;
+            $emptyRoomsgirl--;
             break;
         case 2:
-            $roomsWithTwoGirls++;
-            $emptyRoomsGirls--;
+            $roomsWithTwogirl++;
+            $emptyRoomsgirl--;
             break;
         case 3:
-            $roomsWithThreeGirls++;
-            $emptyRoomsGirls--;
+            $roomsWithThreegirl++;
+            $emptyRoomsgirl--;
             break;
         case 4:
-            $roomFullGirls++;
-            $emptyRoomsGirls--;
+            $roomFullgirl++;
+            $emptyRoomsgirl--;
             break;
         default:
             break;
@@ -78,19 +78,19 @@ while ($row = mysqli_fetch_assoc($resultGirls)) {
 }
 
 $data = array(
-    "boys" => array(
-        "emptyRooms" => $emptyRoomsBoys,
+    "boy" => array(
+        "emptyRooms" => $emptyRoomsboy,
         "roomsWithOne" => $roomsWithOneBoy,
-        "roomsWithTwo" => $roomsWithTwoBoys,
-        "roomsWithThree" => $roomsWithThreeBoys,
-        "roomFull" => $roomFullBoys,
+        "roomsWithTwo" => $roomsWithTwoboy,
+        "roomsWithThree" => $roomsWithThreeboy,
+        "roomFull" => $roomFullboy,
     ),
-    "girls" => array(
-        "emptyRooms" => $emptyRoomsGirls,
+    "girl" => array(
+        "emptyRooms" => $emptyRoomsgirl,
         "roomsWithOne" => $roomsWithOneGirl,
-        "roomsWithTwo" => $roomsWithTwoGirls,
-        "roomsWithThree" => $roomsWithThreeGirls,
-        "roomFull" => $roomFullGirls,
+        "roomsWithTwo" => $roomsWithTwogirl,
+        "roomsWithThree" => $roomsWithThreegirl,
+        "roomFull" => $roomFullgirl,
     )
 );
 

@@ -10,11 +10,11 @@ if (isset($_GET['request_id'])) {
 
     if ($conn->query($updateSql) === TRUE) {
         $_SESSION['success'] = "La demande N° " . $request_id . " de l'étudiant: " . $name . " a été validé";
-        header("Location: internat_demandes.php");
+        header("Location: internat_demandes_casa.php");
         exit();
     } else {
         $_SESSION['error'] = "La demande N° " . $request_id . " de l'étudiant: " . $name . " n'a pas été validé";
-        header("Location: internat_demandes.php?error=validation_error");
+        header("Location: internat_demandes_casa.php?error=validation_error");
         exit();
     }
 } else if (isset($_POST['id'])) {

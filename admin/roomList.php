@@ -99,6 +99,9 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         <a href="restaurant.php" class="nav_link ">
                             <i class="fa-solid fa-utensils"></i> <span class="nav_name">Gestion Tickets</span>
                         </a>
+                        <a href="annuler_ticket.php" class="nav_link">
+                            <i class="fa-regular fa-rectangle-xmark"></i></i> <span class="nav_name">Anuller Tickets</span>
+                        </a>
                         <a href="roomList.php" class="nav_link active">
                             <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
                         </a>
@@ -106,7 +109,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                 <?php else : ?>
                     <div class="nav_list">
                         <?php
-                        if ($_SESSION['role'] === 'internat') {
+                        if ($_SESSION['role'] === 'internat' || $_SESSION['role'] == 'administration') {
                             echo '<a href="internatGarcons.php" class="nav_link ">';
                             echo '<i class="fa-solid fa-mars"></i> <span class="nav_name">Internat Garçons </span>';
                             echo '</a>';
@@ -172,11 +175,11 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         }
 
                         if ($_SESSION['role'] === 'internat') {
-                            echo '<a href="internat_demandes.php" class="nav_link">';
-                            echo '<i class="fa fa-bed"></i> <span class="nav_name">Gestion demandes logement</span>';
-                            echo '</a>';
                             echo '<a href="internat_demandes_valide.php" class="nav_link">';
-                            echo '<i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demande Validées</span>';
+                            echo '<i class="fa-solid fa-bed"></i> <span class="nav_name">Demande Validées</span>';
+                            echo '</a>';
+                            echo '<a href="internat_demandes_casa.php" class="nav_link">';
+                            echo '<i class="fa-regular fa-circle-pause"></i> <span class="nav_name">Demandes Casablanca</span>';
                             echo '</a>';
                             echo '<a href="internat_demandes_refuse.php" class="nav_link">';
                             echo '<i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demande Refusées</span>';
@@ -195,12 +198,12 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
     </div>
 
     <div class="building">
-        <button class="boys" onclick="changeBuilding('boys')">Internat Garçons</button>
-        <button class="girls" onclick="changeBuilding('girls')">Internat Filles</button>
+        <button class="boy" onclick="changeBuilding('boy')">Internat Garçons</button>
+        <button class="girl" onclick="changeBuilding('girl')">Internat Filles</button>
     </div>
 
     <script>
-        let currentBuilding = 'boys';
+        let currentBuilding = 'boy';
 
         function changeBuilding(building) {
             currentBuilding = building;

@@ -6,6 +6,9 @@ $(document).ready(function () {
         $.ajax({
             type: "GET",
             url: "../admin/internat_demandes_historique.php",
+            data: {
+                action: 'load',
+            },
             success: function (response) {
                 $("#searchResults").html(response);
             },
@@ -43,9 +46,10 @@ function searchAll() {
     if (input.trim() !== "") {
         $.ajax({
             type: "GET",
-            url: "../includes/historiqueInternatSearch.php",
+            url: "../admin/internat_demandes_historique.php",
             data: {
                 input: input,
+                action: 'search',
             },
             success: function (response) {
                 $("#searchResults").html(response);

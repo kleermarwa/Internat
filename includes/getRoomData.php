@@ -3,7 +3,7 @@ include 'db_connect.php';
 
 $roomNumber = $_GET['roomNumber'];
 $building = $_GET['building'];
-if ($building == 'boys') {
+if ($building == 'boy') {
     $sql = "SELECT * FROM users WHERE room_number = $roomNumber AND status='interne' AND genre = 'boy'";
 } else {
     $sql = "SELECT * FROM users WHERE room_number = $roomNumber AND status='interne' AND genre = 'girl'";

@@ -5,7 +5,7 @@ include '../includes/db_connect.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_request'])) {
 
     $id = $_SESSION['user_id'];
-    $userQuery = "SELECT name, genre, ville FROM users WHERE id = $id";
+    $userQuery = "SELECT name, genre, ville , pays FROM users WHERE id = $id";
     $userResult = $conn->query($userQuery);
 
     if ($userResult->num_rows > 0) {
@@ -13,7 +13,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_request'])) {
         $userData = $userResult->fetch_assoc();
         $name = $userData['name'];
         $gender = $userData['genre'];
+        $pays = $userData['pays'];
         $ville = $userData['ville'];
+        if ($ville != 'Casablanca' || $ville = NULL || $ville = "" || $pays !== 'Morocco (‫المغرب‬‎)') {
+            $valide = 1;
+        }
+        else {
+            $valide = 0;
+        }
 
         $check_demand_sql = "SELECT * FROM internat WHERE student_id = ?";
         $check_demand_stmt = $conn->prepare($check_demand_sql);
@@ -34,10 +41,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_request'])) {
             exit();
         } elseif ($status_result->num_rows > 0) {
             $insert_sql = "INSERT INTO internat (student_id, name, status, genre, ville,valide) 
-                VALUES (?, ?, 'En attente', ?, ?,0)";
+                VALUES (?, ?, 'En attente', ?, ?,?)";
 
             $insert_stmt = $conn->prepare($insert_sql);
-            $insert_stmt->bind_param('isss', $id, $name, $gender, $ville);
+            $insert_stmt->bind_param('isssi', $id, $name, $gender, $ville , $valide);
             if ($insert_stmt->execute()) {
                 $_SESSION['success'] = "Demande crée avec succes!";
                 header('Location: ../students/internat.php');

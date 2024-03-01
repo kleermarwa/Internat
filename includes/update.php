@@ -31,7 +31,7 @@ if (isset($_POST['update_profile'])) {
         } elseif ($new_pass != $confirm_pass) {
             $_SESSION['error'] = 'Confirmation de nouveau mot de passe incorrecte';
         } else {
-            mysqli_query($conn, "UPDATE `users` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
+            mysqli_query($conn, "UPDATE `users` SET passxword = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
             $_SESSION['success'] = 'Mot de passe mis à jour avec succès!';
         }
     }
@@ -39,15 +39,30 @@ if (isset($_POST['update_profile'])) {
     $update_image = $_FILES['update_image']['name'];
     $update_image_size = $_FILES['update_image']['size'];
     $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
-    $update_image_folder = 'images/' . $update_image;
+    $update_image_folder = '../images/' . $update_image;
 
     if (!empty($update_image)) {
         if ($update_image_size > 2000000) {
             $_SESSION['error'] = 'La taille de l\'image est trop grande';
         } else {
-            $image_update_query = mysqli_query($conn, "UPDATE `users` SET image = '../images/$update_image' WHERE id = '$user_id'") or die('query failed');
-            $_SESSION['success'] = 'Image mise à jour avec succès!';
+            // Check if the file is an image before updating the database
+            $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif'];
+            $file_extension = strtolower(pathinfo($update_image, PATHINFO_EXTENSION));
+
+            if (in_array($file_extension, $allowed_extensions)) {
+                move_uploaded_file($update_image_tmp_name, $update_image_folder);
+
+                // Use prepared statement to prevent SQL injection
+                $stmt = mysqli_prepare($conn, "UPDATE `users` SET image = ? WHERE id = ?");
+                mysqli_stmt_bind_param($stmt, "si", $update_image_folder, $user_id);
+                mysqli_stmt_execute($stmt);
+
+                $_SESSION['success'] = 'Image mise à jour avec succès!';
+            } else {
+                $_SESSION['error'] = 'Le fichier n\'est pas une image valide';
+            }
         }
     }
+    // Redirect regardless of success or failure
     header("Location: updateProfile.php");
 }

@@ -6,7 +6,7 @@ include 'db_connect.php';
 
 $user_id = $_SESSION['user_id'];
 
-$sql = "SELECT internat.*, users.*, internat.room_number AS room_alias
+$sql = "SELECT internat.*, users.*
         FROM internat
         JOIN users ON internat.student_id = users.id
         WHERE internat.student_id = '$user_id'";
@@ -24,9 +24,10 @@ $nameArray = explode(' ', $data[0]['name']);
 $firstName = $nameArray[0];
 $datetime = $data[0]['updated_at'];
 $genre = $data[0]['genre'];
+$filliere = $data[0]['filliere'];
+$annee_scolaire = $data[0]['annee_scolaire'];
 $name = $data[0]['name'];
 $email = $data[0]['email'];
-$room = $data[0]['room_alias'];
 $id = $data[0]['id_demande'];
 $designation = ($genre == 'boy') ? 'Etudiant :' : 'Etudiante :';
 $cher = ($genre == 'boy') ? 'Cher ' : 'Chère ';
@@ -88,15 +89,11 @@ $html = <<<EOD
 <h2 style="text-align: center;font-style: italic;"> ATTESTATION D'APPROBATION </h2>
 <div>
 <p style="margin-left: 10rem;">$designation $name<p>
+<p>Fillère : $filliere $annee_scolaire</span> </p>
 <p>Email : <span style="color:blue"> $email </span> </p>
 <p>N° Demande :  $id </p> <br><br>
-<p>               $cher $firstName,</p>
 <p>RE : APPROBATION DE LA DEMANDE DE CHAMBRE</p>
-<p>Les détails de votre affectation de chambre sont les suivants :</p>
-<ul>
-  <li>Numéro de chambre : $room</li>
-  <li>Date d'arrivée : [Date d'arrivée]</li>
-</ul>
+<p>               $cher $firstName,</p>
 <p>Veuillez vous assurer de respecter la date d'arrivée fournie. Tout manquement pourrait entraîner des ajustements de votre affectation de chambre.</p>
 <p>Pour finaliser la procédure d'affectation de chambre, veuillez vous présenter à l'école avec cet attestation pour valider votre hébergement et récupérer les clés. Sans cette validation, votre demande pourrait être annulée.</p>
 

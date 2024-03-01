@@ -1,6 +1,6 @@
 <?php
 include '../includes/user_info.php';
-$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  null :  header("Location:" . $_SESSION['defaultPage']);
+$_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +42,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
     <header id="header" class="header fixed-top">
         <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
         <div class="header_txt">
-            <h5>Historique de décharge - Administration </h5>
+            <h5>Historique de décharge - Service des affaires d'internat</h5>
         </div>
         <div class="action">
             <div class="profile" onmouseover="menuToggle(true);" onmouseout="menuToggle(false);">
@@ -102,35 +102,44 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' ?  n
                     <a href="internatGarcons.php" class="nav_link ">
                         <i class="fa-solid fa-mars"></i> <span class="nav_name">Internat Garçons </span>
                     </a>
-                    <a href="internatFilles.php" class="nav_link">
+                    <a href="internatFilles.php" class="nav_link ">
                         <i class="fa-solid fa-venus"></i> <span class="nav_name">Internat Filles </span>
                     </a>
-                    <a href="internat_changements.php" class="nav_link ">
+                    <a href="internat_changements.php" class="nav_link">
                         <i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>
+                    </a>
+                    <a href="internat_decharge_historique.php" class="nav_link activek">
+                        <i class="fa-solid fa-person-walking-arrow-right"></i><span class="nav_name">Historique Décharge</span>
                     </a>
                     <a href="dashboard.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
                     </a>
-                    <a href="roomList.php" class="nav_link">
-                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
+                    <a href="internat_decharge.php" class="nav_link">
+                        <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
-                    k
+                    <a href="internat_demandes_valide.php" class="nav_link">
+                        <i class="fa-solid fa-bed"></i> <span class="nav_name">Demandes Internat Validé</span>
+                    </a>
+                    <a href="internat_demandes_casa.php" class="nav_link">
+                        <i class="fa-regular fa-circle-pause"></i> <span class="nav_name">Demandes Internat</span>
+                    </a>
+                    <a href="internat_demandes_refuse.php" class="nav_link">
+                        <i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demandes Internat Refusé </span>
+                    </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-top:6rem">Demandes de décharge validées</h2>
+    <h2 style="text-align: center; margin-top:6rem">Liste des étudiants déchargés</h2>
     <div class="dechargeSearch">
         <div class="box">
             <i class="fas fa-search"></i>
-            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou Numéro de requete)" onkeyup="search()">
+            <input type="text" id="searchBox" name="searchBox" placeholder="Rechercher une demande (Par Nom ou Numéro de requete)" onkeyup="searchHis()">
         </div>
     </div>
-
     <hr>
-
-    <div id="searchResults">
+    <div id="searchResultsHis">
     </div>
 </body>
 

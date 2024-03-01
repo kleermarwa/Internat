@@ -36,15 +36,18 @@ body {
   /******************************************************************************* Navbar CSS *******************************************************************************/
   /**************************************************************************************************************************************************************************/
 }
+
 #header .fa-bars {
   font-size: 3rem;
   z-index: 10000;
   cursor: pointer;
 }
+
 #header .left .search-container {
   display: inline;
   position: relative;
 }
+
 #header .left .search-container #search {
   color: #000;
   text-transform: capitalize;
@@ -59,14 +62,17 @@ body {
   outline: none;
   border-radius: 5rem;
 }
+
 #header .left .search-container #search:hover {
   width: 25rem;
   height: 3.5rem;
 }
+
 #header .left .search-container #search:focus {
   width: 25rem;
   height: 3.5rem;
 }
+
 #header .left .search-container .fa-search {
   position: absolute;
   top: -0.7rem;
@@ -75,13 +81,16 @@ body {
   cursor: pointer;
   z-index: 1;
 }
+
 #header .left .search-container .fa-search:hover {
   color: black;
 }
-#header .left .search-container .fa-search:hover ~ #search {
+
+#header .left .search-container .fa-search:hover~#search {
   width: 25rem;
   height: 3.5rem;
 }
+
 #header .left #search-results {
   position: absolute;
   top: 100%;
@@ -94,6 +103,7 @@ body {
   display: none;
   border-radius: 2rem;
 }
+
 #header .left #search-results .search-result {
   display: flex;
   align-items: center;
@@ -104,30 +114,36 @@ body {
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
+
 #header .left #search-results .search-result:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
+
 #header .left #search-results .search-result img {
   width: 7rem;
   height: 7rem;
   margin-right: 1rem;
   border-radius: 0.5rem;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
   transition: all 0.3s ease-in-out;
 }
+
 #header .left #search-results .search-result:hover img {
   transform: scale(1.1);
 }
+
 #header .left #search-results .search-result span {
   font-size: 16px;
 }
+
 #header .left #search-results .search-result p {
   font-size: 16px;
   display: flex;
   margin: auto;
 }
+
 #header .navbar {
   position: fixed;
   top: 0;
@@ -140,6 +156,7 @@ body {
   color: #fff;
   transition: all 0.3s ease-in-out;
 }
+
 #header .navbar ul {
   height: 100%;
   width: 35rem;
@@ -151,6 +168,7 @@ body {
   list-style: none;
   color: #fff;
 }
+
 #header .navbar ul .rahma {
   height: 4rem;
   width: 25rem;
@@ -160,15 +178,18 @@ body {
   text-align: center;
   font-size: 2rem;
 }
+
 #header .navbar ul .rahma img {
   width: 5rem;
   height: 5rem;
   border-radius: 25%;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
+
 #header .navbar ul li {
   margin: 0.5rem 0;
 }
+
 #header .navbar ul li a {
   display: block;
   height: 4rem;
@@ -182,16 +203,19 @@ body {
   text-decoration: none;
   position: relative;
 }
+
 #header .navbar ul li a:hover {
   text-decoration: none;
   background: rgb(204, 27, 19);
   letter-spacing: 0.3rem;
   color: #fff;
 }
+
 #header .navbar ul a {
   color: #fff;
   text-decoration: none;
 }
+
 #header .navbar ul a .user-info {
   display: flex;
   flex-flow: column;
@@ -201,9 +225,11 @@ body {
   color: #fff;
   top: -4rem;
 }
+
 #header .navbar ul a .user-info:hover {
   background: rgba(0, 0, 0, 0.4);
 }
+
 #header .navbar ul a .user-info img {
   width: 15rem;
   height: 15rem;
@@ -213,16 +239,19 @@ body {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   background: #fff;
 }
+
 #header .navbar ul a .user-info .user-email {
   font-size: 2rem;
   font-weight: bold;
   color: #fff;
   margin-bottom: 0.5rem;
 }
+
 #header .navbar ul a .user-info .user-name {
   color: #fff;
   font-size: 1.7rem;
 }
+
 #header .navbar ul .logout,
 #header .navbar ul .login {
   height: 4rem;
@@ -235,9 +264,11 @@ body {
   line-height: 4rem;
   margin-bottom: 40px;
 }
+
 #header .navbar ul .logout {
   background: red;
 }
+
 #header .navbar ul .login {
   background: blue;
 }
@@ -249,35 +280,42 @@ body {
   width: 1000px;
   height: 100px;
 }
+
 #roomMap #map {
   width: 100%;
   height: 100%;
 }
+
 #roomMap .building {
   fill: none;
   stroke: #333;
   stroke-width: 2px;
 }
+
 #roomMap .room {
   fill: #b3b3b3;
   stroke: #fff;
   stroke-width: 2px;
 }
+
 #roomMap .bathroom {
   fill: #66ccff;
   stroke: #fff;
   stroke-width: 2px;
 }
+
 #roomMap .stairs {
   fill: #505050;
   stroke: #fff;
   stroke-width: 2px;
 }
+
 #roomMap .divider {
   fill: none;
   stroke: #333;
   stroke-width: 2px;
 }
+
 #roomMap .roomNumber {
   font-family: Arial, sans-serif;
   font-size: 12px;
@@ -305,30 +343,36 @@ body {
   z-index: 2;
   /* Add this CSS to your existing styles */
 }
+
 .popup img {
   width: 100px;
   height: 100px;
   border: 2px solid #c3c6ce;
 }
+
 .popup p {
   margin-top: 1.5rem;
 }
+
 .popup #popupImages {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
+
 .popup .image-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
   /* Adjust as needed */
 }
+
 .popup .image-container {
   width: 23%;
   /* Adjust as needed to leave some space between images */
   box-sizing: border-box;
 }
+
 .popup .image-container img {
   width: 100%;
   height: 50%;
@@ -337,6 +381,7 @@ body {
   border-radius: 8px;
   /* Optional: Add border-radius for rounded corners */
 }
+
 .popup .student-container {
   border-radius: 20px;
   background: #f5f5f5;
@@ -350,14 +395,17 @@ body {
   overflow: visible;
   text-align: center;
 }
+
 .popup .student-container:hover {
   border-color: #008bf8;
   box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
 }
+
 .popup .student-container:hover .student-container-button {
   transform: translate(-50%, 50%);
   opacity: 1;
 }
+
 .popup .student-container-button {
   transform: translate(-50%, 125%);
   width: 60%;
@@ -373,22 +421,27 @@ body {
   opacity: 0;
   transition: 0.3s ease-out;
 }
+
 .popup .student-list-item {
   display: grid;
   padding: 10px;
   cursor: pointer;
 }
+
 .popup .student-list-item:hover {
   scale: 1.1;
 }
+
 .popup .edit-room-button {
   margin-top: 2rem;
 }
+
 .popup #studentList {
   display: flex;
   max-width: -moz-min-content;
   max-width: min-content;
 }
+
 .popup .edit-room-container {
   display: flex;
   justify-content: center;
@@ -398,6 +451,7 @@ body {
   margin: auto;
   padding-top: 10px;
 }
+
 .popup .edit-room-container .edit-room-button {
   position: relative;
   transition: all 0.3s ease-in-out;
@@ -417,19 +471,24 @@ body {
   overflow: hidden;
   font-size: 15px;
 }
+
 .popup .edit-room-container .edit-room-button .icon {
   transition: all 0.3s ease-in-out;
 }
+
 .popup .edit-room-container .edit-room-button:hover {
   transform: scale(1.05);
   border-color: rgba(255, 255, 255, 0.6);
 }
+
 .popup .edit-room-container .edit-room-button:hover .icon {
   transform: translate(4px);
 }
+
 .popup .edit-room-container .edit-room-button:hover::before {
   animation: shine 1.5s ease-out infinite;
 }
+
 .popup .edit-room-container .edit-room-button::before {
   content: "";
   position: absolute;
@@ -440,13 +499,16 @@ body {
   left: -100px;
   opacity: 0.6;
 }
+
 @keyframes shine {
   0% {
     left: -100px;
   }
+
   60% {
     left: 100%;
   }
+
   to {
     left: 100%;
   }
@@ -467,20 +529,24 @@ body {
   border: 1px solid #ccc;
   z-index: 999;
 }
+
 .info-popup img {
   height: 100px;
   margin: auto;
   display: grid;
 }
+
 .info-popup .name {
   text-align: center;
 }
+
 .info-popup .card-inner {
   display: contents;
   font-size: 13px;
   font-weight: 500;
   text-align: center;
 }
+
 .info-popup button {
   font-size: 15px;
   max-width: -moz-min-content;
@@ -491,6 +557,7 @@ body {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 }
+
 .info-popup button:hover {
   scale: 1.1;
 }
@@ -502,6 +569,7 @@ body {
   position: absolute;
   top: 17rem;
 }
+
 .building button {
   transition: all 0.3s ease-in-out;
   font-family: "Dosis", sans-serif;
@@ -514,18 +582,24 @@ body {
   font-size: 16px;
   color: white;
 }
+
 .building button:hover {
   transform: translateY(3px);
   box-shadow: none;
 }
+
 .building button:active {
   opacity: 0.5;
 }
-.building .boys {
+
+.building .boy {
   background-image: linear-gradient(135deg, #9492fe 0%, #0d09f8 100%);
   box-shadow: 0 20px 30px -6px rgba(39, 138, 231, 0.5);
 }
-.building .girls {
+
+.building .girl {
   background-image: linear-gradient(135deg, #fe9492 0%, #f809e4 100%);
   box-shadow: 0 20px 30px -6px rgba(255, 0, 157, 0.5);
-}/*# sourceMappingURL=sass.css.map */
+}
+
+/*# sourceMappingURL=sass.css.map */

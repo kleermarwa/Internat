@@ -18,7 +18,7 @@ echo "<h3 style='text-align: center'>Votre demande d'internat précédente:</h3>
 if ($result->num_rows > 0) {
     echo "<div class='RoomList'>";
     echo "<table id='data-table'>";
-    echo "<tr><th>Numéro de la demande</th><th>Date de soumission</th><th>Status</th></tr>";
+    echo "<tr><th>Numéro de la demande</th><th>Date de soumission</th><th>Status</th><th>Action</th></tr>";
 
     while ($row = $result->fetch_assoc()) {
         $status = $row['status'];
@@ -26,19 +26,25 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['id_demande'] . "</td>";
         echo "<td>" . $row['created_at'] . "</td>";
         echo "<td style='text-transform:capitalize'>" . $row['status'] . "</td>";
-        echo $row['status'] == 'En attente' ? "<td><a class='reject' href='annuler_demande_internat.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "'>Annuler demande</a>" : "</td>";
-        echo "</tr>";
+        echo $row['status'] == 'En attente'
+            ? "<td><a class='reject' href='annuler_demande_internat.php?request_id={$row['id_demande']}&amp;name=" . urlencode($row['name']) . "'>Annuler demande</a></td>"
+            : "<td>-</td>";
+                echo "</tr>";
     }
 
     echo "</table>";
     while ($row = $data->fetch_assoc()) {
         $ville = $row['ville'];
-        if ($ville !== 'Casablanca') {
+        $pays = $row['pays'];
+        if ($ville !== 'Casablanca' || $pays !== 'Morocco (‫المغرب‬‎)') {
             echo '<div class="discharge-container">';
             echo '<button class="discharge-button" onclick="redirect()">Télécharger Attestation';
             echo '<i class=" icon fa fa-file-pdf"></i>';
             echo '</button>';
             echo '</div>';
+        } else {
+            echo '<div class="discharge-container">';
+            echo '<h5 style="text-align: center; color:red ; font-weight:800 ">Le téléchargement de votre attestation sera prochainement accessible au cours de la phase dédiée aux étudiants résidant à Casablanca.</h5>';
         }
         echo "</div>";
     }

@@ -109,20 +109,20 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="internat_changements.php" class="nav_link">
                         <i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>
                     </a>
+                    <a href="internat_decharge_historique.php" class="nav_link">
+                        <i class="fa-solid fa-person-walking-arrow-right"></i><span class="nav_name">Historique Décharge</span>
+                    </a>
                     <a href="dashboard.php" class="nav_link">
                         <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Tableau de bord</span>
-                    </a>
-                    <a href="roomList.php" class="nav_link">
-                        <i class="fa-solid fa-list"></i> <span class="nav_name">Liste des chambres</span>
                     </a>
                     <a href="internat_decharge.php" class="nav_link">
                         <i class="fa fa-copy"></i> <span class="nav_name">Gestion décharge</span>
                     </a>
-                    <a href="internat_demandes.php" class="nav_link">
-                        <i class="fa fa-bed"></i> <span class="nav_name">Demandes Internat</span>
-                    </a>
                     <a href="internat_demandes_valide.php" class="nav_link">
-                        <i class="fa-solid fa-file-circle-check"></i> <span class="nav_name">Demandes Internat Validé</span>
+                        <i class="fa-solid fa-bed"></i> <span class="nav_name">Demandes Internat Validé</span>
+                    </a>
+                    <a href="internat_demandes_casa.php" class="nav_link">
+                        <i class="fa-regular fa-circle-pause"></i> <span class="nav_name">Demandes Internat</span>
                     </a>
                     <a href="internat_demandes_refuse.php" class="nav_link active">
                         <i class="fa-solid fa-file-circle-xmark"></i> <span class="nav_name">Demandes Internat Refusé </span>
@@ -132,7 +132,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
         </nav>
     </div>
 
-    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Hors Casablanca</h2>
+    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Casablanca</h2>
     <div class="internatSearch">
         <div class="box">
             <i class="fas fa-search"></i>
