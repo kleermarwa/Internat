@@ -89,7 +89,7 @@ $user_id = $_SESSION['user_id'];
                 <?php
                 if ($_SESSION['role'] == 'student') {
                     echo '<a href="../students/internat.php" class="nav_link">';
-                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Boîte de réception </span>';
+                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Demander Internat </span>';
                     echo '</a>';
                     echo '<div class="nav_list">';
                     echo '<a href="../includes/profile.php" class="nav_link active">';

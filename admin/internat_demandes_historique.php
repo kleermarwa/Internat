@@ -25,7 +25,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $output = "<div class='RoomList'>";
     $output .= "<table id='data-table'>";
-    $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Sexe</th><th>Ville</th><th>Date de création</th><th>Action</th></tr></thead>";
+    $output .= "<thead><tr><th>Numéro de demande</th><th>Nom de l'étudiant</th><th>Sexe</th><th>Ville</th><th>Année</th><th>Date de création</th><th>Action</th></tr></thead>";
     $output .= "<tbody>";
 
     while ($row = $result->fetch_assoc()) {
@@ -33,12 +33,16 @@ if ($result->num_rows > 0) {
         $output .= "<td>" . $row['id_demande'] . "</td>";
         $output .= "<td>" . $row['name'] . "</td>";
         $output .= "<td>" . ($row['genre'] == 'boy' ? 'Garçon' : 'Fille') . "</td>";
-
         $output .= "<td>" . (($row['ville'] != NULL) ? $row['ville'] : $row['pays'])  . "</td>";
+        $output .= "<td>" . $row['annee_scolaire'] . "</td>";
         $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
         if (strpos($previous_page, 'internat_demandes_valide.php') !== false) {
 
             $output .= "<td><button class='add-student blue' data-name='" . $row['name'] . "' data-id='" . $row['id_demande'] . "' data-student-id='" . $row['id'] . "' data-genre='" . $row['genre'] . "'>Ajouter chambre</button>";
+            if ($row['annee_scolaire'] == 2) {
+                $output .= "<button style='font-size: 0.8rem; margin-top: 1rem;' class='validate' onclick='addStudent(".$row['id_demande'] . ', ' . $row['id'] . ", \"" . $row['genre'] . "\")'>Choisir chambre</button>";
+            }
+
             if ($row['ville'] == 'Casablanca') {
                 $output .= "<button style='font-size:0.8rem ; margin-top: 1rem' class='cancel-validation reject' data-id='" . $row['id_demande'] . "'>Annuler validation</button></td>";
             } else {

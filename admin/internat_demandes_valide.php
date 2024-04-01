@@ -19,6 +19,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/historiqueInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
+    <script src="../js/moveStudent.js"></script>
+    <script src="../js/color.js"></script>
     <script src="../js/notifications.js"></script>
 
 </head>

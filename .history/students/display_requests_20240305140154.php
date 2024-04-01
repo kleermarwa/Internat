@@ -288,7 +288,7 @@ if ($result->num_rows > 0) {
             echo "<h6> <span><b>Frais de logement : </b></span> $accommodationFee DH</h6>";
             echo "<h6> <span><b>Frais de restauration : </b></span> $restaurationFee DH</h6>";
             echo "<h6> <span><b>Frais de tirage : </b></span> $tirage DH</h6>";
-            echo "<h6> <span><b>Total : </b></span>" . $accommodationFee + $restaurationFee +  $tirage . "DH</h6>";
+            echo "<h6> <span><b>Total : </b></span>$accommodationFee + $tirage DH</h6>";
             if (isset($trimestre2, $paye2, $montant2)) {
                 echo "<h6> <span><b>Trimestre 2 : </b></span> $trimestre2 DH : $paye2 $montant2</h6>";
             }

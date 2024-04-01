@@ -85,6 +85,13 @@ if (isset($_POST['login'])) {
             background-color: #004b82;
             border-color: #004b82;
         }
+
+        .loginColumns {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
 
 </head>
@@ -109,7 +116,7 @@ if (isset($_POST['login'])) {
 
             <form method="post" action="">
                 <div style="margin-bottom: 15px;">
-                    <input type="text" name="email" class="form-control  " placeholder="Email" required maxlength="30" id="id_username" />
+                    <input type="text" name="email" class="form-control  " placeholder="Identifiant" required maxlength="30" id="id_username" />
                 </div>
                 <div class="password-cont" style="margin-bottom: 15px;">
                     <input type="password" name="password" class="form-control" placeholder="Mot de passe" required id="id_password" />

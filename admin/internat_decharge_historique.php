@@ -108,7 +108,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
                     <a href="internat_changements.php" class="nav_link">
                         <i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>
                     </a>
-                    <a href="internat_decharge_historique.php" class="nav_link activek">
+                    <a href="internat_decharge_historique.php" class="nav_link active">
                         <i class="fa-solid fa-person-walking-arrow-right"></i><span class="nav_name">Historique Décharge</span>
                     </a>
                     <a href="dashboard.php" class="nav_link">

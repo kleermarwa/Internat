@@ -30,7 +30,7 @@ if ($result->num_rows > 0) {
     if ($_SESSION['role'] == 'administration') {
         $output = "<div class='RoomList'>";
         $output .= "<table id='data-table'>";
-        $output .= "<thead><tr><th>Numéro de requete</th><th>Nom de l'étudiant</th><th>Status</th><th>Filière</th><th>Date de création</th><th>Validé département</th><th>Validé internat</th></tr></thead>";
+        $output .= "<thead><tr><th>Numéro de requête</th><th>Nom de l'étudiant</th><th>Status</th><th>Filière</th><th>Date de création</th><th>Validé département</th><th>Validé internat</th></tr></thead>";
         $output .= "<tbody>";
 
         while ($row = $result->fetch_assoc()) {
@@ -38,11 +38,18 @@ if ($result->num_rows > 0) {
             $output .= "<td>" . $row['id_demande'] . "</td>";
             $output .= "<td>" . $row['name'] . "</td>";
             $output .= "<td>" . $row['status'] . "</td>";
-            $output .= "<td>" . $row['filliere'] . "</td>";
+            $output .= "<td>" . $row['filliere'] . $row['annee_scolaire'] . "</td>";
             $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
-            $output .= "<td style='font-weight:800 ;color: " . ($row['valide_departement'] ? 'green' : 'red') . "'>" . ($row['valide_departement'] ? '✔<br>Oui' : '❌<br>Non ') . " <br> <a class='validateDecharge' href='../admin/decharge_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "&amp;service=1'>Valider</a></td>";
-            $output .= "<td style='font-weight:800 ;color: " . ($row['valide_internat'] ? 'green' : 'red') . "'>" . ($row['valide_internat'] ? '✔<br>Oui' : '❌<br>Non ') . " <br> <a class='validateDecharge' href='../admin/decharge_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "&amp;service=2'>Valider</a></td>";
-
+            $output .= "<td style='font-weight:800; color: " . ($row['valide_departement'] ? 'green' : 'red') . "'>" . ($row['valide_departement'] ? '✔<br>Oui' : '❌<br>Non ') . " <br>";
+            if (!$row['valide_departement']) {
+                $output .= "<a class='validateDecharge' href='../admin/decharge_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "&amp;service=1'>Valider</a>";
+            }
+            $output .= "</td>";
+            $output .= "<td style='font-weight:800; color: " . ($row['valide_internat'] ? 'green' : 'red') . "'>" . ($row['valide_internat'] ? '✔<br>Oui' : '❌<br>Non ') . " <br>";
+            if (!$row['valide_internat']) {
+                $output .= "<a class='validateDecharge' href='../admin/decharge_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "&amp;service=2'>Valider</a>";
+            }
+            $output .= "</td>";
             $output .= "</tr>";
         }
 

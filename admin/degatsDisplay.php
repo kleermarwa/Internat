@@ -15,7 +15,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $output = "<div class='RoomList'>";
     $output .= "<table id='data-table'>";
-    $output .= "<thead><tr><th>Nom de l'étudiant</th><th>Matériel</th><th>Montant degat</th><th>Type</th><th>Commentaire</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>";
+    $output .= "<thead><tr><th>Nom de l'étudiant</th><th>Matériel</th><th>Montant</th><th>Type</th><th>Commentaire</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>";
     $output .= "<tbody>";
 
     $rowIndex = 0; // Add a variable to keep track of the row index

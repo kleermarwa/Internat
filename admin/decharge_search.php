@@ -44,7 +44,7 @@ if (isset($_GET['input']) && !empty($_GET['input'])) {
                 $output .= "<td>" . $row['id_demande'] . "</td>";
                 $output .= "<td>" . $row['name'] . "</td>";
                 $output .= "<td>" . $row['status'] . "</td>";
-                $output .= "<td>" . $row['filliere'] . "</td>";
+                $output .= "<td>" . $row['filliere'] . $row['annee_scolaire']. "</td>";
                 $output .= "<td>" . $date = date('d-m-Y', strtotime($row['created_at'])) . "</td>";
                 $output .= "<td style='font-weight:800 ;color: " . ($row['valide_departement'] ? 'green' : 'red') . "'>" . ($row['valide_departement'] ? '✔<br>Oui' : '❌<br>Non ') . " <br> <a class='validateDecharge' href='../admin/decharge_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "&amp;service=1'>Valider</a></td>";
                 $output .= "<td style='font-weight:800 ;color: " . ($row['valide_internat'] ? 'green' : 'red') . "'>" . ($row['valide_internat'] ? '✔<br>Oui' : '❌<br>Non ') . " <br> <a class='validateDecharge' href='../admin/decharge_validation.php?request_id=" . $row['id_demande'] . "&amp;name=" . urlencode($row['name']) . "&amp;service=2'>Valider</a></td>";

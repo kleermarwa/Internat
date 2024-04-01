@@ -101,7 +101,7 @@ include 'user_info.php';
                     echo '<i class="fas fa-home"></i> <span class="nav_name">Home</span>';
                     echo '</a>';
                     echo '<a href="../students/internat.php" class="nav_link">';
-                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Boîte de réception </span>';
+                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Demander Internat </span>';
                     echo '</a>';
                     echo '<a href="../students/decharge.php" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>';

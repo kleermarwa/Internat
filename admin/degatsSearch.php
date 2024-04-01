@@ -18,7 +18,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     $output = "<div class='RoomList'>";
     $output .= "<table id='data-table'>";
-    $output .= "<thead><tr><th>Nom de l'étudiant</th><th>Matériel</th><th>Montant degat</th><th>Type</th><th>Commentaire</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>";
+    $output .= "<thead><tr><th>Nom de l'étudiant</th><th>Matériel</th><th>Montant</th><th>Type</th><th>Commentaire</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>";
     $output .= "<tbody>";
 
     $rowIndex = 0; // Add a variable to keep track of the row index
@@ -35,7 +35,7 @@ if ($result->num_rows > 0) {
         $output .= "<td>" . (($row['date'] === NULL || $row['date'] === '') ? '-' : date('d-m-Y', strtotime($row['date']))) . "</td>";
 
 
-        $output .= ($row['report'] === 'Non payé' || $row['report'] === 'Non retourné') ?
+        $output .= ($row['report'] === 'Non Payé' || $row['report'] === 'Non Retourné') ?
             (($row['type'] === 'Incident') ?
                 "<td><a class='blue' href='javascript:void(0)' onclick='showInputs(\"" . $row['student_cin'] . "\", " . $rowIndex . ")'>Ajouter</a><a class='validate' href='javascript:void(0)' onclick='payer(" . $rowIndex . ")'>Payer</a></td>"
                 : "<td><a class='blue' href='javascript:void(0)' onclick='showInputs(\"" . $row['student_cin'] . "\", " . $rowIndex . ")'>Ajouter</a><a class='reject' href='javascript:void(0)' onclick='retourner(" . $rowIndex . ")'>Retourner</a></td>"
@@ -151,10 +151,10 @@ if ($result->num_rows > 0) {
         if (isConfirmed) {
             $.ajax({
                 type: "POST",
-                url: "degatsReport.php", 
+                url: "degatsReport.php",
                 data: {
                     id: id,
-                    action: "retourner", 
+                    action: "retourner",
                 },
                 success: function(response) {
                     // Handle the response from the server

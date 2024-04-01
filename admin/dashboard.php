@@ -99,7 +99,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'administration' || $
                         echo '<a href="internat_changements.php" class="nav_link">';
                         echo '<i class="fa-solid fa-clock-rotate-left"></i><span class="nav_name">Historique Internat</span>';
                         echo '</a>';
-                    } elseif ($_SESSION['role'] === 'internat') {
+                    }
+                    if ($_SESSION['role'] === 'internat') {
                         echo '<a href="internat_decharge_historique.php" class="nav_link">';
                         echo '<i class="fa-solid fa-person-walking-arrow-right"></i><span class="nav_name">Historique Décharge</span>';
                         echo '</a>';

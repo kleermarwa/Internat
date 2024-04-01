@@ -110,7 +110,7 @@ $_SESSION['student_id'] = $user_id;
                         <i class="fa fa-copy" style="width: 15px;"></i> <span class="nav_name">Demander décharge</span>
                     </a>
                     <a href="internat.php" class="nav_link">
-                        <i class="fas fa-hotel" style="width: 15px;"></i> <span class="nav_name">Boîte de réception </span>
+                        <i class="fas fa-hotel" style="width: 15px;"></i> <span class="nav_name">Demander Internat </span>
                     </a>
                 </div>
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>

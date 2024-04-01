@@ -89,7 +89,7 @@ $user_id = $_SESSION['user_id'];
     <?php endif; ?>
     <h2 style="text-align: center;"> Bienvenue dans votre Espace de Demande Internat</h2>
     <h6 style="text-align: center;">Veillez remplir ce formulaire afin de finaliser la creation de votre comptes <span style="font-weight: 500; color:blue">Tous les champs sont obligatoires</span> </h6>
-    <p style="text-align: center; font-weight: 700; color:red">Il est crucial d'insérer des données correctes ekt precises. Tout manquement à cette précision pourrait compromettre la validité des résultats et entraîner des sevères conséquences lors du dépôt de la demande.</p>
+    <p style="text-align: center; font-weight: 700; color:red">Il est crucial d'insérer des données correctes est precises. Tout manquement à cette précision pourrait compromettre la validité des résultats et entraîner des sevères conséquences lors du dépôt de la demande.</p>
     <div class="update-profile">
         <form id="forma" action="first_login_update.php" method="post" enctype="multipart/form-data">
             <?php

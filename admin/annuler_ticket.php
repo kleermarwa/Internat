@@ -210,7 +210,7 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'restaurant' ?  null 
 
                             if (select == 5) {
                                 var weekStartDate = new Date(selectedDate);
-                                weekStartDate.setDate(selectedDate.getDate() + 1); // Adjust for Saturday as the first day                                weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
+                                weekStartDate.setDate(selectedDate.getDate() - 6); // Adjust for Saturday as the first day                                weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
                                 weekStartDate.setHours(0, 0, 0, 0); // Set hours to midnight for accurate comparison
 
                             } else {

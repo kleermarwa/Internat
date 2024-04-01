@@ -98,7 +98,7 @@ $_SESSION['student_id'] = $user_id;
                         <i class="fas fa-home"></i> <span class="nav_name">Home</span>
                     </a>
                     <a href="internat.php" class="nav_link">
-                        <i class="fas fa-hotel"></i> <span class="nav_name">Boîte de réception </span>
+                        <i class="fas fa-hotel"></i> <span class="nav_name">Demander Internat </span>
                     </a>
                     <a href="decharge.php" class="nav_link active">
                         <i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>

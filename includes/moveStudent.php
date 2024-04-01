@@ -3,6 +3,7 @@ require_once('db_connect.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $studentId = $_POST['studentId'];
+    $action = $_POST['action'];
     $newRoomNumber = $_POST['newRoomNumber'];
     if (isset($_POST['genre'])) {
         $genre = $conn->real_escape_string($_POST['genre']);
@@ -63,7 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param('ii', $newRoomNumber, $studentId);
-        } else {
+        } 
+        if ($action == 'move') {
             $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param('ii', $newRoomNumber, $studentId);
@@ -72,6 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $historystmt = $conn->prepare($historyquery);
             $historystmt->bind_param('iiiii', $studentId, $studentId, $studentId, $studentId, $newRoomNumber);
             $historystmt->execute();
+        } elseif ($action == 'add') {
+            $demande_id = $_POST['demande_id'];
+            $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('ii', $newRoomNumber, $studentId);
+            $deletequery = "UPDATE internat SET status = 'Accepté' WHERE id_demande = ?";
+            $deletestmt = $conn->prepare($deletequery);
+            $deletestmt->bind_param('i', $demande_id);
+            $deletestmt->execute();
         }
         if ($stmt->execute()) {
             echo json_encode(['success' => true]);
