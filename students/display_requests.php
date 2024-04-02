@@ -61,7 +61,7 @@ if ($result->num_rows > 0) {
 
             $halfMonths = 0;
             $halfRestau = 0;
-            $tirage = 100;
+            $tirage = 0;
 
             // Check conditions for each half month
             if ($days >= 1 && $days <= 15) {
@@ -148,22 +148,16 @@ if ($result->num_rows > 0) {
                 $halfRestau = 6;
             } elseif ($daysrestau >= 91 && $daysrestau <= 105) {
                 $halfRestau = 7;
-                $tirage += 100;
             } elseif ($daysrestau >= 106 && $daysrestau <= 120) {
                 $halfRestau = 8;
-                $tirage += 100;
             } elseif ($daysrestau >= 121 && $daysrestau <= 135) {
                 $halfRestau = 9;
-                $tirage += 100;
             } elseif ($daysrestau >= 136 && $daysrestau <= 151) {
                 $halfRestau = 10;
-                $tirage += 100;
             } elseif ($daysrestau >= 152 && $daysrestau <= 166) {
                 $halfRestau = 11;
-                $tirage += 100;
             } elseif ($daysrestau >= 167 && $daysrestau <= 181) {
                 $halfRestau = 12;
-                $tirage += 100;
             }
 
             $currentYear = date('Y');
@@ -185,22 +179,16 @@ if ($result->num_rows > 0) {
                     $halfRestau = 6;
                 } elseif ($daysrestau >= 92 && $daysrestau <= 106) {
                     $halfRestau = 7;
-                    $tirage += 100;
                 } elseif ($daysrestau >= 107 && $daysrestau <= 121) {
                     $halfRestau = 8;
-                    $tirage += 100;
                 } elseif ($daysrestau >= 122 && $daysrestau <= 136) {
                     $halfRestau = 9;
-                    $tirage += 100;
                 } elseif ($daysrestau >= 137 && $daysrestau <= 152) {
                     $halfRestau = 10;
-                    $tirage += 100;
                 } elseif ($daysrestau >= 153 && $daysrestau <= 167) {
                     $halfRestau = 11;
-                    $tirage += 100;
                 } elseif ($daysrestau >= 168 && $daysrestau <= 182) {
                     $halfRestau = 12;
-                    $tirage += 100;
                 }
             }
 
