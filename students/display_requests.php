@@ -1,4 +1,7 @@
 <?php
+// $creationDate = new DateTime('2024-03-01');
+$januaryFirst = new DateTime('2024-01-01');
+// $creationDate = new DateTime(date('Y') . '-06-30');
 $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'student' ?  null :  header("Location:" . $_SESSION['defaultPage']);
 
 $selectQuery = "SELECT decharge.*, users.*, users.status AS student_status, decharge.status AS decharge_status
@@ -32,74 +35,32 @@ if ($result->num_rows > 0) {
         $restauStmt->execute();
         $restauResult = $restauStmt->get_result();
 
+        $student_status = $row['student_status'];
         // Check if there are any results
         if ($restauResult->num_rows > 0) {
-            // Fetch the most recent record
             $mostRecentRecord = $restauResult->fetch_assoc();
 
-            // Access the week_end_date
             $week_end_date = $mostRecentRecord['week_end_date'];
             $mostRecentWeekEndDate = new DateTime($mostRecentRecord['week_end_date']);
-        }
-        $restauStmt->close();
-
-        // $creationDate = new DateTime('2024-03-01');
-        // $januaryFirst = new DateTime('2024-01-01');
-        // $creationDate = new DateTime(date('Y') . '-06-30');
-
-        $status = $row['decharge_status'];
-        $student_status = $row['student_status'];
-        if ($row['student_status'] == 'interne') {
-
-            $creationDate = new DateTime($row['created_at']);
-            $januaryFirst = new DateTime(date('Y') . '-01-01');
-            $diff = $creationDate->diff($januaryFirst);
-            $days = $diff->days + 1;
-
             $diffrestau = $mostRecentWeekEndDate->diff($januaryFirst);
-            $daysrestau = $diffrestau->days + 1;
 
-            $halfMonths = 0;
-            $halfRestau = 0;
-            $tirage = 0;
+            $restauStmt->close();
 
-            // Check conditions for each half month
-            if ($days >= 1 && $days <= 15) {
-                $halfMonths = 1;
-            } elseif ($days >= 16 && $days <= 31) {
-                $halfMonths = 2;
-            } elseif ($days >= 32 && $days <= 46) {
-                $halfMonths = 3;
-            } elseif ($days >= 47 && $days <= 59) {
-                $halfMonths = 4;
-            } elseif ($days >= 60 && $days <= 74) {
-                $halfMonths = 5;
-            } elseif ($days >= 77 && $days <= 90) {
-                $halfMonths = 6;
-            } elseif ($days >= 91 && $days <= 105) {
-                $halfMonths = 7;
-                $tirage += 100;
-            } elseif ($days >= 106 && $days <= 120) {
-                $halfMonths = 8;
-                $tirage += 100;
-            } elseif ($days >= 121 && $days <= 135) {
-                $halfMonths = 9;
-                $tirage += 100;
-            } elseif ($days >= 136 && $days <= 151) {
-                $halfMonths = 10;
-                $tirage += 100;
-            } elseif ($days >= 152 && $days <= 166) {
-                $halfMonths = 11;
-                $tirage += 100;
-            } elseif ($days >= 167 && $days <= 181) {
-                $halfMonths = 12;
-                $tirage += 100;
-            }
+            $status = $row['decharge_status'];
+            if ($row['student_status'] == 'interne') {
 
-            $currentYear = date('Y');
-            $isLeapYear = (date('L', strtotime("{$currentYear}-01-01")) == 1);
+                $creationDate = new DateTime($row['created_at']);
+                $januaryFirst = new DateTime(date('Y') . '-01-01');
+                $diff = $creationDate->diff($januaryFirst);
+                $days = $diff->days + 1;
 
-            if ($isLeapYear) {
+                $diffrestau = $mostRecentWeekEndDate->diff($januaryFirst);
+                $daysrestau = $diffrestau->days + 1;
+
+                $halfMonths = 0;
+                $halfRestau = 0;
+                $tirage = 0;
+
                 // Check conditions for each half month
                 if ($days >= 1 && $days <= 15) {
                     $halfMonths = 1;
@@ -107,110 +68,149 @@ if ($result->num_rows > 0) {
                     $halfMonths = 2;
                 } elseif ($days >= 32 && $days <= 46) {
                     $halfMonths = 3;
-                } elseif ($days >= 47 && $days <= 60) {
+                } elseif ($days >= 47 && $days <= 59) {
                     $halfMonths = 4;
-                } elseif ($days >= 61 && $days <= 75) {
+                } elseif ($days >= 60 && $days <= 74) {
                     $halfMonths = 5;
-                } elseif ($days >= 76 && $days <= 91) {
+                } elseif ($days >= 77 && $days <= 90) {
                     $halfMonths = 6;
-                } elseif ($days >= 92 && $days <= 106) {
+                } elseif ($days >= 91 && $days <= 105) {
                     $halfMonths = 7;
                     $tirage += 100;
-                } elseif ($days >= 107 && $days <= 121) {
+                } elseif ($days >= 106 && $days <= 120) {
                     $halfMonths = 8;
                     $tirage += 100;
-                } elseif ($days >= 122 && $days <= 136) {
+                } elseif ($days >= 121 && $days <= 135) {
                     $halfMonths = 9;
                     $tirage += 100;
-                } elseif ($days >= 137 && $days <= 152) {
+                } elseif ($days >= 136 && $days <= 151) {
                     $halfMonths = 10;
                     $tirage += 100;
-                } elseif ($days >= 153 && $days <= 167) {
+                } elseif ($days >= 152 && $days <= 166) {
                     $halfMonths = 11;
                     $tirage += 100;
-                } elseif ($days >= 168 && $days <= 182) {
+                } elseif ($days >= 167 && $days <= 181) {
                     $halfMonths = 12;
                     $tirage += 100;
                 }
-            }
 
-            if ($daysrestau >= 1 && $daysrestau <= 15) {
-                $halfRestau = 1;
-            } elseif ($daysrestau >= 16 && $daysrestau <= 31) {
-                $halfRestau = 2;
-            } elseif ($daysrestau >= 32 && $daysrestau <= 46) {
-                $halfRestau = 3;
-            } elseif ($daysrestau >= 47 && $daysrestau <= 59) {
-                $halfRestau = 4;
-            } elseif ($daysrestau >= 60 && $daysrestau <= 74) {
-                $halfRestau = 5;
-            } elseif ($daysrestau >= 77 && $daysrestau <= 90) {
-                $halfRestau = 6;
-            } elseif ($daysrestau >= 91 && $daysrestau <= 105) {
-                $halfRestau = 7;
-            } elseif ($daysrestau >= 106 && $daysrestau <= 120) {
-                $halfRestau = 8;
-            } elseif ($daysrestau >= 121 && $daysrestau <= 135) {
-                $halfRestau = 9;
-            } elseif ($daysrestau >= 136 && $daysrestau <= 151) {
-                $halfRestau = 10;
-            } elseif ($daysrestau >= 152 && $daysrestau <= 166) {
-                $halfRestau = 11;
-            } elseif ($daysrestau >= 167 && $daysrestau <= 181) {
-                $halfRestau = 12;
-            }
+                $currentYear = date('Y');
+                $isLeapYear = (date('L', strtotime("{$currentYear}-01-01")) == 1);
 
-            $currentYear = date('Y');
-            $isLeapYear = (date('L', strtotime("{$currentYear}-01-01")) == 1);
+                if ($isLeapYear) {
+                    // Check conditions for each half month
+                    if ($days >= 1 && $days <= 15) {
+                        $halfMonths = 1;
+                    } elseif ($days >= 16 && $days <= 31) {
+                        $halfMonths = 2;
+                    } elseif ($days >= 32 && $days <= 46) {
+                        $halfMonths = 3;
+                    } elseif ($days >= 47 && $days <= 60) {
+                        $halfMonths = 4;
+                    } elseif ($days >= 61 && $days <= 75) {
+                        $halfMonths = 5;
+                    } elseif ($days >= 76 && $days <= 91) {
+                        $halfMonths = 6;
+                    } elseif ($days >= 92 && $days <= 106) {
+                        $halfMonths = 7;
+                        $tirage += 100;
+                    } elseif ($days >= 107 && $days <= 121) {
+                        $halfMonths = 8;
+                        $tirage += 100;
+                    } elseif ($days >= 122 && $days <= 136) {
+                        $halfMonths = 9;
+                        $tirage += 100;
+                    } elseif ($days >= 137 && $days <= 152) {
+                        $halfMonths = 10;
+                        $tirage += 100;
+                    } elseif ($days >= 153 && $days <= 167) {
+                        $halfMonths = 11;
+                        $tirage += 100;
+                    } elseif ($days >= 168 && $days <= 182) {
+                        $halfMonths = 12;
+                        $tirage += 100;
+                    }
+                }
 
-            if ($isLeapYear) {
-                // Check conditions for each half month
                 if ($daysrestau >= 1 && $daysrestau <= 15) {
                     $halfRestau = 1;
                 } elseif ($daysrestau >= 16 && $daysrestau <= 31) {
                     $halfRestau = 2;
                 } elseif ($daysrestau >= 32 && $daysrestau <= 46) {
                     $halfRestau = 3;
-                } elseif ($daysrestau >= 47 && $daysrestau <= 60) {
+                } elseif ($daysrestau >= 47 && $daysrestau <= 59) {
                     $halfRestau = 4;
-                } elseif ($daysrestau >= 61 && $daysrestau <= 75) {
+                } elseif ($daysrestau >= 60 && $daysrestau <= 74) {
                     $halfRestau = 5;
-                } elseif ($daysrestau >= 76 && $daysrestau <= 91) {
+                } elseif ($daysrestau >= 77 && $daysrestau <= 90) {
                     $halfRestau = 6;
-                } elseif ($daysrestau >= 92 && $daysrestau <= 106) {
+                } elseif ($daysrestau >= 91 && $daysrestau <= 105) {
                     $halfRestau = 7;
-                } elseif ($daysrestau >= 107 && $daysrestau <= 121) {
+                } elseif ($daysrestau >= 106 && $daysrestau <= 120) {
                     $halfRestau = 8;
-                } elseif ($daysrestau >= 122 && $daysrestau <= 136) {
+                } elseif ($daysrestau >= 121 && $daysrestau <= 135) {
                     $halfRestau = 9;
-                } elseif ($daysrestau >= 137 && $daysrestau <= 152) {
+                } elseif ($daysrestau >= 136 && $daysrestau <= 151) {
                     $halfRestau = 10;
-                } elseif ($daysrestau >= 153 && $daysrestau <= 167) {
+                } elseif ($daysrestau >= 152 && $daysrestau <= 166) {
                     $halfRestau = 11;
-                } elseif ($daysrestau >= 168 && $daysrestau <= 182) {
+                } elseif ($daysrestau >= 167 && $daysrestau <= 181) {
                     $halfRestau = 12;
                 }
-            }
 
-            // Now you can use $halfMonths as needed
-            $accommodationFee = $halfMonths * 50;
-            $restaurationFee = $halfRestau * 75;
+                $currentYear = date('Y');
+                $isLeapYear = (date('L', strtotime("{$currentYear}-01-01")) == 1);
 
-            // echo "Half Months: $halfMonths";
-            // echo "Accommodation Fee: $accommodationFee";
-            // echo "Restauration Fee: $restaurationFee";
+                if ($isLeapYear) {
+                    // Check conditions for each half month
+                    if ($daysrestau >= 1 && $daysrestau <= 15) {
+                        $halfRestau = 1;
+                    } elseif ($daysrestau >= 16 && $daysrestau <= 31) {
+                        $halfRestau = 2;
+                    } elseif ($daysrestau >= 32 && $daysrestau <= 46) {
+                        $halfRestau = 3;
+                    } elseif ($daysrestau >= 47 && $daysrestau <= 60) {
+                        $halfRestau = 4;
+                    } elseif ($daysrestau >= 61 && $daysrestau <= 75) {
+                        $halfRestau = 5;
+                    } elseif ($daysrestau >= 76 && $daysrestau <= 91) {
+                        $halfRestau = 6;
+                    } elseif ($daysrestau >= 92 && $daysrestau <= 106) {
+                        $halfRestau = 7;
+                    } elseif ($daysrestau >= 107 && $daysrestau <= 121) {
+                        $halfRestau = 8;
+                    } elseif ($daysrestau >= 122 && $daysrestau <= 136) {
+                        $halfRestau = 9;
+                    } elseif ($daysrestau >= 137 && $daysrestau <= 152) {
+                        $halfRestau = 10;
+                    } elseif ($daysrestau >= 153 && $daysrestau <= 167) {
+                        $halfRestau = 11;
+                    } elseif ($daysrestau >= 168 && $daysrestau <= 182) {
+                        $halfRestau = 12;
+                    }
+                }
 
-            $totalFee = $accommodationFee + $restaurationFee + $tirage;
-            if ($totalFee > 850) {
-                $trimestre2 = 850;
-                $trimestre3 = $totalFee - 850;
-            } else {
-                $trimestre2 = $totalFee;
-                $trimestre3 = 0;
+                // Now you can use $halfMonths as needed
+                $accommodationFee = $halfMonths * 50;
+                $restaurationFee = $halfRestau * 75;
+
+                // echo "Half Months: $halfMonths";
+                // echo "Accommodation Fee: $accommodationFee";
+                // echo "Restauration Fee: $restaurationFee";
+
+                $totalFee = $accommodationFee + $restaurationFee + $tirage;
+                if ($totalFee > 850) {
+                    $trimestre2 = 850;
+                    $trimestre3 = $totalFee - 850;
+                } else {
+                    $trimestre2 = $totalFee;
+                    $trimestre3 = 0;
+                }
             }
         } elseif ($row['student_status'] == 'externe') {
             $totalFee = 300;
         }
+
         // Check if there are records in the paiement table for the student
         $paye2 = 'Non payé';
         $paye3 = 'Non payé';
@@ -291,6 +291,7 @@ if ($result->num_rows > 0) {
             echo '<p style="text-align:center; font-weight:800 ;color:red"> Il est impératif de régler ce montant lors du retour de ce document pour compléter intégralement la décharge, le montant étant calculé jusqu\'au jour de la soumission de la demande.</p>';
         } elseif ($student_status == 'externe') {
             echo '<div style="text-align:center">';
+            echo "<h6 style='text-align:center'>Tirage : 300 DH</h6>";
             echo '<p style="text-align:center; font-weight:800 ;color:red"> Il est impératif de régler ce montant pour les étudiants externes lors du retour de ce document pour compléter intégralement la décharge</p>';
             echo "<h5 style='color:green;font-weight:800'>Total à payer : $totalFee DH</h5>";
         }

@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param('ii', $newRoomNumber, $studentId);
-        } 
+        }
         if ($action == 'move') {
             $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
             $stmt = $conn->prepare($query);
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $historystmt->bind_param('iiiii', $studentId, $studentId, $studentId, $studentId, $newRoomNumber);
             $historystmt->execute();
         } elseif ($action == 'add') {
-            $demande_id = $_POST['demande_id'];
+            isset($_POST['demande_id']) ? $demande_id = $_POST['demande_id'] : false;
             $query = "UPDATE users SET room_number = ? , status = 'interne' WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param('ii', $newRoomNumber, $studentId);

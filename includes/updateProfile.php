@@ -88,12 +88,12 @@ $user_id = $_SESSION['user_id'];
             <div> <a href="#" class="nav_logo"> <img src="../images/ESTC.png" style="height:30px"><span class="nav_logo-name">EST Casablanca</span> </a>
                 <?php
                 if ($_SESSION['role'] == 'student') {
-                    echo '<a href="../students/internat.php" class="nav_link">';
-                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Demander Internat </span>';
-                    echo '</a>';
                     echo '<div class="nav_list">';
                     echo '<a href="../includes/profile.php" class="nav_link active">';
                     echo '<i class="fas fa-home"></i> <span class="nav_name">Home</span>';
+                    echo '</a>';
+                    echo '<a href="../students/internat.php" class="nav_link">';
+                    echo '<i class="fas fa-hotel"></i> <span class="nav_name">Demander Internat </span>';
                     echo '</a>';
                     echo '<a href="../students/decharge.php" class="nav_link">';
                     echo '<i class="fa fa-copy"></i> <span class="nav_name">Demander décharge</span>';

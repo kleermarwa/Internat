@@ -5,11 +5,12 @@ global $conn;
 
 $search_term = $_GET['term'];
 $building = $_GET['building'];
-if ($building == 'boy') {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM users WHERE name LIKE ? AND genre = 'boy' AND status != 'admin'");
-} else {
-    $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM users WHERE name LIKE ? AND genre = 'girl' AND status != 'admin'");
-}
+// if ($building == 'girl') {
+$stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM users WHERE name LIKE ? AND genre = 'boy' AND status != 'admin'");
+// }
+// else {
+//     $stmt = $conn->prepare("SELECT id, name, image , room_number, status FROM users WHERE name LIKE ? AND genre = 'girl' AND status != 'admin'");
+// }
 
 $search_term = "%$search_term%";
 $stmt->bind_param('s', $search_term);

@@ -45,7 +45,7 @@ $(document).ready(function () {
             $searchResults.html(results).show();
           } else {
             results += '<div class="search-result">';
-            results += "<p>Makayn walo</p>";
+            results += "<p>Aucun Résultat trouvé</p>";
             results += "</div>";
             $searchResults.html(results).show();
           }

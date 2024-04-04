@@ -9,9 +9,8 @@ if ($conn->connect_error) {
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = $conn->real_escape_string($_GET['id']);
 
-    $sql = "SELECT paiements.*, users.*
-            FROM paiements
-            JOIN users ON paiements.user_id = users.id 
+    $sql = "SELECT *
+            FROM users
             WHERE users.id = ?";
 
     // Prepare and bind parameters
