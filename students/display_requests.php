@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+
 <?php
 // $creationDate = new DateTime('2024-03-01');
 $januaryFirst = new DateTime('2024-01-01');
@@ -304,11 +306,37 @@ if ($result->num_rows > 0) {
     }
     echo "</div>";
 } else {
-    echo '<h2 style="text-align: center; margin-top:1rem">Demande de décharge</h2> <br>';
-    echo '<h5 style="text-align: center">Vous n\'avez pas encore soumis de demandes de décharge.</h5> <br>';
-    echo '<form class="discharge-container" action="submit_request.php" method="post">';
-    echo '<button class="discharge-button" type="submit" name="create_request">Créer une demande</button>';
-    echo '</form>';
+    $get_setting_sql = "SELECT setting_value FROM settings WHERE setting_name = 'decharge'";
+    $get_setting_result = $conn->query($get_setting_sql);
+
+    if ($get_setting_result->num_rows > 0) {
+        $row = $get_setting_result->fetch_assoc();
+        $current_setting = intval($row['setting_value']);
+    }
+    if ($current_setting != 1) {
+        echo '<h2 style="text-align: center; margin-top:1rem">Demande de décharge</h2> <br>';
+        echo '<h5 style="text-align: center">Vous n\'avez pas encore soumis de demandes de décharge.</h5> <br>';
+
+        // Retrieve suggested appointment time(s) from the database (replace this with your database query)
+        $suggestedTimes = array("09:00", "10:00", "11:00"); // Example suggested times
+
+        // Display suggested time(s) to the student
+        echo '<form class="discharge-container" action="submit_request.php" method="post">';
+        echo '<p style="text-align: center">Suggestion de rendez-vous:</p>';
+        echo '<select name="appointment_time">'; // Assuming the appointment time will be submitted via a dropdown menu
+        foreach ($suggestedTimes as $time) {
+            echo '<option value="' . $time . '">' . $time . '</option>';
+        }
+        echo '</select>';
+
+        // Optionally, provide an input field for the student to suggest another time
+        echo '<input type="text" name="custom_time" placeholder="Suggérer une autre heure">';
+
+        echo '<button class="discharge-button" type="submit" name="create_request">Créer une demande</button>';
+        echo '</form>';
+    } else {
+        echo '<h1 style="font-family: Sacramento, cursive ; text-align: center ; margin-top:5rem ; color:#004b82 ; font-weight:800">Les demandes de décharges seront disponibles prochainement</h1> <br>';
+    }
 }
 
 $selectStmt->close();

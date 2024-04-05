@@ -39,15 +39,10 @@ if ($result->num_rows > 0) {
         if (strpos($previous_page, 'internat_demandes_valide.php') !== false) {
 
             $output .= "<td><button class='add-student blue' data-name='" . $row['name'] . "' data-id='" . $row['id_demande'] . "' data-student-id='" . $row['id'] . "' data-genre='" . $row['genre'] . "'>Ajouter chambre</button>";
-            if ($row['annee_scolaire'] == 2) {
-                $output .= "<button style='font-size: 0.8rem; margin-top: 1rem;' class='validate' onclick='addStudent(".$row['id_demande'] . ', ' . $row['id'] . ", \"" . $row['genre'] . "\")'>Choisir chambre</button>";
+            if ($row['annee_scolaire'] != 1) {
+                $output .= "<button style='font-size: 0.8rem; margin-top: 1rem;' class='validate' onclick='addStudent(" . $row['id_demande'] . ', ' . $row['id'] . ", \"" . $row['genre'] . "\")'>Choisir chambre</button>";
             }
 
-            if ($row['ville'] == 'Casablanca') {
-                $output .= "<button style='font-size:0.8rem ; margin-top: 1rem' class='cancel-validation reject' data-id='" . $row['id_demande'] . "'>Annuler validation</button></td>";
-            } else {
-                $output .= "</td>";
-            }
         } elseif (strpos($previous_page, 'internat_demandes_refuse.php') !== false) {
             $output .= "<td><button style='margin: 0 auto 0 auto;' class='validate-request validate' data-id='" . $row['id_demande'] . "''>Valider</button></td>";
         }

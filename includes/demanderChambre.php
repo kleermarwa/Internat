@@ -15,11 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_request'])) {
         $gender = $userData['genre'];
         $pays = $userData['pays'];
         $ville = $userData['ville'];
-        if ($ville != 'Casablanca' || $ville = NULL || $ville = "" || $pays !== 'Morocco (‫المغرب‬‎)') {
-            $valide = 1;
+        if ($ville = 'Casablanca') {
+            $valide = 0;
         }
         else {
-            $valide = 0;
+            $valide = 1;
         }
 
         $check_demand_sql = "SELECT * FROM internat WHERE student_id = ?";
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_request'])) {
             header('Location: ../students/internat.php');
             exit();
         } elseif ($status_result->num_rows > 0) {
-            $insert_sql = "INSERT INTO internat (student_id, name, status, genre, ville,valide) 
+            $insert_sql = "INSERT INTO internat (student_id, name, status, genre, ville, valide) 
                 VALUES (?, ?, 'En attente', ?, ?,?)";
 
             $insert_stmt = $conn->prepare($insert_sql);

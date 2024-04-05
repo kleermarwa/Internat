@@ -19,6 +19,8 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/demandeInternatSearch.js"></script>
     <script src="../js/navbar.js"></script>
+    <script src="../js/moveStudent.js"></script>
+    <script src="../js/notifications.js"></script>
 
 </head>
 
@@ -125,21 +127,6 @@ $_SESSION['role'] == 'super_admin' || $_SESSION['role'] == 'internat' ?  null : 
             </div> <a href="../includes/user_info.php?logout=<?php echo $user_id; ?>" onclick="return confirm('Are your sure you want to logout?');"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">SignOut</span> </a>
         </nav>
     </div>
-    <!-- 
-    <h2 style="text-align: center; margin-bottom:2rem;margin-top: 6rem;">Demandes Villes Hors Casablanca</h2>
-    <div class="internatSearch">
-        <div class="box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchExterne" name="searchBox" placeholder="Rechercher une demande (par Nom ou N° Demande)" onkeyup="searchExterne()">
-        </div>
-        <div class="box">
-            <i class="fas fa-search"></i>
-            <input type="text" id="searchExterneRoom" name="searchBox" placeholder="Rechercher une demande (par N° de chambre)" onkeyup="searchExterneRoom()">
-        </div>
-    </div>
-    <div id="searchResults">
-    </div>
-    <hr> -->
     <h2 style="text-align: center; margin-top:7rem">Demandes Casablanca</h2>
     <div class="internatSearch">
         <div class="box">
