@@ -1,4 +1,4 @@
-INSERT INTO `etudiants`(`name`, `status`, `role`, `password`, `email`, `image`, `room_number`, `date_naissance`, `ville`, `tel`, `filliere`, `annee_scolaire`, `sexe`)
+INSERT INTO `students`(`name`, `status`, `role`, `password`, `email`, `image`, `room_number`, `date_naissance`, `ville`, `tel`, `filliere`, `annee_scolaire`, `genre`)
 VALUES
   ('1-GM1', 'externe', 'student', NULL, '1-GM1@gmail.com', '../images/default_user.png', NULL, NULL, NULL, NULL, 'Génie mécanique (GM)', '1', 'boy'),
   ('2-GM1', 'externe', 'student', NULL, '2-GM1@gmail.com', '../images/default_user.png', NULL, NULL, NULL, NULL, 'Génie mécanique (GM)', '1', 'girl'),
